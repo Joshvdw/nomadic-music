@@ -66,32 +66,25 @@ export default function Collabs() {
       <ul className={styles.artistGrid} data-reveal="cascade">
         {ARTISTS.map(({ key, name, track, image, alt }) => (
           <li key={key} className={styles.artistCard}>
-            <a
-              className={styles.cardLink}
-              href={TRACKS[key].link}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${name} — ${track} on Spotify`}
-            >
-              <span className={styles.artistImageWrap}>
-                <Image
-                  src={image}
-                  alt={alt}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 900px) 46vw, 20vw"
-                  className={styles.artistImage}
-                />
-              </span>
-              <span className={styles.artistMeta}>
+            <div className={styles.artistImageWrap}>
+              <Image
+                src={image}
+                alt={alt}
+                fill
+                sizes="(max-width: 640px) 92vw, (max-width: 1490px) 46vw, 20vw"
+                className={styles.artistImage}
+              />
+              <div className={styles.artistMeta}>
                 <span className={styles.artistName}>{name}</span>
                 <span className={styles.artistTrack}>{track}</span>
-              </span>
-            </a>
+              </div>
+            </div>
             <div className={styles.cardEmbed}>
               <LazyEmbed
                 src={TRACKS[key].embed}
                 title={`${name} — ${track} — Spotify player`}
                 height={80}
+                radius={0}
               />
             </div>
           </li>

@@ -66,6 +66,10 @@ export default function Hero() {
     let dur = rand(2800, 4600);
     const easeInOut = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
 
+    // scroll parallax: the ball lags the page slightly as the hero scrolls
+    // away, smoothed so it feels weightless rather than pinned
+    let sy = 0;
+
     const loop = (now) => {
       px += (tpx - px) * 0.045;
       py += (tpy - py) * 0.045;
@@ -82,13 +86,12 @@ export default function Hero() {
       const e = easeInOut(t);
       const bx = from.x + (to.x - from.x) * e;
       const by = from.y + (to.y - from.y) * e;
-      ball.style.transform = `translate3d(${bx}px, ${by}px, 0)`;
-      // reflections shift slightly against the motion — the environment
-      // reads as staying put while the sphere drifts through it
-      ball.style.setProperty("--rx", `${(-bx * 0.4).toFixed(2)}px`);
-      ball.style.setProperty("--ry", `${(-by * 0.4).toFixed(2)}px`);
+
+      sy += (window.scrollY * 0.14 - sy) * 0.08;
+
+      ball.style.transform = `translate3d(${bx}px, ${(by + sy).toFixed(2)}px, 0)`;
       // shadow lags the ball a touch, like shading catching up
-      shadow.style.transform = `translate3d(${(bx * 0.8).toFixed(2)}px, ${(by * 0.85).toFixed(2)}px, 0)`;
+      shadow.style.transform = `translate3d(${(bx * 0.8).toFixed(2)}px, ${(by * 0.85 + sy * 0.9).toFixed(2)}px, 0)`;
 
       rafId = requestAnimationFrame(loop);
     };
@@ -129,7 +132,6 @@ export default function Hero() {
           sizes="110vw"
           className={styles.bgImg}
         />
-        <div className={styles.reflection} aria-hidden="true" />
       </div>
 
       <div ref={shadowRef} className={styles.shadowLayer}>

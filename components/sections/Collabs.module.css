@@ -14,44 +14,27 @@
   letter-spacing: 0.06em;
 }
 
-/* -- artist cards (4-up, cascade reveal, whole card clickable) -------------- */
+/* -- artist cards (cascade reveal, display only) ----------------------------- */
 
 .artistGrid {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--gap);
-  margin-bottom: var(--gap);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 1490px) {
+  .artistGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .artistCard {
-  position: relative;
-  background: var(--bg-2);
+  background: var(--bg-3);
   border: 1px solid var(--gold-10);
   border-radius: var(--radius);
   overflow: hidden;
-  transition:
-    transform 0.5s var(--ease-out),
-    border-color 0.4s ease,
-    box-shadow 0.5s ease;
-}
-
-.artistCard:hover {
-  transform: translateY(-6px);
-  border-color: var(--gold-40);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
-}
-
-.cardLink {
-  display: block;
-}
-
-/* stretch the click target over the whole card; the embed sits above it */
-.cardLink::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
 }
 
 .artistImageWrap {
@@ -63,13 +46,9 @@
 
 .artistImage {
   object-fit: cover;
-  transition: transform 0.7s var(--ease-out);
 }
 
-.artistCard:hover .artistImage {
-  transform: scale(1.05);
-}
-
+/* name + track over the image, lifted by a bottom-up gradient */
 .artistMeta {
   position: absolute;
   left: 0;
@@ -78,8 +57,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
-  padding: 2.75rem 1rem 0.9rem;
-  background: linear-gradient(to top, rgba(8, 7, 5, 0.92), transparent);
+  padding: 3rem 1rem 0.9rem;
+  background: linear-gradient(
+    to top,
+    rgba(8, 7, 5, 0.95),
+    rgba(8, 7, 5, 0.55) 45%,
+    transparent
+  );
 }
 
 .artistName {
@@ -95,32 +79,30 @@
 }
 
 .cardEmbed {
-  position: relative;
-  z-index: 2;
-  padding: 0.75rem;
+  padding: 0;
 }
 
-/* -- record label cards (2-up) ---------------------------------------------- */
+/* -- record label cards (2-up, square imagery) ------------------------------- */
 
 .labelGrid {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap);
+  gap: 0.75rem;
 }
 
 .labelCard {
   display: grid;
-  grid-template-columns: minmax(0, 42%) 1fr;
+  grid-template-columns: minmax(0, 40%) 1fr;
   background: var(--bg-2);
   border: 1px solid var(--gold-10);
   border-radius: var(--radius);
   overflow: hidden;
-  min-height: calc(var(--col) * 1.8);
 }
 
 .labelImageWrap {
   position: relative;
+  aspect-ratio: 1;
 }
 
 .labelImage {
@@ -134,7 +116,7 @@
 
 .labelName {
   font-size: var(--fs-card-lg);
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .labelBody p {
@@ -143,10 +125,6 @@
 }
 
 @media (max-width: 900px) {
-  .artistGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .labelGrid {
     grid-template-columns: 1fr;
   }

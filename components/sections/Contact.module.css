@@ -7,11 +7,13 @@
   background: var(--bg);
 }
 
+/* two halves of the content width — the form matches the 3-column
+   card width used by Services above */
 .columns {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: calc(var(--gap) * 4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
   align-items: start;
 }
 
@@ -28,7 +30,7 @@
 .heading {
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .blurb {
@@ -41,8 +43,8 @@
 .emailBox {
   display: inline-flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 0.9rem 1.4rem;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
   border: 1px solid var(--gold-20);
   border-radius: var(--radius);
   margin-bottom: 2rem;
@@ -56,8 +58,13 @@
 
 .email {
   font-family: var(--serif);
-  font-size: var(--fs-card-sm);
+  font-size: var(--fs-p);
   font-weight: 600;
+  color: var(--gold-60);
+  transition: color 0.35s ease;
+}
+
+.emailBox:hover .email {
   color: var(--gold);
 }
 
@@ -127,6 +134,14 @@
   gap: var(--gap);
 }
 
+/* smaller laptops: name + email wrap onto their own lines already */
+@media (max-width: 1300px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -172,7 +187,7 @@ select.input {
 
 .submit {
   align-self: flex-start;
-  padding: 0.95rem 2.4rem;
+  padding: 0.75rem 1.9rem;
   background: var(--gold);
   color: #14120c;
   border-radius: var(--radius);
@@ -180,11 +195,11 @@ select.input {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  transition: box-shadow 0.35s ease;
+  transition: background-color 0.45s var(--ease-out);
 }
 
 .submit:hover {
-  box-shadow: 0 12px 30px rgba(230, 215, 166, 0.18);
+  background-color: #f2e7c4;
 }
 
 /* footer rides the bottom edge of the viewport frame */

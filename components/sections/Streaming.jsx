@@ -47,10 +47,11 @@ export default function Streaming() {
             el.textContent = `${stat.value}${stat.suffix}`;
             return;
           }
-          const t0 = performance.now();
-          const dur = 1500;
+          const delay = 500;
+          const dur = 2600;
+          const t0 = performance.now() + delay;
           const tick = (now) => {
-            const p = Math.min(1, (now - t0) / dur);
+            const p = Math.min(1, Math.max(0, (now - t0) / dur));
             const eased = 1 - Math.pow(2, -10 * p); // easeOutExpo
             el.textContent = `${Math.round(stat.value * eased)}${stat.suffix}`;
             if (p < 1) requestAnimationFrame(tick);

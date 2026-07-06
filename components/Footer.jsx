@@ -5,9 +5,7 @@ export default function Footer() {
     <footer className={`${styles.footer} container`}>
       <div className={styles.inner}>
         <p>© 2026 Nomadic Music</p>
-        <p>
-          Created by <span className={styles.credit}>Waay Studio</span>
-        </p>
+        <p>Created by Waay Studio</p>
       </div>
     </footer>
   );

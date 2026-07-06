@@ -1,11 +1,11 @@
 .bandcamp {
-  padding-block: var(--space-section);
+  padding-block: 0;
   background: var(--bg);
   overflow: hidden;
 }
 
 .header {
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.75rem;
 }
 
 .heading {
@@ -23,7 +23,7 @@
 .track {
   display: flex;
   width: max-content;
-  animation: marquee 60s linear infinite;
+  animation: marquee 45s linear infinite;
 }
 
 .marquee:hover .track {
@@ -47,7 +47,7 @@
 }
 
 .tile {
-  width: 350px;
+  width: 280px;
   flex: 0 0 auto;
 }
 

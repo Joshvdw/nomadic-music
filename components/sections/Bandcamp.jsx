@@ -13,8 +13,8 @@ export default function Bandcamp() {
   return (
     <section className={styles.bandcamp} aria-label="Buy the music on Bandcamp">
       <header className={`${styles.header} container`} data-reveal>
-        <p className="eyebrow">On Bandcamp</p>
-        <h2 className={styles.heading}>Buy My Music</h2>
+        <p className="eyebrow">Buy My Music</p>
+        <h2 className={styles.heading}>On Bandcamp</h2>
       </header>
 
       <div className={styles.marquee} data-reveal>
@@ -30,7 +30,7 @@ export default function Bandcamp() {
                   <LazyEmbed
                     src={EMBED_SRC}
                     title="Voice the Creator by Nomadic — Bandcamp player"
-                    height={350}
+                    height={280}
                     radius={4}
                   />
                 </li>

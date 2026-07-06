@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { EMAIL } from "@/lib/site";
 import { CopyIcon } from "@/components/Icons";
 import styles from "./CollabCta.module.css";
@@ -23,6 +24,13 @@ export default function CollabCta() {
   return (
     <section className={`${styles.wrap} container`} aria-label="Collaboration enquiries">
       <div className={styles.banner} data-reveal="fast">
+        <Image
+          src="/images/decals/flowers-black.png"
+          alt=""
+          width={92}
+          height={52}
+          className={styles.decal}
+        />
         <p className={styles.eyebrow}>
           <span className={styles.line} aria-hidden="true" />
           Vocalists, Instrumentalists, Producers, Labels

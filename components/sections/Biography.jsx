@@ -22,6 +22,13 @@ export default function Biography() {
 
       <div className={`${styles.copy} container`}>
         <div className={styles.text} data-reveal>
+          <Image
+            src="/images/decals/flower.png"
+            alt=""
+            width={180}
+            height={120}
+            className={styles.decal}
+          />
           <h2 className={styles.heading}>Lorem Ipsum</h2>
           <p>
             &ldquo;Sed ut perspiciatis unde omnis iste natus error sit

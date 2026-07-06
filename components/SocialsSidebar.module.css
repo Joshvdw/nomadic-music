@@ -5,11 +5,13 @@
   top: 50%;
   z-index: var(--z-sidebar);
   transform: translateY(-50%);
-  transition: transform 0.8s var(--ease-out);
+  /* slides back in slowly, and only after a beat */
+  transition: transform 1.15s var(--ease-out) 0.3s;
 }
 
 .sidebar.hidden {
   transform: translateY(-50%) translateX(calc(100% + 3rem));
+  transition: transform 0.8s var(--ease-out) 0s;
 }
 
 .list {

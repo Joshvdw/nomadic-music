@@ -2,7 +2,7 @@
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
   background: var(--bg);
 }
@@ -45,27 +45,40 @@
   display: flex;
   justify-content: flex-end;
   /* text block rides lower — level with the eyes */
-  padding-top: 18vh;
+  padding-top: 38vh;
 }
 
 .text {
   max-width: 52ch;
 }
 
+.decal {
+  width: 5rem;
+  height: auto;
+  margin-bottom: 1.25rem;
+}
+
 .heading {
   font-size: var(--fs-h3);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .text p {
-  font-size: var(--fs-p-sm);
+  font-size: 1rem;
   color: var(--ink-80);
 }
 
 .text p + p {
   margin-top: 1.25rem;
+}
+
+/* laptops: thinner column, still hugging the right margin */
+@media (max-width: 1300px) and (min-width: 901px) {
+  .text {
+    max-width: 38ch;
+  }
 }
 
 @media (max-width: 900px) {

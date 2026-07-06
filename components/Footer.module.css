@@ -5,15 +5,11 @@
   align-items: center;
   gap: var(--gap);
   padding-block: 0.9rem;
-  border-top: 1px solid var(--gold-10);
+  border-top: 1px solid rgba(229, 240, 244, 0.1);
   font-size: var(--fs-p-tiny);
-  color: var(--gold-40);
+  color: var(--ink-40);
 }
 
 .inner p {
   color: inherit;
-}
-
-.credit {
-  color: var(--gold-60);
 }
