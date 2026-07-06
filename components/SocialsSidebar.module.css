@@ -1,0 +1,87 @@
+.sidebar {
+  position: fixed;
+  /* hugs the edge tighter as the viewport narrows so it never covers copy */
+  right: clamp(0.4rem, 2.2vw, 2.1rem);
+  top: 50%;
+  z-index: var(--z-sidebar);
+  transform: translateY(-50%);
+  transition: transform 0.55s var(--ease-out);
+}
+
+.sidebar.hidden {
+  transform: translateY(-50%) translateX(calc(100% + 3rem));
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  color: var(--ink);
+  opacity: 0.42;
+  transition:
+    opacity 0.35s ease,
+    color 0.35s ease,
+    transform 0.45s var(--ease-out);
+}
+
+.icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.item:hover {
+  opacity: 1;
+  color: var(--gold);
+}
+
+/* platform-name blip popping out to the left on hover */
+.blip {
+  position: absolute;
+  right: calc(100% + 0.55rem);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  padding: 0.2rem 0.6rem;
+  font-size: var(--fs-p-tiny);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(18, 18, 18, 0.9);
+  border: 1px solid var(--gold-20);
+  border-radius: var(--radius);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s var(--ease-out);
+}
+
+.item:hover .blip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* bottom-of-page: blips retired, links brighten (not gold) and pop out */
+.sidebar.expanded .item {
+  opacity: 0.95;
+  color: var(--ink);
+  transform: scale(1.18);
+}
+
+.sidebar.expanded .item:hover {
+  color: var(--gold);
+}
+
+.sidebar.expanded .blip {
+  display: none;
+}

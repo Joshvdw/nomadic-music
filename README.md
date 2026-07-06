@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nomadic — Official EPK
 
-## Getting Started
+Single-page, booking-focused artist site for **Nomadic** (Joshua van der Waay),
+built with Next.js (App Router, JavaScript, CSS Modules — no Tailwind/TS by
+design). Spec lives in `development-instructions.md`; Figma exports in
+`references/`; source imagery in `assets/` (staged into `public/images/`).
 
-First, run the development server:
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # dev server on :3000
+npm run build   # static production build
+npm start       # serve the production build
+npm run lint    # eslint
+node scripts/qa-shots.mjs <outDir> <WxH> [prefix]   # headless QA screenshots
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dev-guide overlays
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Red content-margin borders and faded 8-column grid lines are wired to a single
+flag: `DEV_GUIDES` in `lib/site.js`. Set `true` while aligning against Figma,
+`false` for production.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Placeholders / TODO before launch
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Copy** is lorem ipsum per the design references — real copy to come.
+- **`public/videos/dj-video.mp4`** (Live section, 720p 16:9) was not in the
+  provided assets; the section shows its poster image until it's added.
+- **Bandcamp + Instagram URLs** in `lib/site.js` are guesses — confirm.
+- **Bandcamp marquee** uses placeholder release tiles — swap in real
+  discography art/links in `components/sections/Bandcamp.jsx`.
+- **Site URL** assumed `https://nomadicofficial.music` (`lib/site.js`) for
+  metadata/JSON-LD — update if the domain differs.
+- **Contact form** composes a `mailto:` — wire a form backend if preferred.

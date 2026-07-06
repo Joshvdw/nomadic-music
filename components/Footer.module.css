@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--gold-10);
+  font-size: var(--fs-p-tiny);
+  color: var(--ink-40);
+}
+
+.footer p {
+  color: inherit;
+}
+
+.credit {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
+}
+
+.credit:hover {
+  color: var(--gold);
+}

@@ -1,0 +1,171 @@
+.collabs {
+  min-height: 100svh;
+  padding-block: var(--space-section);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: calc(var(--gap) * 3.5);
+}
+
+.heading {
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* -- artist cards (4-up, cascade reveal, whole card clickable) -------------- */
+
+.artistGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+.artistCard {
+  position: relative;
+  background: var(--bg-2);
+  border: 1px solid var(--gold-10);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition:
+    transform 0.5s var(--ease-out),
+    border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+.artistCard:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-40);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+.cardLink {
+  display: block;
+}
+
+/* stretch the click target over the whole card; the embed sits above it */
+.cardLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.artistImageWrap {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.artistImage {
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.artistCard:hover .artistImage {
+  transform: scale(1.05);
+}
+
+.artistMeta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 2.75rem 1rem 0.9rem;
+  background: linear-gradient(to top, rgba(8, 7, 5, 0.92), transparent);
+}
+
+.artistName {
+  font-family: var(--serif);
+  font-size: var(--fs-card-sm);
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.artistTrack {
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+.cardEmbed {
+  position: relative;
+  z-index: 2;
+  padding: 0.75rem;
+}
+
+/* -- record label cards (2-up) ---------------------------------------------- */
+
+.labelGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap);
+}
+
+.labelCard {
+  display: grid;
+  grid-template-columns: minmax(0, 42%) 1fr;
+  background: var(--bg-2);
+  border: 1px solid var(--gold-10);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: calc(var(--col) * 1.8);
+}
+
+.labelImageWrap {
+  position: relative;
+}
+
+.labelImage {
+  object-fit: cover;
+}
+
+.labelBody {
+  padding: clamp(1.25rem, 2vw, 2rem);
+  align-self: center;
+}
+
+.labelName {
+  font-size: var(--fs-card-lg);
+  margin-bottom: 0.9rem;
+}
+
+.labelBody p {
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+@media (max-width: 900px) {
+  .artistGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .labelGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .heading {
+    font-size: clamp(1.4rem, 6.6vw, 1.875rem);
+  }
+
+  .artistGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .labelCard {
+    grid-template-columns: 1fr;
+  }
+
+  .labelImageWrap {
+    aspect-ratio: 16 / 9;
+  }
+}

@@ -1,0 +1,304 @@
+.gallery {
+  background: var(--bg);
+}
+
+.pin {
+  /* height driven by JS on desktop (horizontal distance + dwell) */
+  position: relative;
+}
+
+.viewport {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.head {
+  position: absolute;
+  top: calc(var(--nav-h) + 3vh);
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  align-items: baseline;
+  gap: 1.6rem;
+  z-index: 5;
+  opacity: 0; /* fades in once horizontal scroll starts (JS) */
+}
+
+.head .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.headLine {
+  width: 2rem;
+  height: 1px;
+  background: var(--gold-40);
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hint {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-p-tiny);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+}
+
+.hint::after {
+  content: "";
+  width: 2.1rem;
+  height: 1px;
+  background: var(--gold-40);
+  animation: hint-slide 2.2s ease-in-out infinite;
+}
+
+@keyframes hint-slide {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 1;
+  }
+}
+
+.trackWrap {
+  width: 100%;
+}
+
+/* -- bento track ------------------------------------------------------------ */
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding-inline: var(--gutter);
+  width: max-content;
+  will-change: transform;
+}
+
+/* a group is a column of 1–2 tiles; total column height 68vh */
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  width: var(--w);
+  height: 68vh;
+  flex: 0 0 auto;
+}
+
+.tile {
+  position: relative;
+  /* tile height share of the column, minus its part of the gap */
+  flex: var(--h) var(--h) 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-3);
+}
+
+.img {
+  object-fit: cover;
+  transition:
+    transform 0.6s var(--ease-out),
+    filter 0.45s ease;
+}
+
+.tile:hover .img {
+  transform: scale(1.04);
+  filter: saturate(0.94) contrast(1.04);
+}
+
+/* captions revealed on hover (always visible on touch) */
+.cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2.25rem 0.9rem 0.7rem;
+  background: linear-gradient(to top, rgba(8, 7, 5, 0.92), rgba(8, 7, 5, 0));
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-80);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s var(--ease-out);
+}
+
+.cap::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 0.9rem;
+  height: 1px;
+  background: var(--gold);
+}
+
+.tile:hover .cap {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: none) {
+  .cap {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* -- bookings CTA ------------------------------------------------------------ */
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.6rem;
+  padding-inline: clamp(4rem, 9vw, 10rem);
+  flex: 0 0 auto;
+}
+
+.ctaOrnament {
+  width: 7rem;
+  height: auto;
+}
+
+.ctaHeading {
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+}
+
+.ctaHeading em {
+  font-style: italic;
+  text-transform: none;
+  color: var(--gold);
+  letter-spacing: 0.01em;
+}
+
+.ctaMail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-p-sm);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold-40);
+  padding-bottom: 0.35rem;
+  transition: border-color 0.3s ease;
+}
+
+.ctaMail:hover {
+  border-color: var(--gold);
+}
+
+.ctaMailArrow {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.ctaMail:hover .ctaMailArrow {
+  transform: translateX(4px);
+}
+
+.ctaGhost {
+  font-size: var(--fs-p-tiny);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  transition: color 0.3s ease;
+}
+
+.ctaGhost:hover {
+  color: var(--ink);
+}
+
+.progress {
+  position: absolute;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(15rem, 40vw);
+  height: 1px;
+  background: var(--gold-20);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--gold);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* -- mobile / reduced motion: native horizontal swipe ------------------------ */
+
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .viewport {
+    position: relative;
+    height: auto;
+    display: block;
+    padding-block: var(--space-section);
+    overflow: visible;
+  }
+
+  .head {
+    position: static;
+    opacity: 1;
+    margin-bottom: 1.75rem;
+    padding-inline: var(--gutter);
+  }
+
+  .hint::after {
+    animation: none;
+  }
+
+  .trackWrap {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .trackWrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track {
+    transform: none !important;
+  }
+
+  .group {
+    height: 52vh;
+    opacity: 1 !important;
+  }
+
+  .progress {
+    display: none;
+  }
+}

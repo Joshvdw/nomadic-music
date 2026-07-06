@@ -1,0 +1,98 @@
+.bio {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* --bio-align: fraction of the image width at which the shadow line
+   (left of the head) sits. Image width is derived from the gutter so that
+   line lands exactly on the left content margin at any viewport. */
+.imageWrap {
+  --bio-align: 0.11;
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.image {
+  width: calc(var(--gutter) / var(--bio-align));
+  min-width: min(100vw, 170vh);
+  height: auto;
+  max-width: none;
+}
+
+/* soften the image's outer edges into the page background */
+.imageWrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, var(--bg), transparent 12%),
+    linear-gradient(to bottom, var(--bg), transparent 12%);
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* text block rides lower — level with the eyes */
+  padding-top: 18vh;
+}
+
+.text {
+  max-width: 52ch;
+}
+
+.heading {
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+}
+
+.text p {
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+.text p + p {
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .bio {
+    display: block;
+    min-height: 0;
+  }
+
+  .imageWrap {
+    position: relative;
+    inset: auto;
+  }
+
+  .image {
+    width: 100%;
+    min-width: 0;
+    height: 52vh;
+    object-fit: cover;
+    /* keep the lit strip + head in frame */
+    object-position: 18% 40%;
+  }
+
+  .copy {
+    padding-top: 0;
+    padding-bottom: var(--space-section);
+  }
+
+  .text {
+    max-width: none;
+  }
+}
