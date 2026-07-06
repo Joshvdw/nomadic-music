@@ -1,0 +1,128 @@
+<!-- ============ 6 · FESTIVALS & GIGS ============ -->
+<section class="live" id="live">
+  <div class="live__video">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-label="Live DJ set montage"
+    >
+      <source src="assets/dj-video.mp4" type="video/mp4" />
+    </video>
+    <div class="live__scrim" aria-hidden="true"></div>
+    <div class="live__caption reveal">
+      <h2 class="h-section">Festivals &amp; Gigs</h2>
+      <p>
+        From Luminate on Takaka Hill to Relish Festival and late rooms across
+        the Top of the South — sets built to move outdoor dancefloors, dusk till
+        dawn.
+      </p>
+    </div>
+  </div>
+  <div class="live__sets">
+    <div class="live__sets-text reveal">
+      <h3 class="h-section">DJ Sets</h3>
+      <p>
+        Recorded in the field: full-length sets from Rhythm &amp; Roots, Relish
+        Festival and Luminate's Chillounge — mid&#8209;tempo journeys through
+        psy&#8209;dub, tribal techno and bass. Press play and judge the room for
+        yourself.
+      </p>
+    </div>
+    <figure class="live__embed embed reveal" data-embed="soundcloud-playlist">
+      <!-- Placeholder — SoundCloud playlist embed wired in later -->
+      <img
+        src="assets/embed-soundcloud.jpg"
+        alt="SoundCloud — Nomadic DJ sets playlist"
+        loading="lazy"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  /* ============================================================
+   6 · FESTIVALS & GIGS
+   ============================================================ */
+  .live {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    min-height: 100svh;
+    background: var(--bg-2);
+  }
+  .live__video {
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+  }
+  .live__video video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.78) contrast(1.03);
+  }
+  .live__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(18, 18, 18, 0) 72%, #121212 100%),
+      linear-gradient(to bottom, var(--bg) 0%, transparent 20%),
+      linear-gradient(
+        to top,
+        rgba(8, 7, 5, 0.8) 4%,
+        rgba(8, 7, 5, 0.38) 36%,
+        transparent 62%
+      ),
+      linear-gradient(
+        82deg,
+        rgba(8, 7, 5, 0.72) 0%,
+        rgba(8, 7, 5, 0.26) 32%,
+        transparent 52%
+      );
+  }
+  .live__caption {
+    position: absolute;
+    left: clamp(28px, 4.4vw, 68px);
+    right: clamp(28px, 4.4vw, 68px);
+    bottom: clamp(36px, 7vh, 76px);
+    z-index: 2;
+  }
+  .live__caption .eyebrow {
+    margin-bottom: 16px;
+  }
+  .live__caption .h-section {
+    margin-bottom: 16px;
+  }
+  .live__caption p {
+    color: var(--ink-80);
+    font-size: 0.94rem;
+    max-width: 470px;
+  }
+
+  .live__sets {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(26px, 4.4vh, 46px);
+    padding: clamp(84px, 11vh, 120px) clamp(28px, 3.6vw, 68px);
+  }
+  .live__sets-text .eyebrow {
+    margin-bottom: 14px;
+  }
+  .live__sets-text .h-section {
+    margin-bottom: 16px;
+  }
+  .live__sets-text p {
+    color: var(--ink-80);
+    font-size: 0.92rem;
+    max-width: 480px;
+  }
+  .live__embed {
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    max-width: 560px;
+  }
+</style>

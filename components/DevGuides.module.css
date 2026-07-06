@@ -1,0 +1,27 @@
+.guides {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dev);
+  pointer-events: none;
+}
+
+/* bright red content-margin borders */
+.margins {
+  position: absolute;
+  inset: 0 var(--gutter);
+  border-left: 1px solid rgba(255, 0, 0, 0.9);
+  border-right: 1px solid rgba(255, 0, 0, 0.9);
+}
+
+/* faded interior lines of the 8-column grid (5 lines divide content into 6) */
+.columns {
+  position: absolute;
+  inset: 0 var(--gutter);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.columns span {
+  width: 1px;
+  background: rgba(255, 0, 0, 0.18);
+}
