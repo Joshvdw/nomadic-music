@@ -20,10 +20,11 @@ const SOCIALS = [
 ];
 
 export default function SocialsSidebar() {
-  const { scrolling, atTop, atBottom } = useScrollState();
+  const { scrolling, atTop, atBottom, suppressed } = useScrollState();
 
-  // Hidden on the hero (like the nav), while scrolling, and at page bottom.
-  const hidden = scrolling || atTop || atBottom;
+  // Hidden on the hero (like the nav), while scrolling, at page bottom,
+  // and anywhere inside the gallery's pinned run (suppressed).
+  const hidden = scrolling || atTop || atBottom || suppressed;
   const cls = `${styles.sidebar} ${hidden ? styles.hidden : ""}`;
 
   return (

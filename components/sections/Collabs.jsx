@@ -58,7 +58,7 @@ export default function Collabs() {
           alt=""
           width={1026}
           height={124}
-          className="decal"
+          className={`decal ${styles.headerDecal}`}
         />
         <h2 className={styles.heading}>Collaborations</h2>
       </header>

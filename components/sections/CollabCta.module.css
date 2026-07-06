@@ -60,7 +60,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.1rem;
-  padding: 0.6rem 1.5rem 0.55rem;
+  padding: 0.45rem 2.6rem 0.4rem;
   background: #0d0b08;
   border: 1px solid transparent;
   border-radius: var(--radius);
@@ -81,16 +81,16 @@
 .hint {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.625rem;
+  gap: 0.35rem;
+  font-size: 0.52rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--gold-60);
 }
 
 .copyIcon {
-  width: 0.7rem;
-  height: 0.7rem;
+  width: 0.6rem;
+  height: 0.6rem;
 }
 
 @media (max-width: 480px) {

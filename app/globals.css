@@ -89,7 +89,10 @@ video {
    hero→bio 3×, cta→live 2×, live→gallery 1×, bandcamp→services 1×,
    everything else touches. */
 #bio {
-  margin-top: calc(3 * var(--sect-gap));
+  margin-top: calc(2.25 * var(--sect-gap));
+}
+#streaming {
+  margin-top: var(--sect-gap);
 }
 #live {
   margin-top: calc(2 * var(--sect-gap));
@@ -219,6 +222,24 @@ html {
 [data-reveal="fade"] {
   transform: none;
   transition-duration: 1.3s;
+}
+
+/* wipe variant: the child reveals left → right (Collab CTA banner).
+   The clip lives on the child because Chrome factors an element's own
+   clip-path into IntersectionObserver geometry — a fully-clipped target
+   would never intersect. */
+[data-reveal="wipe"] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal="wipe"] > * {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.3s var(--ease-inout);
+}
+
+[data-reveal="wipe"].is-inview > * {
+  clip-path: inset(0 0 0 0);
 }
 
 [data-reveal].is-inview {

@@ -10,7 +10,7 @@
 }
 
 .heading {
-  margin-top: 1.5rem;
+  margin-top: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -24,6 +24,8 @@
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   background: var(--bg-2);
   border: 1px solid var(--gold-10);
   border-radius: var(--radius);
@@ -31,14 +33,34 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition:
-    border-color 0.4s ease,
-    transform 0.5s var(--ease-out);
 }
 
-.card:hover {
-  border-color: var(--gold-40);
-  transform: translateY(-4px);
+.card > :not(.cardArt) {
+  position: relative;
+  z-index: 1;
+}
+
+/* dark faded imagery bleeding in from the top right (netflix-style) */
+.cardArt {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 58%;
+  opacity: 0.3;
+}
+
+.cardArtImg {
+  object-fit: cover;
+}
+
+.cardArt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, #121212 2%, rgba(18, 18, 18, 0.6) 45%, rgba(18, 18, 18, 0.12) 100%),
+    linear-gradient(to top, #121212 6%, transparent 65%);
 }
 
 .icon {

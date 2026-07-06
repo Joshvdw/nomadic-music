@@ -7,7 +7,7 @@
   padding-block: 0.9rem;
   border-top: 1px solid rgba(229, 240, 244, 0.1);
   font-size: var(--fs-p-tiny);
-  color: var(--ink-40);
+  color: rgba(229, 240, 244, 0.3);
 }
 
 .inner p {

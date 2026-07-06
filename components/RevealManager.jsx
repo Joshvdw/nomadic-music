@@ -2,27 +2,39 @@
 
 import { useEffect } from "react";
 
-// One IntersectionObserver for every [data-reveal] element on the page.
+// One IntersectionObserver pair for every [data-reveal] element on the page.
 // Adds .is-inview the first time an element enters the viewport; CSS does
 // the rest (variants + stagger). A MutationObserver picks up late arrivals.
+//
+// Elements additionally marked [data-reveal-late] wait until their top edge
+// crosses the middle of the viewport (used by full-bleed imagery).
 export default function RevealManager() {
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-inview");
-            io.unobserve(entry.target);
-          }
+    const onEnter = (io) => (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-inview");
+          io.unobserve(entry.target);
         }
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -6% 0px" }
+      }
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => onEnter(io)(entries),
+      { threshold: 0.2, rootMargin: "0px 0px -18% 0px" }
+    );
+    const ioLate = new IntersectionObserver(
+      (entries) => onEnter(ioLate)(entries),
+      { threshold: 0, rootMargin: "0px 0px -50% 0px" }
     );
 
+    const observe = (el) => {
+      if (el.classList.contains("is-inview")) return;
+      (el.hasAttribute("data-reveal-late") ? ioLate : io).observe(el);
+    };
+
     const observeAll = (root) =>
-      root.querySelectorAll("[data-reveal]").forEach((el) => {
-        if (!el.classList.contains("is-inview")) io.observe(el);
-      });
+      root.querySelectorAll("[data-reveal]").forEach(observe);
 
     observeAll(document);
 
@@ -30,7 +42,7 @@ export default function RevealManager() {
       for (const m of mutations) {
         for (const node of m.addedNodes) {
           if (node.nodeType !== 1) continue;
-          if (node.matches?.("[data-reveal]")) io.observe(node);
+          if (node.matches?.("[data-reveal]")) observe(node);
           observeAll(node);
         }
       }
@@ -39,6 +51,7 @@ export default function RevealManager() {
 
     return () => {
       io.disconnect();
+      ioLate.disconnect();
       mo.disconnect();
     };
   }, []);

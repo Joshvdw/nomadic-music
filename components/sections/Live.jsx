@@ -18,10 +18,12 @@ export default function Live() {
 
     const section = sectionRef.current;
     const sets = setsRef.current;
-    let rafId = null;
+    let rafId;
+    let cur = 0;
 
-    const update = () => {
-      rafId = null;
+    // continuous heavy-eased parallax: the DJ-sets column drifts up faster
+    // than the video, easing toward its target every frame
+    const loop = () => {
       const rect = section.getBoundingClientRect();
       const vh = window.innerHeight;
       // -1 → section below viewport, +1 → above; 0 → centred
@@ -29,21 +31,13 @@ export default function Live() {
         -1,
         Math.min(1, (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2))
       );
-      sets.style.transform = `translate3d(0, ${(-p * 56).toFixed(2)}px, 0)`;
+      cur += (-p * 60 - cur) * 0.08;
+      sets.style.transform = `translate3d(0, ${cur.toFixed(2)}px, 0)`;
+      rafId = requestAnimationFrame(loop);
     };
 
-    const onScroll = () => {
-      if (rafId === null) rafId = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (rafId !== null) cancelAnimationFrame(rafId);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    rafId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   return (
@@ -92,16 +86,17 @@ export default function Live() {
               allow="autoplay; encrypted-media"
             />
           </div>
-          <a
-            className={styles.scLink}
-            href={LINKS.soundcloud}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View SoundCloud
-            <ArrowRightIcon className={styles.scArrow} />
-          </a>
         </div>
+        {/* outside the parallax layer: bottom-aligned with the caption at left */}
+        <a
+          className={styles.scLink}
+          href={LINKS.soundcloud}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View SoundCloud
+          <ArrowRightIcon className={styles.scArrow} />
+        </a>
       </div>
     </section>
   );

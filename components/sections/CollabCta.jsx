@@ -22,8 +22,12 @@ export default function CollabCta() {
   };
 
   return (
-    <section className={`${styles.wrap} container`} aria-label="Collaboration enquiries">
-      <div className={styles.banner} data-reveal="fast">
+    <section
+      className={`${styles.wrap} container`}
+      aria-label="Collaboration enquiries"
+      data-reveal="wipe"
+    >
+      <div className={styles.banner}>
         <Image
           src="/images/decals/flowers-black.png"
           alt=""

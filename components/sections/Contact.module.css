@@ -60,7 +60,7 @@
   font-family: var(--serif);
   font-size: var(--fs-p);
   font-weight: 600;
-  color: var(--gold-60);
+  color: rgba(230, 215, 166, 0.75);
   transition: color 0.35s ease;
 }
 
@@ -71,8 +71,8 @@
 .copyLabel {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: var(--fs-p-tiny);
+  gap: 0.35rem;
+  font-size: 0.55rem;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -85,8 +85,8 @@
 }
 
 .copyIcon {
-  width: 0.85rem;
-  height: 0.85rem;
+  width: 0.65rem;
+  height: 0.65rem;
 }
 
 /* platform links — quiet 2×2 grid, no borders */

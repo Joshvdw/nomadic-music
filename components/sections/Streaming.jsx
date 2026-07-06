@@ -48,11 +48,11 @@ export default function Streaming() {
             return;
           }
           const delay = 500;
-          const dur = 2600;
+          const dur = 3200;
           const t0 = performance.now() + delay;
           const tick = (now) => {
             const p = Math.min(1, Math.max(0, (now - t0) / dur));
-            const eased = 1 - Math.pow(2, -10 * p); // easeOutExpo
+            const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
             el.textContent = `${Math.round(stat.value * eased)}${stat.suffix}`;
             if (p < 1) requestAnimationFrame(tick);
           };
@@ -77,7 +77,7 @@ export default function Streaming() {
       className={styles.streaming}
       aria-label="Streaming statistics"
     >
-      <div className={styles.bg} data-reveal="fade" aria-hidden="true" />
+      <div className={styles.bg} data-reveal="fade" data-reveal-late="" aria-hidden="true" />
       <div className={`${styles.inner} container`}>
         <div className={styles.textCol}>
           <h2 className={styles.heading} data-reveal="fast">

@@ -11,6 +11,7 @@ import styles from "./Hero.module.css";
 //                               its bright right side like a soft shadow
 // All layers render slightly larger than the viewport for travel room.
 export default function Hero() {
+  const rootRef = useRef(null);
   const bgRef = useRef(null);
   const ballRef = useRef(null);
   const shadowRef = useRef(null);
@@ -50,8 +51,8 @@ export default function Hero() {
     let tpy = 0;
 
     const onMove = (e) => {
-      tpx = (e.clientX / window.innerWidth - 0.5) * -14;
-      tpy = (e.clientY / window.innerHeight - 0.5) * -10;
+      tpx = (e.clientX / window.innerWidth - 0.5) * -10;
+      tpy = (e.clientY / window.innerHeight - 0.5) * -7;
     };
 
     // --- ball floating drift: eased travel between random waypoints ---
@@ -87,11 +88,15 @@ export default function Hero() {
       const bx = from.x + (to.x - from.x) * e;
       const by = from.y + (to.y - from.y) * e;
 
-      sy += (window.scrollY * 0.14 - sy) * 0.08;
+      sy += (window.scrollY * 0.1 - sy) * 0.08;
 
       ball.style.transform = `translate3d(${bx}px, ${(by + sy).toFixed(2)}px, 0)`;
       // shadow lags the ball a touch, like shading catching up
       shadow.style.transform = `translate3d(${(bx * 0.8).toFixed(2)}px, ${(by * 0.85 + sy * 0.9).toFixed(2)}px, 0)`;
+
+      // the hero dissolves as the page starts moving away
+      const fade = 1 - Math.min(1, window.scrollY / (window.innerHeight * 0.55));
+      rootRef.current.style.opacity = fade.toFixed(3);
 
       rafId = requestAnimationFrame(loop);
     };
@@ -106,6 +111,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={rootRef}
       className={`${styles.hero} ${loaded ? styles.loaded : ""}`}
       aria-label="Nomadic — introduction"
     >
