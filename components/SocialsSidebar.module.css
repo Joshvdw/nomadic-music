@@ -1,11 +1,11 @@
 .sidebar {
   position: fixed;
   /* hugs the edge tighter as the viewport narrows so it never covers copy */
-  right: clamp(0.4rem, 2.2vw, 2.1rem);
+  right: clamp(0.2rem, 1.1vw, 1.05rem);
   top: 50%;
   z-index: var(--z-sidebar);
   transform: translateY(-50%);
-  transition: transform 0.55s var(--ease-out);
+  transition: transform 0.8s var(--ease-out);
 }
 
 .sidebar.hidden {
@@ -15,7 +15,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0;
   list-style: none;
 }
 
@@ -26,11 +26,10 @@
   width: 2.2rem;
   height: 2.2rem;
   color: var(--ink);
-  opacity: 0.42;
+  opacity: 0.6;
   transition:
     opacity 0.35s ease,
-    color 0.35s ease,
-    transform 0.45s var(--ease-out);
+    color 0.35s ease;
 }
 
 .icon {
@@ -46,13 +45,13 @@
 /* platform-name blip popping out to the left on hover */
 .blip {
   position: absolute;
-  right: calc(100% + 0.55rem);
+  right: calc(100% + 0.2rem);
   top: 50%;
-  transform: translateY(-50%) translateX(8px);
-  padding: 0.2rem 0.6rem;
-  font-size: var(--fs-p-tiny);
+  transform: translateY(-50%) translateX(6px);
+  padding: 0.1rem 0.4rem;
+  font-size: 0.55rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold);
   background: rgba(18, 18, 18, 0.9);
@@ -69,19 +68,4 @@
 .item:hover .blip {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
-}
-
-/* bottom-of-page: blips retired, links brighten (not gold) and pop out */
-.sidebar.expanded .item {
-  opacity: 0.95;
-  color: var(--ink);
-  transform: scale(1.18);
-}
-
-.sidebar.expanded .item:hover {
-  color: var(--gold);
-}
-
-.sidebar.expanded .blip {
-  display: none;
 }

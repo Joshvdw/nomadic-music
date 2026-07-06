@@ -38,7 +38,7 @@
   --gutter: clamp(2rem, 12.5vw, 10rem);
   --col: calc((100vw - 2 * var(--gutter)) / 6);
   --gap: 1rem;
-  --space-section: clamp(4rem, 2rem + 4vw, 6rem);
+  --space-section: clamp(7rem, 3.5rem + 7vw, 12rem);
   --nav-h: 3.25rem;
 
   /* -- z-index layers -------------------------------------------------------- */
@@ -51,7 +51,7 @@
   /* -- motion ---------------------------------------------------------------- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --grain-opacity: 0.055;
+  --grain-opacity: 0.2;
 }
 
 /* == base ================================================================== */
@@ -129,21 +129,21 @@ p {
   color: var(--bg);
 }
 
-/* custom scrollbar — gold, 4px radius */
+/* custom scrollbar — gold thumb on an invisible track */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--gold-60) var(--bg-2);
+  scrollbar-color: var(--gold-60) transparent;
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
+  background: transparent;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-2);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--gold-60);
-  border-radius: var(--radius);
-  border: 2px solid var(--bg-2);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gold);
@@ -253,8 +253,9 @@ html {
 
 /* == grain overlay ==========================================================
    Fixed full-screen noise, animated by stepping transform on an oversized
-   layer (cheap: one composited layer, no repaints). Opacity rides a root
-   variable so sections (Streaming) can ramp it. */
+   layer (cheap: one composited layer, no repaints). Grayscale noise blended
+   soft-light stays luminance-neutral — texture without brightening the page,
+   even when sections (Streaming) ramp the opacity variable up. */
 
 .grain {
   position: fixed;
@@ -263,6 +264,7 @@ html {
   pointer-events: none;
   overflow: hidden;
   opacity: var(--grain-opacity);
+  mix-blend-mode: soft-light;
   transition: opacity 1.2s ease;
 }
 
@@ -272,13 +274,13 @@ html {
   inset: -100%;
   width: 300%;
   height: 300%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   animation: grain-shift 0.9s steps(9) infinite;
 }
 
 .grain-max {
-  --grain-opacity: 0.17;
+  --grain-opacity: 0.55;
 }
 
 @keyframes grain-shift {

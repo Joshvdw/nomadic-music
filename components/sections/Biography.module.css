@@ -33,8 +33,9 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, var(--bg), transparent 12%),
-    linear-gradient(to bottom, var(--bg), transparent 12%);
+    linear-gradient(to top, var(--bg), transparent 18%),
+    linear-gradient(to bottom, var(--bg), transparent 18%),
+    linear-gradient(to left, var(--bg), transparent 22%);
 }
 
 .copy {

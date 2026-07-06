@@ -8,7 +8,20 @@
   background-position: center;
 }
 
+/* fade the textured backdrop into the page background at both edges */
+.streaming::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--bg), transparent 22%),
+    linear-gradient(to top, var(--bg), transparent 22%);
+}
+
 .inner {
+  position: relative;
+  z-index: 1;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr minmax(0, 52ch);

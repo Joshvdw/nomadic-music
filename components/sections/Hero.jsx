@@ -90,7 +90,7 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
-          quality={82}
+          quality={100}
           sizes="110vw"
           className={styles.bgImg}
         />
@@ -99,6 +99,7 @@ export default function Hero() {
           alt=""
           fill
           priority
+          quality={100}
           sizes="110vw"
           className={styles.bgImg}
         />
@@ -110,6 +111,7 @@ export default function Hero() {
           alt="A glassy obsidian sphere reflecting the landscape"
           fill
           priority
+          quality={100}
           sizes="110vw"
           className={styles.bgImg}
         />

@@ -20,15 +20,11 @@ const SOCIALS = [
 ];
 
 export default function SocialsSidebar() {
-  const { scrolling, atBottom } = useScrollState();
+  const { scrolling, atTop, atBottom } = useScrollState();
 
-  const cls = [
-    styles.sidebar,
-    scrolling && !atBottom ? styles.hidden : "",
-    atBottom ? styles.expanded : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
+  // Hidden on the hero (like the nav), while scrolling, and at page bottom.
+  const hidden = scrolling || atTop || atBottom;
+  const cls = `${styles.sidebar} ${hidden ? styles.hidden : ""}`;
 
   return (
     <aside className={cls} aria-label="Nomadic on streaming platforms and social media">

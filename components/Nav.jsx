@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import useScrollState from "@/lib/useScrollState";
+import useScrollState, { setChromePinned } from "@/lib/useScrollState";
 import styles from "./Nav.module.css";
 
 const ITEMS = [
@@ -17,9 +17,10 @@ const ITEMS = [
 export default function Nav() {
   const { scrolling, atTop } = useScrollState();
   const [active, setActive] = useState(null);
-  const listRef = useRef(null);
+  const unpinTimer = useRef(null);
 
-  // Track which section is crossing the middle of the viewport.
+  // A section reads as active only once it fills most of the viewport —
+  // its box has to reach the band ~30% from the top.
   useEffect(() => {
     const sections = ITEMS.map(({ id }) => document.getElementById(id)).filter(
       Boolean
@@ -30,11 +31,30 @@ export default function Nav() {
           if (entry.isIntersecting) setActive(entry.target.id);
         }
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-30% 0px -65% 0px" }
     );
     sections.forEach((s) => io.observe(s));
     return () => io.disconnect();
   }, []);
+
+  useEffect(() => () => clearTimeout(unpinTimer.current), []);
+
+  // Keep the nav + socials sidebar on screen while a nav-triggered scroll is
+  // in flight; normal hide-on-scroll behaviour resumes on arrival.
+  const onNavClick = (e, id) => {
+    e.preventDefault();
+    setChromePinned(true);
+    clearTimeout(unpinTimer.current);
+    const unpin = () => setChromePinned(false);
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.scrollTo(`#${id}`, { onComplete: unpin });
+      unpinTimer.current = setTimeout(unpin, 4000); // safety net
+    } else {
+      document.getElementById(id)?.scrollIntoView();
+      unpinTimer.current = setTimeout(unpin, 200);
+    }
+  };
 
   // Magnetic dot: shifts toward the cursor as it moves across a link.
   const onLinkMove = (e) => {
@@ -55,18 +75,16 @@ export default function Nav() {
       className={`${styles.nav} ${hidden ? styles.hidden : ""}`}
       aria-label="Section navigation"
     >
-      <ul ref={listRef} className={styles.list}>
+      <ul className={styles.list}>
         {ITEMS.map(({ id, label }) => {
           const isActive = active === id;
-          const isCta = id === "contact";
           return (
             <li key={id}>
               <a
                 href={`#${id}`}
-                className={`${styles.link} ${isActive ? styles.active : ""} ${
-                  isCta ? styles.cta : ""
-                }`}
+                className={`${styles.link} ${isActive ? styles.active : ""}`}
                 aria-current={isActive ? "true" : undefined}
+                onClick={(e) => onNavClick(e, id)}
                 onPointerMove={onLinkMove}
                 onPointerLeave={onLinkLeave}
               >

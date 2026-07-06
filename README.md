@@ -26,7 +26,6 @@ flag: `DEV_GUIDES` in `lib/site.js`. Set `true` while aligning against Figma,
 - **Copy** is lorem ipsum per the design references — real copy to come.
 - **`public/videos/dj-video.mp4`** (Live section, 720p 16:9) was not in the
   provided assets; the section shows its poster image until it's added.
-- **Bandcamp + Instagram URLs** in `lib/site.js` are guesses — confirm.
 - **Bandcamp marquee** uses placeholder release tiles — swap in real
   discography art/links in `components/sections/Bandcamp.jsx`.
 - **Site URL** assumed `https://nomadicofficial.music` (`lib/site.js`) for

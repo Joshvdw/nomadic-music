@@ -14,7 +14,7 @@ export default function Biography() {
           alt="Joshua van der Waay — Nomadic — portrait in low warm light, hair tied up, patterned scarf"
           width={3024}
           height={1880}
-          quality={85}
+          quality={100}
           sizes="(max-width: 900px) 100vw, 90vw"
           className={styles.image}
         />

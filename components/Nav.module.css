@@ -11,8 +11,8 @@
   border-radius: var(--radius);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
   transition:
-    transform 0.55s var(--ease-out),
-    opacity 0.55s var(--ease-out);
+    transform 0.8s var(--ease-out),
+    opacity 0.8s var(--ease-out);
   max-width: min(92vw, 46rem);
 }
 
@@ -26,7 +26,7 @@
   display: flex;
   align-items: center;
   list-style: none;
-  padding: 0 0.5rem;
+  padding: 0 0.35rem;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -37,10 +37,10 @@
 .link {
   position: relative;
   display: block;
-  padding: 0.85rem 0.9rem 1rem;
+  padding: 0.6rem 0.65rem 0.75rem;
   font-size: var(--fs-p-tiny);
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-60);
   white-space: nowrap;
@@ -55,7 +55,7 @@
 .dot {
   position: absolute;
   left: 50%;
-  bottom: 0.42rem;
+  bottom: 0.3rem;
   width: 3px;
   height: 3px;
   border-radius: 50%;
@@ -84,21 +84,9 @@
   transform: translateX(-50%);
 }
 
-/* Contact — slightly CTA-like, still quiet */
-.link.cta {
-  margin-left: 0.35rem;
-  color: var(--gold);
-  background: var(--gold-10);
-  border-left: 1px solid var(--gold-20);
-}
-
-.link.cta:hover {
-  background: var(--gold-20);
-}
-
 @media (max-width: 640px) {
   .link {
-    padding: 0.7rem 0.55rem 0.85rem;
+    padding: 0.55rem 0.5rem 0.7rem;
     letter-spacing: 0.14em;
   }
 }
