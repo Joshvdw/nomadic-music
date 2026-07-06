@@ -1,6 +1,5 @@
 import Nav from "@/components/Nav";
 import SocialsSidebar from "@/components/SocialsSidebar";
-import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
 import Biography from "@/components/sections/Biography";
 import Streaming from "@/components/sections/Streaming";
@@ -25,11 +24,10 @@ export default function Home() {
         <CollabCta />
         <Live />
         <Gallery />
+        <Bandcamp />
         <Services />
         <Contact />
-        <Bandcamp />
       </main>
-      <Footer />
     </>
   );
 }

@@ -8,7 +8,7 @@ import styles from "./Biography.module.css";
 export default function Biography() {
   return (
     <section id="bio" className={styles.bio} aria-label="Biography">
-      <div className={styles.imageWrap}>
+      <div className={styles.imageWrap} data-reveal="fade">
         <Image
           src="/images/bio.png"
           alt="Joshua van der Waay — Nomadic — portrait in low warm light, hair tied up, patterned scarf"

@@ -1,4 +1,6 @@
 .nav {
+  /* temporarily disabled — remove this line to re-enable the top nav */
+  display: none;
   position: fixed;
   top: 0.75rem;
   left: 50%;

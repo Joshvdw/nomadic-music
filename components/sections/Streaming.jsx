@@ -76,6 +76,7 @@ export default function Streaming() {
       className={styles.streaming}
       aria-label="Streaming statistics"
     >
+      <div className={styles.bg} data-reveal="fade" aria-hidden="true" />
       <div className={`${styles.inner} container`}>
         <div className={styles.textCol}>
           <h2 className={styles.heading} data-reveal="fast">

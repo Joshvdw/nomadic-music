@@ -51,7 +51,7 @@
   /* -- motion ---------------------------------------------------------------- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --grain-opacity: 0.2;
+  --grain-opacity: 0.05;
 }
 
 /* == base ================================================================== */
@@ -82,6 +82,13 @@ img,
 video {
   max-width: 100%;
   display: block;
+}
+
+/* even breathing room between all sections */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 2rem + 3vw, 5rem);
 }
 
 a {
@@ -129,24 +136,12 @@ p {
   color: var(--bg);
 }
 
-/* custom scrollbar — gold thumb on an invisible track */
+/* scrollbar hidden entirely — the hero carries a scroll hint instead */
 html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-60) transparent;
+  scrollbar-width: none;
 }
 ::-webkit-scrollbar {
-  width: 7px;
-  background: transparent;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--gold-60);
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gold);
+  display: none;
 }
 
 /* == shared utilities ======================================================= */
@@ -210,6 +205,12 @@ html {
   transition-duration: 0.55s, 0.55s;
 }
 
+/* fade-only variant for full-bleed imagery (no slide) */
+[data-reveal="fade"] {
+  transform: none;
+  transition-duration: 1.3s;
+}
+
 [data-reveal].is-inview {
   opacity: 1;
   transform: none;
@@ -252,64 +253,38 @@ html {
 }
 
 /* == grain overlay ==========================================================
-   Fixed full-screen noise, animated by stepping transform on an oversized
-   layer (cheap: one composited layer, no repaints). Grayscale noise blended
-   soft-light stays luminance-neutral — texture without brightening the page,
-   even when sections (Streaming) ramp the opacity variable up. */
+   Film grain per references/grain-reference.html: raw turbulence noise,
+   overlay blend, stepped pixel drift. Opacity rides a root variable so
+   Streaming can ramp it. */
 
 .grain {
   position: fixed;
-  inset: 0;
+  inset: -60px;
   z-index: var(--z-grain);
   pointer-events: none;
-  overflow: hidden;
   opacity: var(--grain-opacity);
-  mix-blend-mode: soft-light;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 1.4s steps(4) infinite;
   transition: opacity 1.2s ease;
 }
 
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: -100%;
-  width: 300%;
-  height: 300%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  animation: grain-shift 0.9s steps(9) infinite;
-}
-
 .grain-max {
-  --grain-opacity: 0.55;
+  --grain-opacity: 0.14;
 }
 
 @keyframes grain-shift {
   0% {
     transform: translate(0, 0);
   }
-  11% {
-    transform: translate(-6%, -9%);
+  25% {
+    transform: translate(-14px, 8px);
   }
-  22% {
-    transform: translate(4%, -12%);
+  50% {
+    transform: translate(10px, -12px);
   }
-  33% {
-    transform: translate(-9%, 5%);
-  }
-  44% {
-    transform: translate(11%, 2%);
-  }
-  55% {
-    transform: translate(-5%, 11%);
-  }
-  66% {
-    transform: translate(8%, -6%);
-  }
-  77% {
-    transform: translate(-11%, -3%);
-  }
-  88% {
-    transform: translate(5%, 8%);
+  75% {
+    transform: translate(-6px, -8px);
   }
   100% {
     transform: translate(0, 0);

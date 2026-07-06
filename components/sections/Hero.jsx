@@ -5,13 +5,17 @@ import Image from "next/image";
 import styles from "./Hero.module.css";
 
 // Full-viewport layered hero:
-//   background + baked ground shadow  → mouse-move parallax (lerped)
-//   ball (transparent layer)          → autonomous floating drift
-// Both layers render slightly larger than the viewport for travel room.
+//   background                → mouse-move parallax (lerped)
+//   ball + reflection shift   → autonomous floating drift
+//   shadow (above the ball)   → tracks the ball with a slight lag, shading
+//                               its bright right side like a soft shadow
+// All layers render slightly larger than the viewport for travel room.
 export default function Hero() {
   const bgRef = useRef(null);
   const ballRef = useRef(null);
+  const shadowRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     // load-in choreography starts once mounted (CSS transitions from here)
@@ -19,11 +23,24 @@ export default function Hero() {
     return () => cancelAnimationFrame(t);
   }, []);
 
+  // scroll hint disappears as soon as the user scrolls
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const bg = bgRef.current;
     const ball = ballRef.current;
+    const shadow = shadowRef.current;
     let rafId;
 
     // --- mouse parallax state (background only) ---
@@ -40,13 +57,13 @@ export default function Hero() {
     // --- ball floating drift: eased travel between random waypoints ---
     const rand = (a, b) => a + Math.random() * (b - a);
     const waypoint = () => ({
-      x: Math.random() < 0.4 ? rand(-5, 5) : 0,
-      y: rand(-9, 9),
+      x: Math.random() < 0.45 ? rand(-8, 8) : 0,
+      y: rand(-14, 14),
     });
     let from = { x: 0, y: 0 };
     let to = waypoint();
     let start = performance.now();
-    let dur = rand(3000, 5000);
+    let dur = rand(2800, 4600);
     const easeInOut = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
 
     const loop = (now) => {
@@ -59,13 +76,19 @@ export default function Hero() {
         from = to;
         to = waypoint();
         start = now;
-        dur = rand(3000, 5000);
+        dur = rand(2800, 4600);
         t = 0;
       }
       const e = easeInOut(t);
       const bx = from.x + (to.x - from.x) * e;
       const by = from.y + (to.y - from.y) * e;
       ball.style.transform = `translate3d(${bx}px, ${by}px, 0)`;
+      // reflections shift slightly against the motion — the environment
+      // reads as staying put while the sphere drifts through it
+      ball.style.setProperty("--rx", `${(-bx * 0.4).toFixed(2)}px`);
+      ball.style.setProperty("--ry", `${(-by * 0.4).toFixed(2)}px`);
+      // shadow lags the ball a touch, like shading catching up
+      shadow.style.transform = `translate3d(${(bx * 0.8).toFixed(2)}px, ${(by * 0.85).toFixed(2)}px, 0)`;
 
       rafId = requestAnimationFrame(loop);
     };
@@ -94,21 +117,25 @@ export default function Hero() {
           sizes="110vw"
           className={styles.bgImg}
         />
-        <Image
-          src="/images/hero/ball-shadow.png"
-          alt=""
-          fill
-          priority
-          quality={100}
-          sizes="110vw"
-          className={styles.bgImg}
-        />
       </div>
 
       <div ref={ballRef} className={styles.ballLayer}>
         <Image
           src="/images/hero/ball.png"
           alt="A glassy obsidian sphere reflecting the landscape"
+          fill
+          priority
+          quality={100}
+          sizes="110vw"
+          className={styles.bgImg}
+        />
+        <div className={styles.reflection} aria-hidden="true" />
+      </div>
+
+      <div ref={shadowRef} className={styles.shadowLayer}>
+        <Image
+          src="/images/hero/ball-shadow.png"
+          alt=""
           fill
           priority
           quality={100}
@@ -125,6 +152,14 @@ export default function Hero() {
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
+      </div>
+
+      <div
+        className={`${styles.scrollHint} ${scrolled ? styles.hintHidden : ""}`}
+        aria-hidden="true"
+      >
+        <span className={styles.hintLabel}>Scroll</span>
+        <span className={styles.hintLine} />
       </div>
     </section>
   );

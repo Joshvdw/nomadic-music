@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { EMAIL, LINKS } from "@/lib/site";
+import Footer from "@/components/Footer";
 import {
   SpotifyIcon,
   BandcampIcon,
@@ -31,7 +32,6 @@ const PLATFORMS = [
 export default function Contact() {
   const [subject, setSubject] = useState("Booking");
   const [copied, setCopied] = useState(false);
-  const sectionRef = useRef(null);
 
   // "Enquire" buttons in Services pre-select the matching subject.
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Contact() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2200);
     } catch {
-      /* no clipboard access — the mailto link next to it still works */
+      /* clipboard unavailable — nothing to do */
     }
   };
 
@@ -66,25 +66,25 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className={`${styles.contact} container`} aria-label="Contact">
-      <div className={styles.columns}>
+    <section id="contact" className={styles.contact} aria-label="Contact">
+      <div className={`${styles.columns} container`}>
         <div className={styles.info} data-reveal>
-          <h2 className={styles.heading}>Get in Touch</h2>
-          <p className={styles.blurb}>
-            Bookings, collaborations and services. Based in Golden Bay, playing
-            anywhere the music is welcome — expect a reply within a couple of
-            days.
-          </p>
+          <div className={styles.infoBlock}>
+            <h2 className={styles.heading}>Get in Touch</h2>
+            <p className={styles.blurb}>
+              Bookings, collaborations and services. Based in Golden Bay,
+              playing anywhere the music is welcome — expect a reply within a
+              couple of days.
+            </p>
+          </div>
 
-          <div className={styles.emailBox}>
-            <a className={styles.email} href={`mailto:${EMAIL}`}>
-              {EMAIL}
-            </a>
-            <button type="button" className={styles.copyBtn} onClick={copy}>
+          <button type="button" className={styles.emailBox} onClick={copy}>
+            <span className={styles.email}>{EMAIL}</span>
+            <span className={styles.copyLabel}>
               <CopyIcon className={styles.copyIcon} />
               {copied ? "Copied" : "Copy"}
-            </button>
-          </div>
+            </span>
+          </button>
 
           <ul className={styles.platforms}>
             {PLATFORMS.map(({ label, href, Icon }) => (
@@ -104,15 +104,17 @@ export default function Contact() {
         </div>
 
         <form className={styles.form} onSubmit={onSubmit} data-reveal>
-          <label className={styles.field}>
-            <span className={styles.label}>Name</span>
-            <input className={styles.input} type="text" name="name" required autoComplete="name" />
-          </label>
+          <div className={styles.row}>
+            <label className={styles.field}>
+              <span className={styles.label}>Name</span>
+              <input className={styles.input} type="text" name="name" required autoComplete="name" />
+            </label>
 
-          <label className={styles.field}>
-            <span className={styles.label}>Email</span>
-            <input className={styles.input} type="email" name="email" required autoComplete="email" />
-          </label>
+            <label className={styles.field}>
+              <span className={styles.label}>Email</span>
+              <input className={styles.input} type="email" name="email" required autoComplete="email" />
+            </label>
+          </div>
 
           <label className={styles.field}>
             <span className={styles.label}>Subject</span>
@@ -139,6 +141,12 @@ export default function Contact() {
             Send Message
           </button>
         </form>
+      </div>
+
+      {/* pinned to the bottom of the viewport frame; the contact block above
+          centres itself in the full viewport regardless */}
+      <div className={styles.footerSlot}>
+        <Footer />
       </div>
     </section>
   );

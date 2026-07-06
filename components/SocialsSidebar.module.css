@@ -1,7 +1,7 @@
 .sidebar {
   position: fixed;
   /* hugs the edge tighter as the viewport narrows so it never covers copy */
-  right: clamp(0.2rem, 1.1vw, 1.05rem);
+  right: clamp(0.1rem, 0.55vw, 0.5rem);
   top: 50%;
   z-index: var(--z-sidebar);
   transform: translateY(-50%);

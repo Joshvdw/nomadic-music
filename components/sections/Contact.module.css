@@ -1,4 +1,5 @@
 .contact {
+  position: relative;
   min-height: 100svh;
   display: flex;
   align-items: center;
@@ -9,13 +10,19 @@
 .columns {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: calc(var(--gap) * 4);
   align-items: start;
 }
 
 .info {
   min-width: 0;
+}
+
+/* blurb never runs wider than the heading above it */
+.infoBlock {
+  width: fit-content;
+  margin-bottom: 2.25rem;
 }
 
 .heading {
@@ -25,10 +32,10 @@
 }
 
 .blurb {
-  max-width: 44ch;
+  width: 0;
+  min-width: 100%;
   font-size: var(--fs-p);
   color: var(--ink-80);
-  margin-bottom: 2.25rem;
 }
 
 .emailBox {
@@ -38,7 +45,13 @@
   padding: 0.9rem 1.4rem;
   border: 1px solid var(--gold-20);
   border-radius: var(--radius);
-  margin-bottom: 2.25rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: border-color 0.35s ease;
+}
+
+.emailBox:hover {
+  border-color: var(--gold-60);
 }
 
 .email {
@@ -48,7 +61,7 @@
   color: var(--gold);
 }
 
-.copyBtn {
+.copyLabel {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -60,7 +73,7 @@
   transition: color 0.3s ease;
 }
 
-.copyBtn:hover {
+.emailBox:hover .copyLabel {
   color: var(--gold);
 }
 
@@ -69,53 +82,49 @@
   height: 0.85rem;
 }
 
-/* platform links — button-like 2×2 grid with pale borders */
+/* platform links — quiet 2×2 grid, no borders */
 .platforms {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 12rem));
-  gap: var(--gap);
+  grid-template-columns: repeat(2, minmax(0, 9rem));
+  gap: 0.35rem;
 }
 
 .platform {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 0.85rem 1.1rem;
-  border: 1px solid var(--ink-40);
-  border-radius: var(--radius);
-  font-size: var(--fs-p-sm);
+  gap: 0.6rem;
+  padding: 0.45rem 0.25rem;
+  font-size: var(--fs-p-tiny);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-80);
-  transition:
-    border-color 0.35s ease,
-    color 0.35s ease,
-    transform 0.4s var(--ease-out);
+  color: var(--ink-60);
+  transition: color 0.35s ease;
 }
 
 .platform:hover {
-  border-color: var(--gold);
   color: var(--gold);
-  transform: translateY(-2px);
 }
 
 .platformIcon {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1rem;
+  height: 1rem;
 }
 
-/* -- form -------------------------------------------------------------------- */
+/* -- form: spans to the right content margin -------------------------------- */
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
-  /* narrower than the column: keeps clear air on the right so the fixed
-     socials sidebar can expand at page bottom without covering inputs */
-  width: min(100%, 34rem);
-  padding-right: clamp(0rem, 4vw, 3.5rem);
+  width: 100%;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
 }
 
 .field {
@@ -171,35 +180,40 @@ select.input {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  transition:
-    transform 0.35s var(--ease-out),
-    box-shadow 0.35s ease;
+  transition: box-shadow 0.35s ease;
 }
 
 .submit:hover {
-  transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(230, 215, 166, 0.18);
 }
 
+/* footer rides the bottom edge of the viewport frame */
+.footerSlot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 @media (max-width: 900px) {
+  .contact {
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .columns {
     grid-template-columns: 1fr;
     gap: calc(var(--gap) * 3);
   }
 
-  .form {
-    padding-right: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .platforms {
+  .row {
     grid-template-columns: 1fr;
+    gap: 1.4rem;
   }
 
-  .emailBox {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
+  .footerSlot {
+    position: static;
+    margin-top: calc(var(--gap) * 3);
+    width: 100%;
   }
 }
