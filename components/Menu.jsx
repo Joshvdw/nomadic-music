@@ -83,16 +83,8 @@ export default function Menu() {
         onClick={() => setOpen((v) => !v)}
       >
         <span className={styles.glyph} aria-hidden="true">
-          <span className={styles.diamonds}>
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
-          <span className={styles.bars}>
-            <i />
-            <i />
-          </span>
+          <i />
+          <i />
         </span>
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
       </button>

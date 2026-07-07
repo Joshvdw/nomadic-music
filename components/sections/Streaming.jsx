@@ -86,10 +86,11 @@ export default function Streaming() {
       ref={sectionRef}
       className={styles.streaming}
       aria-label="Streaming statistics"
+      data-reveal="fade"
+      data-reveal-late=""
     >
-      <div className={styles.bg} data-reveal="fade" data-reveal-late="" aria-hidden="true" />
-      {/* the whole block fades in as one — no slide (unique to this section) */}
-      <div className={`${styles.inner} container`} data-reveal="fade" data-reveal-late="">
+      <div className={styles.bg} aria-hidden="true" />
+      <div className={`${styles.inner} container`}>
         <div className={styles.textCol}>
           <h2 className={styles.heading}>Streaming</h2>
           <p className={styles.blurb}>
@@ -97,21 +98,6 @@ export default function Streaming() {
             esse quam nihil molestiae consequatur, vel illum qui dolorem eum
             fugiat quo voluptas nulla pariatur?&rdquo;
           </p>
-          <dl className={styles.stats}>
-            {STATS.map((stat, i) => (
-              <div key={stat.label} className={styles.stat}>
-                <dt className="sr-only">{stat.label}</dt>
-                <dd
-                  className={styles.statValue}
-                  ref={(el) => (statRefs.current[i] = el)}
-                >
-                  {stat.value}
-                  {stat.suffix}
-                </dd>
-                <dd className={styles.statLabel}>{stat.label}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
         <div className={styles.embedCol}>
@@ -121,6 +107,22 @@ export default function Streaming() {
             height={352}
           />
         </div>
+
+        <dl className={styles.stats}>
+          {STATS.map((stat, i) => (
+            <div key={stat.label} className={styles.stat}>
+              <dt className="sr-only">{stat.label}</dt>
+              <dd
+                className={styles.statValue}
+                ref={(el) => (statRefs.current[i] = el)}
+              >
+                {stat.value}
+                {stat.suffix}
+              </dd>
+              <dd className={styles.statLabel}>{stat.label}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

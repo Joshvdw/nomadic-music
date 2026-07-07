@@ -1,0 +1,73 @@
+.marquee {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.4rem;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: footer-marquee 60s linear infinite;
+}
+
+@media (hover: hover) {
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes footer-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.strip {
+  list-style: none;
+  display: flex;
+  gap: 0.6rem;
+  padding-right: 0.6rem;
+}
+
+.tile {
+  width: 104px;
+  flex: 0 0 auto;
+}
+
+/* black wings — the strip fades into the distance on both sides */
+.fadeLeft,
+.fadeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+
+  .track {
+    animation: none;
+  }
+
+  .strip[aria-hidden="true"] {
+    display: none;
+  }
+}

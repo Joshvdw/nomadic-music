@@ -121,11 +121,7 @@
 }
 
 @media (max-width: 640px) {
-  .mobileBr {
-    display: inline;
-  }
-
-  .banner {
-    padding-block: 2.75rem;
+  .wrap {
+    display: none;
   }
 }

@@ -140,6 +140,10 @@
     grid-template-columns: 1fr calc(2 * var(--col));
     padding-right: var(--gutter);
   }
+
+  .setsCol {
+    padding-top: 7.5rem;
+  }
 }
 
 @media (max-width: 900px) {
@@ -189,5 +193,10 @@
   .caption p,
   .setsBlurb {
     font-size: 1rem;
+  }
+
+  .captionHeading,
+  .setsHeading {
+    font-size: var(--fs-h2);
   }
 }

@@ -9,7 +9,6 @@ import Live from "@/components/sections/Live";
 import Gallery from "@/components/sections/Gallery";
 import Services from "@/components/sections/Services";
 import Contact from "@/components/sections/Contact";
-import Bandcamp from "@/components/sections/Bandcamp";
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
         <Services />
         <Collabs />
         <CollabCta />
-        <Bandcamp />
         <Contact />
       </main>
     </>

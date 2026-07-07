@@ -32,12 +32,17 @@
   z-index: 2;
   width: 100%;
   display: grid;
+  grid-template-areas:
+    "text embed"
+    "stats embed";
   grid-template-columns: 1fr minmax(0, 52ch);
-  gap: calc(var(--gap) * 3);
+  gap: 3rem calc(var(--gap) * 3);
   align-items: center;
 }
 
 .textCol {
+  grid-area: text;
+  align-self: end;
   /* indented from the left margin on larger screens, tucks in on laptops */
   padding-left: clamp(0rem, 16vw - 10rem, 6.5rem);
 }
@@ -52,13 +57,15 @@
   max-width: 38ch;
   font-size: var(--fs-p);
   color: var(--ink-80);
-  margin-bottom: 3.5rem;
 }
 
 .stats {
+  grid-area: stats;
+  align-self: start;
   display: flex;
   gap: calc(var(--gap) * 3);
   flex-wrap: wrap;
+  padding-left: clamp(0rem, 16vw - 10rem, 6.5rem);
 }
 
 .stat {
@@ -83,17 +90,23 @@
 
 /* embed column matches the bio paragraph measure and hugs the right margin */
 .embedCol {
+  grid-area: embed;
   width: 100%;
 }
 
 @media (max-width: 1100px) {
-  .textCol {
+  .textCol,
+  .stats {
     padding-left: 0;
   }
 }
 
 @media (max-width: 900px) {
   .inner {
+    grid-template-areas:
+      "text"
+      "embed"
+      "stats";
     grid-template-columns: 1fr;
     gap: calc(var(--gap) * 2.5);
     padding-block: var(--space-section);
@@ -105,10 +118,6 @@
 }
 
 @media (max-width: 640px) {
-  .embedCol {
-    order: -1;
-  }
-
   /* rotated export of the same texture — oversized so its bright band
      reaches past the embed at the top, dark vignette bleeds off-section */
   .bg {
@@ -124,16 +133,17 @@
     font-size: var(--fs-p-sm);
   }
 
-  /* 15 Million closes the set, and leads it in size */
+  /* 15 Million closes the set, and leads it in size — value spans the
+     width of the stat row above, label spans the value */
   .stat:nth-child(2) {
     order: 4;
   }
 
   .stat:nth-child(2) .statValue {
-    font-size: 3.6rem;
+    font-size: 3.45rem;
   }
 
   .stat:nth-child(2) .statLabel {
-    font-size: 1.05rem;
+    font-size: 1.39rem;
   }
 }
