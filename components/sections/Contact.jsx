@@ -78,15 +78,15 @@ export default function Contact() {
             </p>
           </div>
 
-          <button type="button" className={styles.emailBox} onClick={copy}>
-            <span className={styles.email}>{EMAIL}</span>
-            <span className={styles.copyLabel}>
-              <CopyIcon className={styles.copyIcon} />
-              {copied ? "Copied" : "Copy"}
-            </span>
-          </button>
-
         </div>
+
+        <button type="button" className={styles.emailBox} onClick={copy}>
+          <span className={styles.email}>{EMAIL}</span>
+          <span className={styles.copyLabel}>
+            <CopyIcon className={styles.copyIcon} />
+            {copied ? "Copied" : "Copy"}
+          </span>
+        </button>
 
         <ul className={styles.platforms}>
           {PLATFORMS.map(({ label, href, Icon }) => (

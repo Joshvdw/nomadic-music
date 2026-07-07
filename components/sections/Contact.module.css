@@ -16,9 +16,10 @@
   display: grid;
   grid-template-areas:
     "info form"
+    "email form"
     "platforms form";
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   gap: 0 var(--gap);
   align-items: start;
 }
@@ -55,6 +56,8 @@
 }
 
 .emailBox {
+  grid-area: email;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: 1rem;
@@ -66,8 +69,18 @@
   transition: border-color 0.35s ease;
 }
 
-.emailBox:hover {
-  border-color: var(--gold-60);
+@media (hover: hover) {
+  .emailBox:hover {
+    border-color: var(--gold-60);
+  }
+
+  .emailBox:hover .email {
+    color: var(--gold);
+  }
+
+  .emailBox:hover .copyLabel {
+    color: var(--gold);
+  }
 }
 
 .email {
@@ -76,10 +89,6 @@
   font-weight: 600;
   color: rgba(230, 215, 166, 0.75);
   transition: color 0.35s ease;
-}
-
-.emailBox:hover .email {
-  color: var(--gold);
 }
 
 .copyLabel {
@@ -92,10 +101,6 @@
   text-transform: uppercase;
   color: var(--ink-60);
   transition: color 0.3s ease;
-}
-
-.emailBox:hover .copyLabel {
-  color: var(--gold);
 }
 
 .copyIcon {
@@ -126,8 +131,10 @@
   transition: color 0.35s ease;
 }
 
-.platform:hover {
-  color: var(--gold);
+@media (hover: hover) {
+  .platform:hover {
+    color: var(--gold);
+  }
 }
 
 .platformIcon {
@@ -214,8 +221,10 @@ select.input {
   transition: background-color 0.45s var(--ease-out);
 }
 
-.submit:hover {
-  background-color: #f2e7c4;
+@media (hover: hover) {
+  .submit:hover {
+    background-color: #f2e7c4;
+  }
 }
 
 /* footer rides the bottom edge of the viewport frame */
@@ -236,14 +245,23 @@ select.input {
     grid-template-areas:
       "info"
       "form"
+      "email"
       "platforms";
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    gap: calc(var(--gap) * 3);
+    gap: 1.5rem;
+  }
+
+  .infoBlock {
+    margin-bottom: 0;
+  }
+
+  .emailBox {
+    margin-bottom: 0;
   }
 
   .platforms {
-    margin-top: 0.5rem;
+    margin-top: 0;
   }
 
   .row {

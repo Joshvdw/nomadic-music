@@ -115,6 +115,10 @@
 }
 
 @media (max-width: 640px) {
+  .bcLink {
+    display: none;
+  }
+
   .tile {
     width: 150px;
   }

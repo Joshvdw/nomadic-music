@@ -134,9 +134,6 @@ export default function Gallery() {
     const fadeEls = fadeRef.current.querySelectorAll(`.${styles.group}`);
     let active = false;
     let rafId = null;
-    // the track chases its scroll target with easing — the strip feels
-    // dragged rather than bolted to the scrollbar
-    let cur = 0;
 
     // the socials sidebar stays away for the entire gallery run
     const suppressIO = new IntersectionObserver(
@@ -163,10 +160,11 @@ export default function Gallery() {
       const dwell = Math.round(window.innerHeight * 0.35);
       pin.style.height = `${overflow() + window.innerHeight + dwell}px`;
       pin.dataset.dwell = dwell;
+      update();
     };
 
-    const loop = () => {
-      rafId = requestAnimationFrame(loop);
+    const update = () => {
+      rafId = null;
       if (!active) return;
       const rect = pin.getBoundingClientRect();
       const dwell = parseInt(pin.dataset.dwell, 10) || 0;
@@ -175,10 +173,7 @@ export default function Gallery() {
       const p = Math.max(0, Math.min(1, -rect.top / scrollable));
       const ox = overflow();
 
-      cur += (-p * ox - cur) * 0.035;
-      // snap to whole pixels: fractional offsets on a composited layer make
-      // the GPU resample every frame and the images go soft
-      track.style.transform = `translate3d(${Math.round(cur)}px, 0, 0)`;
+      track.style.transform = `translate3d(${Math.round(-p * ox)}px, 0, 0)`;
 
       // archive title: hidden until horizontal scroll starts
       const titleIn = Math.min(1, p * 14);
@@ -195,17 +190,22 @@ export default function Gallery() {
       cta.style.opacity = (1 - fade).toFixed(3);
     };
 
+    const onScroll = () => {
+      if (active && rafId === null) rafId = requestAnimationFrame(update);
+    };
+
     measure();
-    rafId = requestAnimationFrame(loop);
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", measure);
     desktop.addEventListener("change", measure);
     const t = setTimeout(measure, 500);
 
     return () => {
       clearTimeout(t);
-      cancelAnimationFrame(rafId);
+      if (rafId !== null) cancelAnimationFrame(rafId);
       suppressIO.disconnect();
       setChromeSuppressed(false);
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
       desktop.removeEventListener("change", measure);
     };

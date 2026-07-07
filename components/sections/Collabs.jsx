@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { TRACKS } from "@/lib/site";
 import LazyEmbed from "@/components/LazyEmbed";
@@ -50,6 +53,45 @@ const LABELS = [
 ];
 
 export default function Collabs() {
+  const artistsRef = useRef(null);
+  const labelsRef = useRef(null);
+
+  // Phones: turn both card rows into seamless infinite loops. A cloned set
+  // sits on each side of the originals (iframes stripped from clones); when
+  // the scroll position drifts past half a period either way it jumps by
+  // exactly one period — imperceptible, and swiping works in both
+  // directions from the start.
+  useEffect(() => {
+    if (!window.matchMedia("(max-width: 640px)").matches) return;
+
+    const cleanups = [artistsRef.current, labelsRef.current].map((list) => {
+      if (!list) return () => {};
+      const originals = [...list.children];
+      const makeClone = (node) => {
+        const c = node.cloneNode(true);
+        c.setAttribute("aria-hidden", "true");
+        c.querySelectorAll("iframe").forEach((f) => f.remove());
+        return c;
+      };
+      originals.forEach((n) => list.appendChild(makeClone(n)));
+      [...originals]
+        .reverse()
+        .forEach((n) => list.insertBefore(makeClone(n), list.firstChild));
+
+      const period = list.scrollWidth / 3;
+      list.scrollLeft = period;
+
+      const onScroll = () => {
+        if (list.scrollLeft < period * 0.5) list.scrollLeft += period;
+        else if (list.scrollLeft > period * 2) list.scrollLeft -= period;
+      };
+      list.addEventListener("scroll", onScroll, { passive: true });
+      return () => list.removeEventListener("scroll", onScroll);
+    });
+
+    return () => cleanups.forEach((fn) => fn());
+  }, []);
+
   return (
     <section id="collabs" className={`${styles.collabs} container`} aria-label="Collaborations">
       <header className={styles.header} data-reveal>
@@ -63,7 +105,7 @@ export default function Collabs() {
         <h2 className={styles.heading}>Collaborations</h2>
       </header>
 
-      <ul className={styles.artistGrid} data-reveal="cascade">
+      <ul ref={artistsRef} className={styles.artistGrid} data-reveal="cascade">
         {ARTISTS.map(({ key, name, track, image, alt }) => (
           <li key={key} className={styles.artistCard}>
             <div className={styles.artistImageWrap}>
@@ -91,7 +133,11 @@ export default function Collabs() {
         ))}
       </ul>
 
-      <ul className={styles.labelGrid} data-reveal="cascade">
+      <p className={styles.swipeHint} aria-hidden="true">
+        Swipe
+      </p>
+
+      <ul ref={labelsRef} className={styles.labelGrid} data-reveal="cascade">
         {LABELS.map(({ name, image, alt, body }) => (
           <li key={name} className={styles.labelCard}>
             <div className={styles.labelImageWrap}>
@@ -110,6 +156,10 @@ export default function Collabs() {
           </li>
         ))}
       </ul>
+
+      <p className={styles.swipeHint} aria-hidden="true">
+        Swipe
+      </p>
     </section>
   );
 }

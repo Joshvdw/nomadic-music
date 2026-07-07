@@ -68,8 +68,14 @@
   transition: border-color 0.35s ease;
 }
 
-.button:hover {
-  border-color: var(--gold-60);
+@media (hover: hover) {
+  .button:hover {
+    border-color: var(--gold-60);
+  }
+
+  .button:hover .email {
+    color: var(--gold);
+  }
 }
 
 .email {
@@ -78,10 +84,6 @@
   font-weight: 600;
   color: var(--ink-80);
   transition: color 0.35s ease;
-}
-
-.button:hover .email {
-  color: var(--gold);
 }
 
 .hint {
@@ -111,12 +113,4 @@
   }
 }
 
-@media (max-width: 640px) {
-  .wrap {
-    padding-inline: 0;
-  }
 
-  .banner {
-    border-radius: 0;
-  }
-}

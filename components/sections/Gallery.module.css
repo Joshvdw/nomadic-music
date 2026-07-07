@@ -90,9 +90,11 @@
     filter 0.45s ease;
 }
 
-.tile:hover .img {
-  transform: scale(1.04);
-  filter: saturate(0.94) contrast(1.04);
+@media (hover: hover) {
+  .tile:hover .img {
+    transform: scale(1.04);
+    filter: saturate(0.94) contrast(1.04);
+  }
 }
 
 /* captions revealed on hover (always visible on touch) */
@@ -299,10 +301,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    gap: 1.2rem;
-    padding-block: calc(var(--space-section) * 0.7) 0;
+    gap: 1.5rem;
+    min-height: 100svh;
     padding-inline: var(--gutter);
+  }
+
+  .ctaMobile .ctaOrnament {
+    width: 5.5rem;
+    margin-bottom: -0.4rem;
+  }
+
+  .ctaMobile .ctaMail {
+    border: 1px solid var(--gold-20);
+    border-radius: var(--radius);
+    padding: 0.85rem 1.5rem;
+  }
+
+  .ctaMobile .ctaGhost {
+    margin-top: -0.4rem;
+  }
+
+  .cap::before {
+    display: none;
   }
 
   .trackWrap {
