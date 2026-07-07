@@ -82,10 +82,27 @@ const jsonLd = {
   sameAs: [LINKS.spotify, LINKS.soundcloud, LINKS.bandcamp, LINKS.instagram],
 };
 
+// Security-suite browser extensions (Bitdefender etc.) stamp attributes like
+// bis_skin_checked onto the served HTML before React hydrates, tripping
+// hydration-mismatch warnings that aren't ours. Strip them at end-of-body
+// parse, then keep stripping re-stamps via a filtered MutationObserver until
+// hydration has safely completed (observer disconnects after 6s).
+const stripExtensionAttrs = `(function(){try{
+var strip=function(){var a=document.querySelectorAll("*");for(var i=0;i<a.length;i++){var t=a[i].attributes;for(var j=t.length-1;j>=0;j--){var n=t[j].name;if(n.indexOf("bis_")===0||n.indexOf("__processed")===0)a[i].removeAttribute(n)}}};
+strip();
+var mo=new MutationObserver(function(m){for(var i=0;i<m.length;i++){var r=m[i];if(r.type==="attributes"&&r.target.removeAttribute)r.target.removeAttribute(r.attributeName)}});
+mo.observe(document.documentElement,{attributes:true,subtree:true,attributeFilter:["bis_skin_checked","bis_register","bis_size","bis_id"]});
+setTimeout(function(){mo.disconnect()},6000);
+}catch(e){}})();`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
-      <body>
+    <html
+      lang="en"
+      className={`${serif.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
         <LenisProvider>{children}</LenisProvider>
         <div className="grain" aria-hidden="true" />
         <CursorDot />
@@ -95,6 +112,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script dangerouslySetInnerHTML={{ __html: stripExtensionAttrs }} />
       </body>
     </html>
   );
