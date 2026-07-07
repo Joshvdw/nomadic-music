@@ -40,7 +40,10 @@ export default function CollabCta() {
           Vocalists, Instrumentalists, Producers, Labels
           <span className={styles.line} aria-hidden="true" />
         </p>
-        <h2 className={styles.heading}>Let&rsquo;s make something together</h2>
+        <h2 className={styles.heading}>
+          Let&rsquo;s make
+          <br className={styles.mobileBr} /> something together
+        </h2>
         <p className={styles.blurb}>
           Nomadic is open to remixes, features and original collaborations with
           artists working in adjacent territory. One email is all it takes.

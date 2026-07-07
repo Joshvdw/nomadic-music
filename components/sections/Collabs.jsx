@@ -78,7 +78,10 @@ export default function Collabs() {
         .reverse()
         .forEach((n) => list.insertBefore(makeClone(n), list.firstChild));
 
-      const period = list.scrollWidth / 3;
+      // exact pitch of one card set (offset between the clone set and the
+      // originals) — jumps stay snap-aligned, so no skipped cards
+      const period =
+        list.children[originals.length].offsetLeft - list.children[0].offsetLeft;
       list.scrollLeft = period;
 
       const onScroll = () => {

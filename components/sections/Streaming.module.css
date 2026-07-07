@@ -3,6 +3,7 @@
   min-height: 100svh;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 
 /* textured backdrop as its own layer so it can fade in on scroll */
@@ -121,5 +122,14 @@
 
   .statLabel {
     font-size: var(--fs-p-sm);
+  }
+
+  /* 15 Million closes the set, and leads it in size */
+  .stat:nth-child(2) {
+    order: 4;
+  }
+
+  .stat:nth-child(2) .statValue {
+    font-size: 3.6rem;
   }
 }

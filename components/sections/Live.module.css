@@ -171,9 +171,15 @@
 @media (max-width: 640px) {
   .embed {
     order: -1;
+    height: auto;
   }
 
   .scLink {
     display: none;
+  }
+
+  .caption p,
+  .setsBlurb {
+    font-size: 1rem;
   }
 }

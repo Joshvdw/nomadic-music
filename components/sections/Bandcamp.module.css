@@ -1,4 +1,5 @@
 .bandcamp {
+  margin-top: calc(2 * var(--sect-gap));
   padding-block: 0;
   padding-bottom: var(--sect-gap);
   background: var(--bg);

@@ -57,12 +57,6 @@
   transition: border-color 0.5s var(--ease-out);
 }
 
-@media (hover: hover) {
-  .artistCard:hover::after {
-    border-color: var(--gold-40);
-  }
-}
-
 .artistImageWrap {
   position: relative;
   display: block;
@@ -199,10 +193,12 @@
   .labelGrid {
     display: flex;
     overflow-x: auto;
-    gap: 0.75rem;
+    /* gap >= gutter so the previous card never peeks on the left */
+    gap: 1.25rem;
     scroll-snap-type: x mandatory;
     margin-inline: calc(-1 * var(--gutter));
-    padding-inline: calc(var(--gutter) + 7vw);
+    padding-inline: var(--gutter);
+    scroll-padding-inline-start: var(--gutter);
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
@@ -216,10 +212,11 @@
     margin-bottom: 0;
   }
 
+  /* active card sits on the left content edge; only the next card peeks */
   .artistCard,
   .labelCard {
-    flex: 0 0 78vw;
-    scroll-snap-align: center;
+    flex: 0 0 84vw;
+    scroll-snap-align: start;
   }
 
   /* full-width square artwork with the text below — total height sits
@@ -242,7 +239,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
-    margin: 1.1rem 0 2rem;
+    /* evenly spaced between the two card rows */
+    margin-block: 1.6rem;
     font-size: 0.55rem;
     font-weight: 500;
     letter-spacing: 0.3em;
@@ -250,8 +248,9 @@
     color: var(--ink-40);
   }
 
+  /* only the hint between the rows survives */
   .swipeHint:last-child {
-    margin-bottom: 0;
+    display: none;
   }
 
   .swipeHint::before,

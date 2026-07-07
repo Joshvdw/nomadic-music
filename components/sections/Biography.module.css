@@ -126,3 +126,9 @@
     max-width: none;
   }
 }
+
+@media (max-width: 640px) {
+  .heading {
+    font-size: var(--fs-h2);
+  }
+}

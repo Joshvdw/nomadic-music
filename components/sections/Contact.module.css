@@ -282,6 +282,10 @@ select.input {
     width: 100%;
   }
 
+  .submit {
+    margin-bottom: 0.75rem;
+  }
+
   .contact {
     padding-bottom: 0.75rem;
   }

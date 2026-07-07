@@ -64,7 +64,8 @@ export default function Hero() {
     let from = { x: 0, y: 0 };
     let to = waypoint();
     let start = performance.now();
-    let dur = rand(2800, 4600);
+    // first leg runs short so the drift is noticeable right after load
+    let dur = rand(1400, 2000);
     const easeInOut = (t) => -(Math.cos(Math.PI * t) - 1) / 2;
 
     // scroll parallax: the ball lags the page slightly as the hero scrolls

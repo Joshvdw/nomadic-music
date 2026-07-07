@@ -44,8 +44,8 @@ export default function Bandcamp() {
     <section className={styles.bandcamp} aria-label="Buy the music on Bandcamp">
       <header className={`${styles.header} container`} data-reveal>
         <div>
-          <p className={`eyebrow ${styles.sub}`}>Bandcamp</p>
-          <h2 className={styles.heading}>Buy My Music</h2>
+          <p className={`eyebrow ${styles.sub}`}>Support</p>
+          <h2 className={styles.heading}>My Music</h2>
         </div>
         <a
           className={styles.bcLink}

@@ -252,17 +252,9 @@
     order: -1;
   }
 
-  /* dimmer captions over a heavier gradient */
+  /* clean tiles on phones — no captions or gradients */
   .cap {
-    color: var(--ink-60);
-    background: linear-gradient(
-      to top,
-      rgba(8, 7, 5, 0.96),
-      rgba(8, 7, 5, 0.45) 60%,
-      transparent
-    );
-    opacity: 1;
-    transform: none;
+    display: none;
   }
 
   .swipeHint {
@@ -301,7 +293,7 @@
     justify-content: center;
     text-align: center;
     gap: 1.5rem;
-    min-height: 100svh;
+    padding-block: 6.5rem;
     padding-inline: var(--gutter);
   }
 
@@ -310,19 +302,23 @@
     margin-bottom: -0.4rem;
   }
 
+  .ctaMobile .ctaHeading {
+    font-size: 13.5vw;
+    white-space: nowrap;
+  }
+
   .ctaMobile .ctaMail {
     border: 1px solid var(--gold-20);
     border-radius: var(--radius);
-    padding: 0.85rem 1.5rem;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.62rem;
   }
 
   .ctaMobile .ctaGhost {
     margin-top: -0.4rem;
   }
 
-  .cap::before {
-    display: none;
-  }
+
 
   .trackWrap {
     overflow-x: auto;

@@ -3,7 +3,6 @@ import "./globals.css";
 import { SITE_URL, EMAIL, LINKS } from "@/lib/site";
 import LenisProvider from "@/components/LenisProvider";
 import RevealManager from "@/components/RevealManager";
-import CursorDot from "@/components/CursorDot";
 import DevGuides from "@/components/DevGuides";
 
 const serif = EB_Garamond({
@@ -105,7 +104,6 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <LenisProvider>{children}</LenisProvider>
         <div className="grain" aria-hidden="true" />
-        <CursorDot />
         <RevealManager />
         <DevGuides />
         <script

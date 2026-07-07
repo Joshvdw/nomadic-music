@@ -1,4 +1,4 @@
-import Nav from "@/components/Nav";
+import Menu from "@/components/Menu";
 import SocialsSidebar from "@/components/SocialsSidebar";
 import Hero from "@/components/sections/Hero";
 import Biography from "@/components/sections/Biography";
@@ -14,18 +14,18 @@ import Bandcamp from "@/components/sections/Bandcamp";
 export default function Home() {
   return (
     <>
-      <Nav />
+      <Menu />
       <SocialsSidebar />
       <main>
         <Hero />
         <Biography />
         <Streaming />
-        <Collabs />
-        <CollabCta />
         <Live />
         <Gallery />
-        <Bandcamp />
         <Services />
+        <Collabs />
+        <CollabCta />
+        <Bandcamp />
         <Contact />
       </main>
     </>

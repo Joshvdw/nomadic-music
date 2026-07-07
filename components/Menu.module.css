@@ -1,0 +1,230 @@
+.menu {
+  position: fixed;
+  top: 1rem;
+  right: 1.1rem;
+  z-index: var(--z-nav);
+}
+
+/* -- trigger: four diamonds ⟶ ✕ --------------------------------------------- */
+
+.trigger {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  background: rgba(18, 18, 18, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--gold-20);
+  border-radius: var(--radius);
+  transition: border-color 0.35s ease;
+}
+
+@media (hover: hover) {
+  .trigger:hover {
+    border-color: var(--gold-60);
+  }
+}
+
+.glyph {
+  position: relative;
+  width: 1.05rem;
+  height: 1.05rem;
+  display: block;
+}
+
+/* the diamond cluster */
+.diamonds {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.32rem;
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s var(--ease-out);
+}
+
+.diamonds i {
+  width: 0.34rem;
+  height: 0.34rem;
+  background: var(--gold);
+  transform: rotate(45deg);
+  transition: transform 0.45s var(--ease-out);
+}
+
+/* the ✕ (hidden until open) */
+.bars {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+.bars i {
+  grid-area: 1 / 1;
+  width: 1.15rem;
+  height: 1px;
+  background: var(--gold);
+  transform: rotate(45deg) scaleX(0);
+  transition: transform 0.45s var(--ease-out) 0.08s;
+}
+
+.bars i:last-child {
+  transform: rotate(-45deg) scaleX(0);
+}
+
+.open .diamonds {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+.open .bars {
+  opacity: 1;
+}
+
+.open .bars i {
+  transform: rotate(45deg) scaleX(1);
+}
+
+.open .bars i:last-child {
+  transform: rotate(-45deg) scaleX(1);
+}
+
+/* -- desktop panel: unfolds from the corner --------------------------------- */
+
+.panel {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  min-width: 13.5rem;
+  background: rgba(18, 18, 18, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--gold-20);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  padding: 0.6rem 0;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top right;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s var(--ease-out);
+}
+
+.open .panel {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.list {
+  list-style: none;
+}
+
+.item {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s var(--ease-out);
+}
+
+.open .item {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.06s + var(--i) * 0.045s);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 1.4rem;
+  font-size: var(--fs-p-tiny);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  transition: color 0.3s ease;
+}
+
+.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--ink);
+  }
+
+  .link:hover .dot {
+    opacity: 0.6;
+  }
+}
+
+.link.active {
+  color: var(--gold);
+  pointer-events: none;
+}
+
+.link.active .dot {
+  opacity: 1;
+}
+
+/* -- phones: fullscreen nav --------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .panel {
+    position: fixed;
+    inset: 0;
+    min-width: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: rgba(8, 7, 5, 0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .item {
+    transform: translateY(14px);
+  }
+
+  .link {
+    padding: 0.25rem 0.5rem;
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-80);
+  }
+
+  .link.active {
+    color: var(--gold);
+  }
+}

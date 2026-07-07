@@ -163,4 +163,12 @@
   .icon {
     color: var(--ink-60);
   }
+
+  .title {
+    font-size: var(--fs-h3);
+  }
+
+  .body {
+    font-size: 1rem;
+  }
 }

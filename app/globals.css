@@ -74,6 +74,11 @@
   #collabs {
     margin-top: calc(1.25 * var(--sect-gap));
   }
+
+  /* sliders clip vertical overflow — cascade reveals fade only on phones */
+  [data-reveal="cascade"] > * {
+    transform: none;
+  }
 }
 
 /* == base ================================================================== */
@@ -88,6 +93,10 @@
 
 html {
   scroll-behavior: auto; /* Lenis owns smooth scrolling */
+}
+
+html {
+  overflow-x: clip;
 }
 
 body {
@@ -116,7 +125,7 @@ video {
   margin-top: var(--sect-gap);
 }
 #live {
-  margin-top: calc(3 * var(--sect-gap));
+  margin-top: var(--sect-gap);
 }
 #gallery {
   margin-top: var(--sect-gap);
