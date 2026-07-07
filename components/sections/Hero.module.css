@@ -81,7 +81,7 @@
 .tagline {
   width: 0;
   min-width: 100%;
-  margin-top: 0.85rem;
+  margin-top: 0.5rem;
   font-size: var(--fs-p);
   color: var(--ink-60);
   opacity: 0;
@@ -101,7 +101,7 @@
 
 .scrollHint {
   position: absolute;
-  left: 50%;
+  left: 75%;
   bottom: 1.5rem;
   transform: translateX(-50%);
   z-index: 2;

@@ -75,7 +75,7 @@
   font-family: var(--serif);
   font-size: var(--fs-p);
   font-weight: 600;
-  color: var(--ink);
+  color: var(--ink-80);
 }
 
 .hint {

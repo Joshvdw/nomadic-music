@@ -42,6 +42,11 @@
   border: 1px solid var(--gold-10);
   border-radius: var(--radius);
   overflow: hidden;
+  transition: border-color 0.45s ease;
+}
+
+.artistCard:hover {
+  border-color: var(--gold-40);
 }
 
 .artistImageWrap {
@@ -53,6 +58,11 @@
 
 .artistImage {
   object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.artistCard:hover .artistImage {
+  transform: scale(1.045);
 }
 
 /* name + track over the image, lifted by a bottom-up gradient */
@@ -71,6 +81,12 @@
     rgba(8, 7, 5, 0.7) 45%,
     transparent
   );
+  transition: transform 0.5s var(--ease-out);
+}
+
+/* the arriving player pushes the caption up rather than covering it */
+.artistCard:hover .artistMeta {
+  transform: translateY(-80px);
 }
 
 .artistName {
@@ -145,7 +161,7 @@
 
 .labelBody p {
   font-size: var(--fs-p-sm);
-  color: var(--ink-80);
+  color: var(--ink-60);
 }
 
 @media (max-width: 900px) {

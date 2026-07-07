@@ -82,7 +82,7 @@ body {
   color: var(--ink);
   font-family: var(--sans);
   font-size: var(--fs-p);
-  line-height: 1.65;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
@@ -97,7 +97,7 @@ video {
    hero→bio 3×, cta→live 2×, live→gallery 1×, bandcamp→services 1×,
    everything else touches. */
 #bio {
-  margin-top: calc(1.7 * var(--sect-gap));
+  margin-top: calc(1.3 * var(--sect-gap));
 }
 #streaming {
   margin-top: var(--sect-gap);
@@ -149,7 +149,7 @@ h4 {
 }
 
 p {
-  color: var(--ink-80);
+  color: var(--ink-60);
 }
 
 ::selection {
@@ -305,11 +305,6 @@ html {
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain-shift 1.4s steps(4) infinite;
-  transition: opacity 1.2s ease;
-}
-
-.grain-max {
-  --grain-opacity: 0.14;
 }
 
 @keyframes grain-shift {

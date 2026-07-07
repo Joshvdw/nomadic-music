@@ -3,8 +3,8 @@
   display: grid;
   /* DJ sets = 2 grid columns tucked against the right content margin;
      video takes everything left of it, full-bleed to the viewport edge */
-  grid-template-columns: 1fr calc(2 * var(--col));
-  padding-right: var(--gutter);
+  grid-template-columns: 1fr calc(2 * var(--col) + var(--gutter) / 2);
+  padding-right: calc(var(--gutter) / 2);
   min-height: 88svh;
   background: var(--bg);
 }
@@ -63,12 +63,13 @@
 
 .caption p {
   font-size: var(--fs-p-sm);
-  color: var(--ink-80);
+  color: var(--ink-60);
   max-width: 47ch;
 }
 
 .setsCol {
   position: relative;
+  z-index: 4; /* above the section's top fade gradient */
   display: flex;
   align-items: flex-start;
   padding-top: clamp(2.5rem, 6vh, 4rem);
@@ -92,7 +93,7 @@
 
 .setsBlurb {
   font-size: var(--fs-p-sm);
-  color: var(--ink-80);
+  color: var(--ink-60);
 }
 
 /* crop the playlist iframe just below the SoundCloud footer icon */

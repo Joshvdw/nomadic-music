@@ -6,7 +6,14 @@ import { useEffect, useRef, useState } from "react";
 // well before its section reaches the viewport — rootMargin extends ~1.5
 // screens down the page so the player is ready on arrival (no pop-in).
 // Height is reserved up front; a shimmer covers the load.
-export default function LazyEmbed({ src, title, height, radius = 12, allow }) {
+export default function LazyEmbed({
+  src,
+  title,
+  height,
+  radius = 12,
+  allow,
+  rootMargin = "150% 0px 150% 0px",
+}) {
   const shellRef = useRef(null);
   const [armed, setArmed] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -20,11 +27,11 @@ export default function LazyEmbed({ src, title, height, radius = 12, allow }) {
           io.disconnect();
         }
       },
-      { rootMargin: "150% 0px 150% 0px" }
+      { rootMargin }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [rootMargin]);
 
   return (
     <div

@@ -37,7 +37,7 @@
   width: 0;
   min-width: 100%;
   font-size: var(--fs-p);
-  color: var(--ink-80);
+  color: var(--ink-60);
 }
 
 .emailBox {

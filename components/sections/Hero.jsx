@@ -90,9 +90,13 @@ export default function Hero() {
 
       sy += (window.scrollY * 0.1 - sy) * 0.08;
 
-      ball.style.transform = `translate3d(${bx}px, ${(by + sy).toFixed(2)}px, 0)`;
+      // ball counters the background's mouse parallax (float + scroll intact)
+      const mx = -px * 0.55;
+      const my = -py * 0.55;
+
+      ball.style.transform = `translate3d(${(bx + mx).toFixed(2)}px, ${(by + sy + my).toFixed(2)}px, 0)`;
       // shadow lags the ball a touch, like shading catching up
-      shadow.style.transform = `translate3d(${(bx * 0.8).toFixed(2)}px, ${(by * 0.85 + sy * 0.9).toFixed(2)}px, 0)`;
+      shadow.style.transform = `translate3d(${(bx * 0.8 + mx).toFixed(2)}px, ${(by * 0.85 + sy * 0.9 + my).toFixed(2)}px, 0)`;
 
       // the hero dissolves as the page starts moving away
       const fade = 1 - Math.min(1, window.scrollY / (window.innerHeight * 0.55));

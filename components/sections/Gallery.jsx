@@ -103,6 +103,16 @@ export default function Gallery() {
     const head = headRef.current;
     const cta = ctaRef.current;
     const fadeEls = fadeRef.current.querySelectorAll(`.${styles.group}`);
+    // per-tile depths: singles take the group depth; stacked pairs split it,
+    // the bottom tile mirroring the top so they drift at different timings
+    const tileEls = [];
+    fadeEls.forEach((group, gi) => {
+      const tiles = group.querySelectorAll(`.${styles.tile}`);
+      tiles.forEach((tile, ti) => {
+        const d = DEPTHS[gi % DEPTHS.length];
+        tileEls.push({ el: tile, depth: ti === 0 ? d : 2 - d });
+      });
+    });
     let active = false;
     let rafId = null;
 
@@ -124,10 +134,8 @@ export default function Gallery() {
         track.style.transform = "";
         head.style.opacity = "";
         cta.style.opacity = "";
-        fadeEls.forEach((el) => {
-          el.style.opacity = "";
-          el.style.transform = "";
-        });
+        fadeEls.forEach((el) => (el.style.opacity = ""));
+        tileEls.forEach(({ el }) => (el.style.transform = ""));
         return;
       }
       active = true;
@@ -159,10 +167,8 @@ export default function Gallery() {
         1 - Math.max(0, Math.min(1, (vw - ctaLeft) / (vw * 0.62)));
 
       head.style.opacity = (titleIn * fade).toFixed(3);
-      fadeEls.forEach((el, i) => {
-        el.style.opacity = fade.toFixed(3);
-        // per-group parallax: deeper groups drift ahead, shallow ones lag
-        const depth = DEPTHS[i % DEPTHS.length];
+      fadeEls.forEach((el) => (el.style.opacity = fade.toFixed(3)));
+      tileEls.forEach(({ el, depth }) => {
         el.style.transform = `translate3d(${((1 - depth) * p * 1000).toFixed(1)}px, 0, 0)`;
       });
       cta.style.opacity = (1 - fade).toFixed(3);

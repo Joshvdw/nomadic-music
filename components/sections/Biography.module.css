@@ -45,7 +45,7 @@
   display: flex;
   justify-content: flex-end;
   /* text block rides lower — level with the eyes */
-  padding-top: 38vh;
+  padding-top: 44vh;
 }
 
 .parallax {
@@ -64,7 +64,7 @@
 }
 
 .heading {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 0.5rem;
@@ -72,7 +72,7 @@
 
 .text p {
   font-size: 1rem;
-  color: var(--ink-80);
+  color: var(--ink-60);
 }
 
 .text p + p {
@@ -83,19 +83,6 @@
 @media (max-width: 1300px) and (min-width: 901px) {
   .text {
     max-width: 38ch;
-  }
-}
-
-/* beyond the content max-width the gutter grows, so pin the portrait to its
-   1600px geometry and shift it with the content box instead */
-@media (min-width: 1600px) {
-  .imageWrap {
-    left: calc(var(--gutter) - 10rem);
-  }
-
-  .image {
-    width: 86.2rem; /* 10rem gutter / 0.116 alignment fraction */
-    min-width: 0;
   }
 }
 

@@ -28,6 +28,7 @@ function MarqueeRow({ reverse = false }) {
                   title="Voice the Creator by Nomadic — Bandcamp player"
                   height={220}
                   radius={4}
+                  rootMargin="300% 0px 300% 0px"
                 />
               </li>
             ))}
