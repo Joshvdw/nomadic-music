@@ -70,11 +70,6 @@
 
 .artistImage {
   object-fit: cover;
-  transition: transform 0.7s var(--ease-out);
-}
-
-.artistCard:hover .artistImage {
-  transform: scale(1.045);
 }
 
 /* name + track over the image, lifted by a bottom-up gradient */

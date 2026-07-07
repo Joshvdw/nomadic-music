@@ -63,9 +63,9 @@
   gap: 0.1rem;
   padding: 0.45rem 2.6rem 0.4rem;
   background: #0d0b08;
-  border: 1px solid transparent;
+  border: 1px solid var(--gold-20);
   border-radius: var(--radius);
-  transition: border-color 0.45s ease;
+  transition: border-color 0.35s ease;
 }
 
 .button:hover {
@@ -77,6 +77,11 @@
   font-size: var(--fs-p);
   font-weight: 600;
   color: var(--ink-80);
+  transition: color 0.35s ease;
+}
+
+.button:hover .email {
+  color: var(--gold);
 }
 
 .hint {

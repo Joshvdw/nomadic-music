@@ -176,7 +176,9 @@ export default function Gallery() {
       const ox = overflow();
 
       cur += (-p * ox - cur) * 0.035;
-      track.style.transform = `translate3d(${cur.toFixed(1)}px, 0, 0)`;
+      // snap to whole pixels: fractional offsets on a composited layer make
+      // the GPU resample every frame and the images go soft
+      track.style.transform = `translate3d(${Math.round(cur)}px, 0, 0)`;
 
       // archive title: hidden until horizontal scroll starts
       const titleIn = Math.min(1, p * 14);
