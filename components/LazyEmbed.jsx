@@ -50,7 +50,7 @@ export default function LazyEmbed({
             allow ??
             "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           }
-          style={{ borderRadius: radius }}
+          style={{ borderRadius: radius, height: "100%" }}
           onLoad={() => setLoaded(true)}
         />
       )}

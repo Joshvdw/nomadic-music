@@ -139,6 +139,18 @@
   }
 }
 
+@keyframes swipe-slide {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+}
+
 /* -- bookings CTA ------------------------------------------------------------ */
 
 .cta {
@@ -204,6 +216,15 @@
   color: var(--ink);
 }
 
+.swipeHint {
+  display: none;
+}
+
+/* the phone-only bookings block below the strip */
+.ctaMobile {
+  display: none;
+}
+
 /* -- mobile / reduced motion: native horizontal swipe ------------------------ */
 
 @media (max-width: 900px), (prefers-reduced-motion: reduce) {
@@ -219,6 +240,68 @@
     position: static;
     opacity: 1;
     margin-bottom: 1.75rem;
+    padding-inline: var(--gutter);
+    justify-content: space-between;
+  }
+
+  /* GALLERY hard left, ARCHIVE hard right */
+  .heading {
+    order: -1;
+  }
+
+  .headLine {
+    display: none;
+  }
+
+  /* dimmer captions over a heavier gradient */
+  .cap {
+    color: var(--ink-60);
+    background: linear-gradient(
+      to top,
+      rgba(8, 7, 5, 0.96),
+      rgba(8, 7, 5, 0.45) 60%,
+      transparent
+    );
+    opacity: 1;
+    transform: none;
+  }
+
+  .swipeHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-40);
+  }
+
+  .swipeHint::before,
+  .swipeHint::after {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background: var(--gold-40);
+  }
+
+  .swipeHint::after {
+    animation: swipe-slide 2.2s ease-in-out infinite;
+  }
+
+  .cta {
+    display: none;
+  }
+
+  .ctaMobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+    padding-block: calc(var(--space-section) * 0.7) 0;
     padding-inline: var(--gutter);
   }
 

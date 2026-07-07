@@ -85,6 +85,37 @@ const GROUPS = [
   },
 ];
 
+function BookingsCta({ className, ctaRef }) {
+  return (
+    <div ref={ctaRef} className={className}>
+      <Image
+        src="/images/decals/flower.png"
+        alt=""
+        width={180}
+        height={120}
+        className={styles.ctaOrnament}
+      />
+      <h3 className={styles.ctaHeading}>
+        Open for
+        <br />
+        Bookings
+      </h3>
+      <a
+        className={styles.ctaMail}
+        href={`mailto:${EMAIL}?subject=Booking%20enquiry%20—%20Nomadic`}
+      >
+        {EMAIL}
+        <span className={styles.ctaMailArrow} aria-hidden="true">
+          →
+        </span>
+      </a>
+      <a className={styles.ctaGhost} href="#contact">
+        Or use the contact form
+      </a>
+    </div>
+  );
+}
+
 export default function Gallery() {
   const pinRef = useRef(null);
   const trackRef = useRef(null);
@@ -220,36 +251,18 @@ export default function Gallery() {
                 </div>
               ))}
 
-              <div ref={ctaRef} className={styles.cta}>
-                <Image
-                  src="/images/decals/flower.png"
-                  alt=""
-                  width={180}
-                  height={120}
-                  className={styles.ctaOrnament}
-                />
-                <h3 className={styles.ctaHeading}>
-                  Open for
-                  <br />
-                  Bookings
-                </h3>
-                <a
-                  className={styles.ctaMail}
-                  href={`mailto:${EMAIL}?subject=Booking%20enquiry%20—%20Nomadic`}
-                >
-                  {EMAIL}
-                  <span className={styles.ctaMailArrow} aria-hidden="true">
-                    →
-                  </span>
-                </a>
-                <a className={styles.ctaGhost} href="#contact">
-                  Or use the contact form
-                </a>
-              </div>
+              <BookingsCta ctaRef={ctaRef} className={styles.cta} />
             </div>
           </div>
+
+          <p className={styles.swipeHint} aria-hidden="true">
+            Swipe
+          </p>
         </div>
       </div>
+
+      {/* on phones the bookings block is its own section below the strip */}
+      <BookingsCta className={styles.ctaMobile} />
     </section>
   );
 }

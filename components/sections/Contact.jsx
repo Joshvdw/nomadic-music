@@ -86,22 +86,23 @@ export default function Contact() {
             </span>
           </button>
 
-          <ul className={styles.platforms}>
-            {PLATFORMS.map(({ label, href, Icon }) => (
-              <li key={label}>
-                <a
-                  className={styles.platform}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon className={styles.platformIcon} />
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
+
+        <ul className={styles.platforms}>
+          {PLATFORMS.map(({ label, href, Icon }) => (
+            <li key={label}>
+              <a
+                className={styles.platform}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon className={styles.platformIcon} />
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
         <form className={styles.form} onSubmit={onSubmit} data-reveal>
           <div className={styles.row}>

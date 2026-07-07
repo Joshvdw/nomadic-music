@@ -105,3 +105,13 @@
     overflow-wrap: anywhere;
   }
 }
+
+@media (max-width: 640px) {
+  .wrap {
+    padding-inline: 0;
+  }
+
+  .banner {
+    border-radius: 0;
+  }
+}

@@ -151,6 +151,37 @@
   }
 }
 
+.labelSwipe {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: clamp(2.75rem, 13vw, 3.5rem);
+  }
+
+  .copyBlock {
+    width: 100%;
+  }
+
+  .tagline {
+    width: auto;
+    min-width: 0;
+  }
+
+  .scrollHint {
+    bottom: 0.6rem;
+  }
+
+  .labelScroll {
+    display: none;
+  }
+
+  .labelSwipe {
+    display: inline;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bgLayer,
   .ballLayer,

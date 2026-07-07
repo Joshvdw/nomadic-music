@@ -84,7 +84,7 @@
 /* large desktops: portrait scales up toward the text column */
 @media (min-width: 1600px) {
   .image {
-    min-width: min(100vw, 185vh);
+    min-width: 100vw;
   }
 }
 
@@ -118,6 +118,8 @@
   .copy {
     padding-top: 0;
     padding-bottom: var(--space-section);
+    /* tuck the text up over the portrait's lower fade */
+    margin-top: -3.5rem;
   }
 
   .text {

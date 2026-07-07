@@ -71,3 +71,9 @@
   opacity: 1;
   transform: translateY(-50%) translateX(0);
 }
+
+@media (max-width: 640px) {
+  .sidebar {
+    display: none;
+  }
+}

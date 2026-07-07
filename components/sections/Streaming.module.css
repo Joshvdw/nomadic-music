@@ -102,3 +102,14 @@
     gap: calc(var(--gap) * 2);
   }
 }
+
+@media (max-width: 640px) {
+  .embedCol {
+    order: -1;
+  }
+
+  /* rotated export of the same texture — lengthways, covers the full block */
+  .bg {
+    background-image: url("/images/streaming-background-mobile.png");
+  }
+}

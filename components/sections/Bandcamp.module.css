@@ -113,3 +113,17 @@
     display: none;
   }
 }
+
+@media (max-width: 640px) {
+  .tile {
+    width: 150px;
+  }
+
+  .tile > :global(.embed-shell) {
+    height: 150px !important;
+  }
+
+  .track {
+    animation-duration: 60s;
+  }
+}

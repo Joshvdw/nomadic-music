@@ -170,7 +170,10 @@ export default function Hero() {
         className={`${styles.scrollHint} ${scrolled ? styles.hintHidden : ""}`}
         aria-hidden="true"
       >
-        <span className={styles.hintLabel}>Scroll</span>
+        <span className={styles.hintLabel}>
+          <span className={styles.labelScroll}>Scroll</span>
+          <span className={styles.labelSwipe}>Swipe</span>
+        </span>
         <span className={styles.hintLine} />
       </div>
     </section>

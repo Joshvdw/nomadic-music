@@ -39,20 +39,32 @@
 .artistCard {
   position: relative;
   background: var(--bg-3);
-  border: 1px solid var(--gold-10);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color 0.25s ease;
 }
 
-.artistCard:hover {
+/* border lives on an overlay: the card itself carries the cascade-reveal
+   transition, so a border transition there would clobber it (and vice
+   versa). Timing matches the caption slide exactly. */
+.artistCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid var(--gold-10);
+  border-radius: inherit;
+  transition: border-color 0.5s var(--ease-out);
+}
+
+.artistCard:hover::after {
   border-color: var(--gold-40);
 }
 
 .artistImageWrap {
   position: relative;
   display: block;
-  aspect-ratio: 10 / 11;
+  aspect-ratio: 6 / 7;
   overflow: hidden;
 }
 
@@ -174,16 +186,35 @@
   .heading {
     font-size: clamp(1.4rem, 6.6vw, 1.875rem);
   }
+}
 
-  .artistGrid {
-    grid-template-columns: 1fr;
+/* phones: swipeable sliders, snap-centred with a tease of the neighbours */
+@media (max-width: 640px) {
+  .artistGrid,
+  .labelGrid {
+    display: flex;
+    overflow-x: auto;
+    gap: 0.75rem;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: calc(var(--gutter) + 7vw);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .artistGrid::-webkit-scrollbar,
+  .labelGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .artistCard {
+    flex: 0 0 78vw;
+    scroll-snap-align: center;
   }
 
   .labelCard {
-    grid-template-columns: 1fr;
-  }
-
-  .labelImageWrap {
-    aspect-ratio: 16 / 9;
+    flex: 0 0 84vw;
+    scroll-snap-align: center;
+    grid-template-columns: minmax(0, 40%) 1fr;
   }
 }

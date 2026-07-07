@@ -31,9 +31,7 @@
 .card {
   position: relative;
   overflow: hidden;
-  transition: border-color 0.45s ease;
   background: var(--bg-2);
-  border: 1px solid var(--gold-10);
   border-radius: var(--radius);
   padding: clamp(1.1rem, 1.8vw, 1.75rem) clamp(1.75rem, 3vw, 2.75rem);
   display: flex;
@@ -41,7 +39,19 @@
   align-items: flex-start;
 }
 
-.card:hover {
+/* border overlay — keeps the li's transition free for the cascade reveal */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid var(--gold-10);
+  border-radius: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.card:hover::after {
   border-color: var(--gold-40);
 }
 
@@ -63,7 +73,7 @@
 .cardArtImg {
   object-fit: cover;
   filter: grayscale(1);
-  transition: filter 0.45s ease;
+  transition: filter 0.35s ease;
 }
 
 .card:hover .cardArtImg {

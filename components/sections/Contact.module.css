@@ -8,13 +8,27 @@
 }
 
 /* two halves of the content width — the form matches the 3-column
-   card width used by Services above */
+   card width used by Services above. Platforms sit under the info block
+   on desktop, but are a separate area so phones can push them below
+   the form. */
 .columns {
   width: 100%;
   display: grid;
+  grid-template-areas:
+    "info form"
+    "platforms form";
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--gap);
+  grid-template-rows: auto 1fr;
+  gap: 0 var(--gap);
   align-items: start;
+}
+
+.info {
+  grid-area: info;
+}
+
+.form {
+  grid-area: form;
 }
 
 .info {
@@ -91,6 +105,8 @@
 
 /* platform links — quiet 2×2 grid, no borders */
 .platforms {
+  grid-area: platforms;
+  align-self: start;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 9rem));
@@ -217,8 +233,17 @@ select.input {
   }
 
   .columns {
+    grid-template-areas:
+      "info"
+      "form"
+      "platforms";
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: calc(var(--gap) * 3);
+  }
+
+  .platforms {
+    margin-top: 0.5rem;
   }
 
   .row {
@@ -230,5 +255,16 @@ select.input {
     position: static;
     margin-top: calc(var(--gap) * 3);
     width: 100%;
+  }
+}
+
+/* phones: full-width text, no dead air under the footer (dynamic toolbars) */
+@media (max-width: 640px) {
+  .infoBlock {
+    width: 100%;
+  }
+
+  .contact {
+    padding-bottom: 0.75rem;
   }
 }

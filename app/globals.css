@@ -63,6 +63,15 @@
   }
 }
 
+/* phones: tighter margins, calmer rhythm */
+@media (max-width: 640px) {
+  :root {
+    --gutter: 1.25rem;
+    --sect-gap: 2rem;
+    --space-section: 4.5rem;
+  }
+}
+
 /* == base ================================================================== */
 
 *,

@@ -19,13 +19,18 @@ export default function RevealManager() {
       }
     };
 
+    // phones reveal sooner — less viewport to work with
+    const mobile = window.matchMedia("(max-width: 640px)").matches;
     const io = new IntersectionObserver(
       (entries) => onEnter(io)(entries),
-      { threshold: 0.2, rootMargin: "0px 0px -18% 0px" }
+      {
+        threshold: mobile ? 0.12 : 0.2,
+        rootMargin: mobile ? "0px 0px -6% 0px" : "0px 0px -18% 0px",
+      }
     );
     const ioLate = new IntersectionObserver(
       (entries) => onEnter(ioLate)(entries),
-      { threshold: 0, rootMargin: "0px 0px -50% 0px" }
+      { threshold: 0, rootMargin: mobile ? "0px 0px -28% 0px" : "0px 0px -50% 0px" }
     );
 
     const observe = (el) => {
