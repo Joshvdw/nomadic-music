@@ -31,7 +31,7 @@ export default function Live() {
         -1,
         Math.min(1, (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2))
       );
-      cur += (-p * 60 - cur) * 0.08;
+      cur += (-p * 75 - cur) * 0.08;
       sets.style.transform = `translate3d(0, ${cur.toFixed(2)}px, 0)`;
       rafId = requestAnimationFrame(loop);
     };

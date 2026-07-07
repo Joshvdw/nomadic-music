@@ -42,7 +42,7 @@
   border: 1px solid var(--gold-10);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color 0.45s ease;
+  transition: border-color 0.5s var(--ease-out);
 }
 
 .artistCard:hover {
@@ -161,7 +161,7 @@
 
 .labelBody p {
   font-size: var(--fs-p-sm);
-  color: var(--ink-60);
+  color: var(--ink-80);
 }
 
 @media (max-width: 900px) {

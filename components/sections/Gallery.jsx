@@ -16,8 +16,6 @@ import styles from "./Gallery.module.css";
 
 const G = "/images/gallery";
 
-const DEPTHS = [1.12, 0.88, 1.16, 0.85, 1.1, 0.9, 1.14, 0.86, 1.08, 0.92];
-
 const GROUPS = [
   {
     w: 43.9,
@@ -103,18 +101,11 @@ export default function Gallery() {
     const head = headRef.current;
     const cta = ctaRef.current;
     const fadeEls = fadeRef.current.querySelectorAll(`.${styles.group}`);
-    // per-tile depths: singles take the group depth; stacked pairs split it,
-    // the bottom tile mirroring the top so they drift at different timings
-    const tileEls = [];
-    fadeEls.forEach((group, gi) => {
-      const tiles = group.querySelectorAll(`.${styles.tile}`);
-      tiles.forEach((tile, ti) => {
-        const d = DEPTHS[gi % DEPTHS.length];
-        tileEls.push({ el: tile, depth: ti === 0 ? d : 2 - d });
-      });
-    });
     let active = false;
     let rafId = null;
+    // the track chases its scroll target with easing — the strip feels
+    // dragged rather than bolted to the scrollbar
+    let cur = 0;
 
     // the socials sidebar stays away for the entire gallery run
     const suppressIO = new IntersectionObserver(
@@ -135,18 +126,16 @@ export default function Gallery() {
         head.style.opacity = "";
         cta.style.opacity = "";
         fadeEls.forEach((el) => (el.style.opacity = ""));
-        tileEls.forEach(({ el }) => (el.style.transform = ""));
         return;
       }
       active = true;
       const dwell = Math.round(window.innerHeight * 0.35);
       pin.style.height = `${overflow() + window.innerHeight + dwell}px`;
       pin.dataset.dwell = dwell;
-      update();
     };
 
-    const update = () => {
-      rafId = null;
+    const loop = () => {
+      rafId = requestAnimationFrame(loop);
       if (!active) return;
       const rect = pin.getBoundingClientRect();
       const dwell = parseInt(pin.dataset.dwell, 10) || 0;
@@ -154,7 +143,9 @@ export default function Gallery() {
       if (scrollable <= 0) return;
       const p = Math.max(0, Math.min(1, -rect.top / scrollable));
       const ox = overflow();
-      track.style.transform = `translate3d(${-p * ox}px, 0, 0)`;
+
+      cur += (-p * ox - cur) * 0.07;
+      track.style.transform = `translate3d(${cur.toFixed(1)}px, 0, 0)`;
 
       // archive title: hidden until horizontal scroll starts
       const titleIn = Math.min(1, p * 14);
@@ -168,28 +159,20 @@ export default function Gallery() {
 
       head.style.opacity = (titleIn * fade).toFixed(3);
       fadeEls.forEach((el) => (el.style.opacity = fade.toFixed(3)));
-      tileEls.forEach(({ el, depth }) => {
-        el.style.transform = `translate3d(${((1 - depth) * p * 1000).toFixed(1)}px, 0, 0)`;
-      });
       cta.style.opacity = (1 - fade).toFixed(3);
     };
 
-    const onScroll = () => {
-      if (active && rafId === null) rafId = requestAnimationFrame(update);
-    };
-
     measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    rafId = requestAnimationFrame(loop);
     window.addEventListener("resize", measure);
     desktop.addEventListener("change", measure);
     const t = setTimeout(measure, 500);
 
     return () => {
       clearTimeout(t);
-      if (rafId !== null) cancelAnimationFrame(rafId);
+      cancelAnimationFrame(rafId);
       suppressIO.disconnect();
       setChromeSuppressed(false);
-      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
       desktop.removeEventListener("change", measure);
     };

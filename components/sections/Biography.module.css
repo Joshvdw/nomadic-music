@@ -21,7 +21,9 @@
 }
 
 .image {
-  width: calc(var(--gutter) / var(--bio-align));
+  /* original pre-max-width geometry: uses the unclamped-at-1280 gutter so
+     the portrait keeps its native scale on large monitors */
+  width: calc(clamp(2rem, 12.5vw, 10rem) / var(--bio-align));
   min-width: min(100vw, 170vh);
   height: auto;
   max-width: none;
@@ -72,7 +74,7 @@
 
 .text p {
   font-size: 1rem;
-  color: var(--ink-60);
+  color: var(--ink-80);
 }
 
 .text p + p {

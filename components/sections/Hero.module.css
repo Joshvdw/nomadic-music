@@ -83,7 +83,7 @@
   min-width: 100%;
   margin-top: 0.5rem;
   font-size: var(--fs-p);
-  color: var(--ink-60);
+  color: var(--ink-80);
   opacity: 0;
   transform: translateY(24px);
   transition:
@@ -101,7 +101,8 @@
 
 .scrollHint {
   position: absolute;
-  left: 75%;
+  /* the grid line one column right of centre — directly below the ball */
+  left: calc(var(--gutter) + 4 * var(--col));
   bottom: 1.5rem;
   transform: translateX(-50%);
   z-index: 2;

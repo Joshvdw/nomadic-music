@@ -63,7 +63,7 @@
 
 .caption p {
   font-size: var(--fs-p-sm);
-  color: var(--ink-60);
+  color: var(--ink-80);
   max-width: 47ch;
 }
 
@@ -93,7 +93,7 @@
 
 .setsBlurb {
   font-size: var(--fs-p-sm);
-  color: var(--ink-60);
+  color: var(--ink-80);
 }
 
 /* crop the playlist iframe just below the SoundCloud footer icon */
