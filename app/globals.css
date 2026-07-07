@@ -61,6 +61,12 @@
   :root {
     --gutter: calc((100vw - 1280px) / 2);
   }
+
+  /* very large screens breathe enough already */
+  #streaming,
+  #live {
+    margin-top: var(--sect-gap);
+  }
 }
 
 /* phones: tighter margins, calmer rhythm */
@@ -122,10 +128,10 @@ video {
   margin-top: calc(1.3 * var(--sect-gap));
 }
 #streaming {
-  margin-top: var(--sect-gap);
+  margin-top: calc(2 * var(--sect-gap));
 }
 #live {
-  margin-top: var(--sect-gap);
+  margin-top: calc(2 * var(--sect-gap));
 }
 #gallery {
   margin-top: var(--sect-gap);

@@ -107,12 +107,14 @@
   }
 
   .image {
-    width: 100%;
+    /* larger crop — box extends ~30% past the right edge (section clips it),
+       anchored left so the lit strip + head scale up */
+    width: 130vw;
     min-width: 0;
-    height: 52vh;
+    height: 60vh;
+    max-width: none;
     object-fit: cover;
-    /* keep the lit strip + head in frame */
-    object-position: 18% 40%;
+    object-position: 0% 38%;
   }
 
   .copy {

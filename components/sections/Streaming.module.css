@@ -132,4 +132,8 @@
   .stat:nth-child(2) .statValue {
     font-size: 3.6rem;
   }
+
+  .stat:nth-child(2) .statLabel {
+    font-size: 1.05rem;
+  }
 }

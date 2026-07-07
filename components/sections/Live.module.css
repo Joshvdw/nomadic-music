@@ -134,6 +134,14 @@
   transform: translateX(4px);
 }
 
+/* very large screens: the column ends on the content margin like the rest */
+@media (min-width: 1600px) {
+  .live {
+    grid-template-columns: 1fr calc(2 * var(--col));
+    padding-right: var(--gutter);
+  }
+}
+
 @media (max-width: 900px) {
   .live {
     grid-template-columns: 1fr;
