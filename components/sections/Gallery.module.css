@@ -173,7 +173,7 @@
 
 .ctaHeading {
   font-size: clamp(2.2rem, 4.6vw, 3.6rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.08;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -249,10 +249,6 @@
   /* GALLERY hard left, ARCHIVE hard right */
   .heading {
     order: -1;
-  }
-
-  .headLine {
-    display: none;
   }
 
   /* dimmer captions over a heavier gradient */

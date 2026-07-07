@@ -156,6 +156,12 @@
 }
 
 @media (max-width: 640px) {
+  /* the baked ball sits ~60% across the frame — bias the crop so it lands
+     centre-screen on portrait phones (all layers share the same position) */
+  .bgImg {
+    object-position: 60.5% center;
+  }
+
   .title {
     font-size: clamp(2.75rem, 13vw, 3.5rem);
   }
@@ -170,6 +176,7 @@
   }
 
   .scrollHint {
+    left: 50%;
     bottom: 0.6rem;
   }
 

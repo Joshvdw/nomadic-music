@@ -210,11 +210,11 @@ select.input {
 
 .submit {
   align-self: flex-start;
-  padding: 0.75rem 1.9rem;
+  padding: 0.65rem 1.5rem;
   background: var(--gold);
   color: #14120c;
   border-radius: var(--radius);
-  font-size: var(--fs-p-sm);
+  font-size: var(--fs-p-tiny);
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
