@@ -57,7 +57,7 @@ export default function Services() {
           alt=""
           width={1074}
           height={92}
-          className="decal"
+          className={`decal ${styles.headerDecal}`}
         />
         <h2 className={styles.heading}>Also Available For</h2>
       </header>

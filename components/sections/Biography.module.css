@@ -48,6 +48,11 @@
   padding-top: 38vh;
 }
 
+.parallax {
+  width: fit-content;
+  will-change: transform;
+}
+
 .text {
   max-width: 52ch;
 }
@@ -78,6 +83,19 @@
 @media (max-width: 1300px) and (min-width: 901px) {
   .text {
     max-width: 38ch;
+  }
+}
+
+/* beyond the content max-width the gutter grows, so pin the portrait to its
+   1600px geometry and shift it with the content box instead */
+@media (min-width: 1600px) {
+  .imageWrap {
+    left: calc(var(--gutter) - 10rem);
+  }
+
+  .image {
+    width: 86.2rem; /* 10rem gutter / 0.116 alignment fraction */
+    min-width: 0;
   }
 }
 

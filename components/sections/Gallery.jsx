@@ -16,7 +16,7 @@ import styles from "./Gallery.module.css";
 
 const G = "/images/gallery";
 
-const DEPTHS = [1.05, 0.94, 1.09, 0.92, 1.06, 0.95, 1.08, 0.93, 1.04, 0.96];
+const DEPTHS = [1.12, 0.88, 1.16, 0.85, 1.1, 0.9, 1.14, 0.86, 1.08, 0.92];
 
 const GROUPS = [
   {
@@ -163,7 +163,7 @@ export default function Gallery() {
         el.style.opacity = fade.toFixed(3);
         // per-group parallax: deeper groups drift ahead, shallow ones lag
         const depth = DEPTHS[i % DEPTHS.length];
-        el.style.transform = `translate3d(${((1 - depth) * p * 460).toFixed(1)}px, 0, 0)`;
+        el.style.transform = `translate3d(${((1 - depth) * p * 1000).toFixed(1)}px, 0, 0)`;
       });
       cta.style.opacity = (1 - fade).toFixed(3);
     };

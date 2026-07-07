@@ -34,7 +34,9 @@
 
   /* -- layout geometry ------------------------------------------------------ */
   /* 8-column viewport grid: outer gutters are columns 1 & 8 (12.5vw each),
-     content spans the middle 6. */
+     content spans the middle 6. Content maxes out at its 1600px-viewport
+     width (1280px) — beyond that the gutters absorb the extra and the
+     content stays centred; full-bleed media keeps stretching. */
   --gutter: clamp(2rem, 12.5vw, 10rem);
   --col: calc((100vw - 2 * var(--gutter)) / 6);
   --gap: 1rem;
@@ -53,6 +55,12 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
   --grain-opacity: 0.05;
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --gutter: calc((100vw - 1280px) / 2);
+  }
 }
 
 /* == base ================================================================== */
@@ -89,13 +97,13 @@ video {
    hero→bio 3×, cta→live 2×, live→gallery 1×, bandcamp→services 1×,
    everything else touches. */
 #bio {
-  margin-top: calc(2.25 * var(--sect-gap));
+  margin-top: calc(1.7 * var(--sect-gap));
 }
 #streaming {
   margin-top: var(--sect-gap);
 }
 #live {
-  margin-top: calc(2 * var(--sect-gap));
+  margin-top: calc(2.5 * var(--sect-gap));
 }
 #gallery {
   margin-top: var(--sect-gap);

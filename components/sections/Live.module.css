@@ -71,7 +71,8 @@
   position: relative;
   display: flex;
   align-items: flex-start;
-  padding-block: clamp(4rem, 10vh, 7rem);
+  padding-top: clamp(2.5rem, 6vh, 4rem);
+  padding-bottom: clamp(4rem, 10vh, 7rem);
 }
 
 .setsInner {
@@ -94,9 +95,12 @@
   color: var(--ink-80);
 }
 
+/* crop the playlist iframe just below the SoundCloud footer icon */
 .embed {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   border-radius: var(--radius);
+  height: 340px;
+  overflow: hidden;
 }
 
 /* pinned to the same baseline as the caption in the video column */

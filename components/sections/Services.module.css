@@ -6,7 +6,12 @@
 
 .header {
   text-align: center;
-  margin-bottom: calc(var(--gap) * 3.5);
+  margin-bottom: calc(var(--gap) * 2);
+}
+
+/* section-title ornament, same scale as the Collaborations one */
+.headerDecal {
+  width: min(24rem, 56vw);
 }
 
 .heading {
@@ -52,6 +57,7 @@
 
 .cardArtImg {
   object-fit: cover;
+  filter: grayscale(1);
 }
 
 .cardArt::after {

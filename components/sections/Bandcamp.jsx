@@ -1,4 +1,6 @@
 import LazyEmbed from "@/components/LazyEmbed";
+import { LINKS } from "@/lib/site";
+import { ArrowRightIcon } from "@/components/Icons";
 import styles from "./Bandcamp.module.css";
 
 // "Buy my music" marquee — two auto-sliding strips of Bandcamp players
@@ -40,8 +42,19 @@ export default function Bandcamp() {
   return (
     <section className={styles.bandcamp} aria-label="Buy the music on Bandcamp">
       <header className={`${styles.header} container`} data-reveal>
-        <p className="eyebrow">On Bandcamp</p>
-        <h2 className={styles.heading}>Buy My Music</h2>
+        <div>
+          <p className={`eyebrow ${styles.sub}`}>Bandcamp</p>
+          <h2 className={styles.heading}>Buy My Music</h2>
+        </div>
+        <a
+          className={styles.bcLink}
+          href={LINKS.bandcamp}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Bandcamp
+          <ArrowRightIcon className={styles.bcArrow} />
+        </a>
       </header>
 
       <div className={styles.rows} data-reveal>
