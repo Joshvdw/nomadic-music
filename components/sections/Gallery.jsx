@@ -144,7 +144,7 @@ export default function Gallery() {
       const p = Math.max(0, Math.min(1, -rect.top / scrollable));
       const ox = overflow();
 
-      cur += (-p * ox - cur) * 0.07;
+      cur += (-p * ox - cur) * 0.035;
       track.style.transform = `translate3d(${cur.toFixed(1)}px, 0, 0)`;
 
       // archive title: hidden until horizontal scroll starts

@@ -11,12 +11,11 @@
 
 /* section-title ornament, same scale as the Collaborations one */
 .headerDecal {
-  width: min(19rem, 48vw);
+  width: min(24rem, 56vw);
 }
 
 .heading {
   margin-top: 0.75rem;
-  font-size: var(--fs-h3);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }

@@ -103,7 +103,7 @@ video {
   margin-top: var(--sect-gap);
 }
 #live {
-  margin-top: calc(2.5 * var(--sect-gap));
+  margin-top: calc(3 * var(--sect-gap));
 }
 #gallery {
   margin-top: var(--sect-gap);
