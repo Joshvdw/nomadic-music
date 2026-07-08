@@ -145,6 +145,22 @@ export default function Gallery() {
   const headRef = useRef(null);
   const ctaRef = useRef(null);
   const fadeRef = useRef(null);
+  const hintRef = useRef(null);
+
+  // mobile: fade the swipe hint out once the strip is actually swiped
+  useEffect(() => {
+    const wrap = fadeRef.current;
+    const hint = hintRef.current;
+    if (!wrap || !hint) return;
+    const onScroll = () => {
+      if (wrap.scrollLeft > 24) {
+        hint.style.opacity = "0";
+        wrap.removeEventListener("scroll", onScroll);
+      }
+    };
+    wrap.addEventListener("scroll", onScroll, { passive: true });
+    return () => wrap.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const desktop = window.matchMedia(
@@ -280,7 +296,7 @@ export default function Gallery() {
             </div>
           </div>
 
-          <p className={styles.swipeHint} aria-hidden="true">
+          <p ref={hintRef} className={styles.swipeHint} aria-hidden="true">
             Swipe
           </p>
         </div>

@@ -205,3 +205,10 @@
     font-size: var(--fs-p);
   }
 }
+
+/* -- mobile: heading fits one line at 320px -- */
+@media (max-width: 640px) {
+  .heading {
+    letter-spacing: 0.03em;
+  }
+}

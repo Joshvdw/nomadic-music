@@ -75,6 +75,9 @@
     --gutter: 1.25rem;
     --sect-gap: 2rem;
     --space-section: 4.5rem;
+    /* headings scale up with the phone but cap where the longest single-word
+       title (COLLABORATIONS) still fits one line at 320px */
+    --fs-h2: clamp(1.7rem, 0.55rem + 5.6vw, 2.2rem);
   }
 
   #collabs {
@@ -423,5 +426,21 @@ html {
 @media (min-width: 641px) and (max-width: 1024px) {
   #streaming {
     margin-top: var(--sect-gap);
+  }
+}
+
+/* 4K+: wider content column and a scaled-up type ramp */
+@media (min-width: 2400px) {
+  :root {
+    --gutter: calc((100vw - 1680px) / 2);
+    --fs-h1: 5.75rem;
+    --fs-h2: 3.75rem;
+    --fs-h3: 2.5rem;
+    --fs-h4: 1.85rem;
+    --fs-card-lg: 1.85rem;
+    --fs-card-sm: 1.55rem;
+    --fs-p: 1.2rem;
+    --fs-p-sm: 1.05rem;
+    --fs-p-tiny: 0.9rem;
   }
 }
