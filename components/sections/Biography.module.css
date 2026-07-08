@@ -107,12 +107,13 @@
   }
 
   .image {
-    /* larger crop — box extends ~30% past the right edge (section clips it),
-       anchored left so the lit strip + head scale up */
-    width: 130vw;
+    /* larger crop (≈25% bigger), shifted ~25% of the frame left so the
+       subject stays framed; section overflow clips the sides */
+    width: 162vw;
     min-width: 0;
-    height: 60vh;
+    height: 62vh;
     max-width: none;
+    margin-left: -24vw;
     object-fit: cover;
     object-position: 0% 38%;
   }

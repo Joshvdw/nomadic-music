@@ -2,9 +2,16 @@
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: center;
-  padding-block: var(--space-section);
+  flex-direction: column;
+  padding-top: var(--space-section);
   background: var(--bg);
+}
+
+/* content centres in the space above the footer (bandcamp) block, so it's
+   equidistant from the top of the viewport and the top of the footer */
+.columns {
+  flex: 1;
+  align-content: center;
 }
 
 /* two halves of the content width — the form matches the 3-column
@@ -227,21 +234,18 @@ select.input {
   }
 }
 
-/* footer rides the bottom edge of the viewport frame */
+/* footer (bandcamp marquee + rule) sits at the bottom, in flow */
 .footerSlot {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  margin-top: var(--space-section);
 }
 
 @media (max-width: 900px) {
   .contact {
-    flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .columns {
+    flex: initial;
     grid-template-areas:
       "info"
       "form"
@@ -256,7 +260,9 @@ select.input {
     margin-bottom: 0;
   }
 
+  /* extra breathing room between Send Message and the email copy button */
   .emailBox {
+    margin-top: 1.25rem;
     margin-bottom: 0;
   }
 

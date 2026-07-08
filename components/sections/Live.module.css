@@ -72,7 +72,7 @@
   z-index: 4; /* above the section's top fade gradient */
   display: flex;
   align-items: flex-start;
-  padding-top: clamp(2.5rem, 6vh, 4rem);
+  padding-top: clamp(5rem, 12vh, 9rem);
   padding-bottom: clamp(4rem, 10vh, 7rem);
 }
 
@@ -142,7 +142,14 @@
   }
 
   .setsCol {
-    padding-top: 7.5rem;
+    padding-top: 11rem;
+  }
+}
+
+/* 4K+: DJ sets sits much further down its column */
+@media (min-width: 2400px) {
+  .setsCol {
+    padding-top: 20rem;
   }
 }
 
@@ -156,16 +163,19 @@
     min-height: 62vh;
   }
 
+  /* tucked to the bottom of the video, a sliver of footage below it */
   .caption {
     left: var(--gutter);
     right: var(--gutter);
+    bottom: 1.25rem;
   }
 
   .setsCol {
     flex-direction: column;
     align-items: stretch;
     padding-inline: var(--gutter);
-    padding-block: var(--space-section);
+    padding-top: var(--space-section);
+    padding-bottom: calc(var(--space-section) * 1.4);
   }
 
   .setsInner {
@@ -181,9 +191,9 @@
 }
 
 @media (max-width: 640px) {
+  /* player first, still cropped just below the SoundCloud footer icon */
   .embed {
     order: -1;
-    height: auto;
   }
 
   .scLink {

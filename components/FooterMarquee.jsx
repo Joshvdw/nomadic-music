@@ -32,7 +32,7 @@ export default function FooterMarquee() {
                   <LazyEmbed
                     src={r.src}
                     title={`${r.title} by Nomadic — Bandcamp player`}
-                    height={140}
+                    height={172}
                     radius={4}
                     rootMargin="200% 0px 200% 0px"
                   />
