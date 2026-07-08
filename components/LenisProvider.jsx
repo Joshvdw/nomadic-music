@@ -8,6 +8,13 @@ import Lenis from "lenis";
 // shared on window for anchor navigation (nav links).
 export default function LenisProvider({ children }) {
   useEffect(() => {
+    // Always land at the top on refresh unless the URL targets a section —
+    // the browser's scroll restoration would otherwise drop you mid-page.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    if (!window.location.hash) window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const lenis = new Lenis({

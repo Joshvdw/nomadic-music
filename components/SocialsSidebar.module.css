@@ -72,7 +72,8 @@
   transform: translateY(-50%) translateX(0);
 }
 
-@media (max-width: 640px) {
+/* tablet + phones: the fullscreen menu carries the socials instead */
+@media (max-width: 1024px) {
   .sidebar {
     display: none;
   }

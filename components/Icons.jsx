@@ -156,6 +156,25 @@ export function MetronomeIcon(props) {
   );
 }
 
+// graduation / academy cap — used for Private Tutoring
+export function GradCapIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 4 1.5 9 12 14l10.5-5L12 4Z" />
+      <path d="M6 11.2v4.6c0 1.4 2.7 2.7 6 2.7s6-1.3 6-2.7v-4.6" />
+      <path d="M22.5 9v4.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function BezierIcon(props) {
   return (
     <svg

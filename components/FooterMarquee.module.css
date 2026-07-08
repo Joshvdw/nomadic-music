@@ -1,13 +1,44 @@
+.wrap {
+  margin-bottom: 1.4rem;
+}
+
+/* mirrors the SoundCloud / Bandcamp section links */
+.header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.1rem;
+  font-size: var(--fs-p-tiny);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  transition: color 0.3s ease;
+}
+
+.header:hover {
+  color: var(--gold);
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.header:hover .arrow {
+  transform: translateX(4px);
+}
+
 .marquee {
   position: relative;
   overflow: hidden;
-  margin-bottom: 1.4rem;
 }
 
 .track {
   display: flex;
   width: max-content;
-  animation: footer-marquee 60s linear infinite;
+  animation: footer-marquee 90s linear infinite;
 }
 
 @media (hover: hover) {
@@ -33,7 +64,7 @@
 }
 
 .tile {
-  width: 104px;
+  width: 140px;
   flex: 0 0 auto;
 }
 
@@ -43,7 +74,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 14%;
+  width: 12%;
   z-index: 2;
   pointer-events: none;
 }

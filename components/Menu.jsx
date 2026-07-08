@@ -1,26 +1,47 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { setChromePinned } from "@/lib/useScrollState";
+import useScrollState, { setChromePinned } from "@/lib/useScrollState";
+import { LINKS, EMAIL } from "@/lib/site";
+import {
+  SpotifyIcon,
+  BandcampIcon,
+  SoundCloudIcon,
+  InstagramIcon,
+  MailIcon,
+} from "./Icons";
 import styles from "./Menu.module.css";
 
 const ITEMS = [
+  { id: "top", label: "Home" },
   { id: "bio", label: "Bio" },
   { id: "streaming", label: "Streaming" },
-  { id: "live", label: "Live" },
+  { id: "live", label: "Nomadic Live" },
   { id: "gallery", label: "Gallery" },
   { id: "services", label: "Services" },
-  { id: "collabs", label: "Collabs" },
+  { id: "collabs", label: "Collaborations" },
   { id: "contact", label: "Contact" },
 ];
 
-// Menu trigger + panel. The trigger is a cluster of four diamonds (echoing
-// the ornament decals) that crossfades into an ✕ when open. Desktop gets a
-// compact panel unfolding from the corner; phones get a fullscreen nav.
+const SOCIALS = [
+  { label: "Spotify", href: LINKS.spotify, Icon: SpotifyIcon },
+  { label: "Bandcamp", href: LINKS.bandcamp, Icon: BandcampIcon },
+  { label: "SoundCloud", href: LINKS.soundcloud, Icon: SoundCloudIcon },
+  { label: "Instagram", href: LINKS.instagram, Icon: InstagramIcon },
+  { label: "Email", href: `mailto:${EMAIL}`, Icon: MailIcon },
+];
+
+// Menu trigger + panel. Two hairlines fold into an ✕; the panel unfolds from
+// the corner on desktop and goes fullscreen on phones (with a socials row).
+// The trigger hides over the hero / gallery / footer, matching the sidebar.
 export default function Menu() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(null);
+  const { atTop, atBottom, suppressed } = useScrollState();
+  const rootRef = useRef(null);
   const unpinTimer = useRef(null);
+
+  const chromeHidden = atTop || atBottom || suppressed;
 
   // a section reads as active once it fills most of the viewport
   useEffect(() => {
@@ -39,17 +60,25 @@ export default function Menu() {
     return () => io.disconnect();
   }, []);
 
-  // lock the page while open; Escape closes
+  // lock the page while open; Escape + outside-click close
   useEffect(() => {
     const lenis = window.__lenis;
     if (open) lenis?.stop();
     else lenis?.start();
+
     const onKey = (e) => {
       if (e.key === "Escape") setOpen(false);
     };
+    const onPointer = (e) => {
+      if (open && rootRef.current && !rootRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
     window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onPointer);
     return () => {
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onPointer);
       lenis?.start();
     };
   }, [open]);
@@ -63,6 +92,12 @@ export default function Menu() {
     clearTimeout(unpinTimer.current);
     const unpin = () => setChromePinned(false);
     const lenis = window.__lenis;
+    if (id === "top") {
+      lenis?.start();
+      lenis ? lenis.scrollTo(0, { onComplete: unpin }) : window.scrollTo(0, 0);
+      unpinTimer.current = setTimeout(unpin, 4000);
+      return;
+    }
     if (lenis) {
       lenis.start();
       lenis.scrollTo(`#${id}`, { onComplete: unpin });
@@ -74,7 +109,12 @@ export default function Menu() {
   };
 
   return (
-    <div className={`${styles.menu} ${open ? styles.open : ""}`}>
+    <div
+      ref={rootRef}
+      className={`${styles.menu} ${open ? styles.open : ""} ${
+        chromeHidden && !open ? styles.chromeHidden : ""
+      }`}
+    >
       <button
         type="button"
         className={styles.trigger}
@@ -94,24 +134,36 @@ export default function Menu() {
           {ITEMS.map(({ id, label }, i) => {
             const isActive = active === id;
             return (
-              <li
-                key={id}
-                className={styles.item}
-                style={{ "--i": i }}
-              >
+              <li key={id} className={styles.item} style={{ "--i": i }}>
                 <a
-                  href={`#${id}`}
+                  href={id === "top" ? "#" : `#${id}`}
                   className={`${styles.link} ${isActive ? styles.active : ""}`}
                   aria-current={isActive ? "true" : undefined}
                   onClick={(e) => go(e, id)}
                   tabIndex={open ? undefined : -1}
                 >
-                  <span className={styles.dot} aria-hidden="true" />
                   {label}
                 </a>
               </li>
             );
           })}
+        </ul>
+
+        <ul className={styles.socials}>
+          {SOCIALS.map(({ label, href, Icon }) => (
+            <li key={label}>
+              <a
+                className={styles.social}
+                href={href}
+                target={href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                aria-label={label}
+                tabIndex={open ? undefined : -1}
+              >
+                <Icon className={styles.socialIcon} />
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </div>

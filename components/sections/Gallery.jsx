@@ -16,6 +16,10 @@ import styles from "./Gallery.module.css";
 
 const G = "/images/gallery";
 
+// Bento columns: each group is 1–2 stacked tiles at their natural ratios
+// (--ar), and `w` (vh) is precomputed so every column totals ~66vh tall —
+// singles, stacked pairs, tall posters and the square shot all line up.
+// Mix of portrait, landscape, square and poster keeps the rhythm varied.
 const GROUPS = [
   {
     w: 43.9,
@@ -31,10 +35,9 @@ const GROUPS = [
     ],
   },
   {
-    w: 30.4,
+    w: 67.7,
     tiles: [
-      { src: `${G}/roots-and-rhythms-poster.png`, ar: "2500 / 1768", cap: "Roots & Rhythms — Tākaka", alt: "Roots and Rhythms event poster" },
-      { src: `${G}/roots-bar-rave-poster.jpg`, ar: "2480 / 3508", cap: "Roots Bar Rave", alt: "Roots Bar Rave event poster" },
+      { src: `${G}/relish-festival.jpg`, ar: "3517 / 3428", cap: "Relish Festival", alt: "Nomadic behind the decks at Relish Festival" },
     ],
   },
   {
@@ -44,17 +47,10 @@ const GROUPS = [
     ],
   },
   {
-    w: 33,
+    w: 32.9,
     tiles: [
-      { src: `${G}/luminate-programme.jpg`, ar: "1236 / 864", cap: "Luminate — programme", alt: "Luminate Festival programme booklet featuring Nomadic" },
       { src: `${G}/relish-festival-poster.jpg`, ar: "1440 / 1800", cap: "Relish Festival — lineup", alt: "Relish Festival lineup poster" },
-    ],
-  },
-  {
-    w: 43.6,
-    tiles: [
-      { src: `${G}/festival-stage.jpg`, ar: "2655 / 2046", cap: "In the field", alt: "Festival stage and crowd at dusk" },
-      { src: `${G}/badgernomics-poster.jpg`, ar: "3508 / 2480", cap: "Badgernomics — Laundry Bar", alt: "Badgernomics Presents event poster" },
+      { src: `${G}/roots-and-rhythms-poster.png`, ar: "2500 / 1768", cap: "Roots & Rhythms — Tākaka", alt: "Roots and Rhythms event poster" },
     ],
   },
   {
@@ -64,23 +60,50 @@ const GROUPS = [
     ],
   },
   {
-    w: 53.3,
+    w: 55.2,
     tiles: [
-      { src: `${G}/boogie-house-poster.jpg`, ar: "1920 / 1357", cap: "Boogie House — Laundry Bar", alt: "Boogie House event poster" },
       { src: `${G}/luminate-artist-page.jpg`, ar: "2832 / 1422", cap: "Luminate — artist page", alt: "Nomadic's artist page on the Luminate Festival website" },
+      { src: `${G}/relish-festival-live-4.jpg`, ar: "2048 / 1363", cap: "Relish Festival — after dark", alt: "Nomadic behind the decks at Relish Festival at night" },
+    ],
+  },
+  {
+    w: 47.2,
+    tiles: [
+      { src: `${G}/dj-set-closeup.jpg`, ar: "2048 / 1365", cap: "Behind the decks", alt: "Close-up of Nomadic mixing at the decks" },
+      { src: `${G}/luminate-programme.jpg`, ar: "1236 / 864", cap: "Luminate — programme", alt: "Luminate Festival programme booklet featuring Nomadic" },
+    ],
+  },
+  {
+    w: 35.3,
+    tiles: [
+      { src: `${G}/newtown-social-club.JPG`, ar: "750 / 870", cap: "Newtown Social Club", alt: "Nomadic performing at Newtown Social Club" },
+      { src: `${G}/relish-festival-live-2.jpg`, ar: "2048 / 1363", cap: "Relish Festival — crowd", alt: "Crowd dancing to Nomadic at Relish Festival" },
+    ],
+  },
+  {
+    w: 46.7,
+    tiles: [
+      { src: `${G}/roots-bar-rave-poster.jpg`, ar: "2480 / 3508", cap: "Roots Bar Rave", alt: "Roots Bar Rave event poster" },
+    ],
+  },
+  {
+    w: 45.6,
+    tiles: [
+      { src: `${G}/badgernomics-poster.jpg`, ar: "3508 / 2480", cap: "Badgernomics — Laundry Bar", alt: "Badgernomics Presents event poster" },
+      { src: `${G}/boogie-house-poster.jpg`, ar: "1920 / 1357", cap: "Boogie House — Laundry Bar", alt: "Boogie House event poster" },
+    ],
+  },
+  {
+    w: 22.1,
+    tiles: [
+      { src: `${G}/double-bill-poster.png`, ar: "2480 / 3508", cap: "Double bill — Laundry Bar", alt: "Double-bill event poster, Laundry Bar" },
+      { src: `${G}/relish-festival-live-3.jpg`, ar: "1363 / 2048", cap: "Relish Festival — night", alt: "Nomadic performing at Relish Festival after dark" },
     ],
   },
   {
     w: 46.7,
     tiles: [
       { src: `${G}/spirit-level-release-poster.jpg`, ar: "2480 / 3508", cap: "Spirit Level — release party", alt: "Spirit Level album release party poster" },
-    ],
-  },
-  {
-    w: 31,
-    tiles: [
-      { src: `${G}/double-bill-poster.png`, ar: "2480 / 3508", cap: "Double bill — Laundry Bar", alt: "Double-bill event poster, Laundry Bar" },
-      { src: `${G}/relish-festival-live-2.jpg`, ar: "2048 / 1363", cap: "Relish Festival — after dark", alt: "Nomadic behind the decks at Relish Festival at night" },
     ],
   },
 ];
