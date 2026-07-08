@@ -4,7 +4,6 @@ import Hero from "@/components/sections/Hero";
 import Biography from "@/components/sections/Biography";
 import Streaming from "@/components/sections/Streaming";
 import Collabs from "@/components/sections/Collabs";
-import CollabCta from "@/components/sections/CollabCta";
 import Live from "@/components/sections/Live";
 import Gallery from "@/components/sections/Gallery";
 import Services from "@/components/sections/Services";
@@ -23,7 +22,6 @@ export default function Home() {
         <Gallery />
         <Services />
         <Collabs />
-        <CollabCta />
         <Contact />
       </main>
     </>

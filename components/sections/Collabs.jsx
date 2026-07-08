@@ -1,168 +1,162 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+// Collaborations — redesigned. To revert to the previous 4-up + 2-up grid,
+// swap the import in app/page.js to `CollabsLegacy` (kept alongside).
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import { TRACKS } from "@/lib/site";
 import LazyEmbed from "@/components/LazyEmbed";
+import CollabCta from "./CollabCta";
 import styles from "./Collabs.module.css";
 
 const ARTISTS = [
-  {
-    key: "skysia",
-    name: "Skysia",
-    track: "Lost Dreams (Skysia Remix)",
-    image: "/images/collabs/skysia.jpg",
-    alt: "Skysia DJing to a festival crowd in daylight",
-  },
-  {
-    key: "ayla",
-    name: "Ayla Nereo",
-    track: "O Come Ye (Nomadic Remix)",
-    image: "/images/collabs/ayla.jpg",
-    alt: "Ayla Nereo singing on stage under purple lights",
-  },
-  {
-    key: "yamenjo",
-    name: "Yamenjo",
-    track: "Taita Inti (Nomadic Remix)",
-    image: "/images/collabs/yamenjo.jpg",
-    alt: "Yamenjo duo performing with live instruments and decks",
-  },
-  {
-    key: "scott",
-    name: "Scott Nice",
-    track: "Sparkle Adeline (Nomadic Remix)",
-    image: "/images/collabs/scott.jpg",
-    alt: "Scott Nice performing behind ornate stage design in red light",
-  },
+  { key: "skysia", name: "Skysia", track: "Lost Dreams (Skysia Remix)", image: "/images/collabs/skysia.jpg", alt: "Skysia" },
+  { key: "ayla", name: "Ayla Nereo", track: "O Come Ye (Nomadic Remix)", image: "/images/collabs/ayla.jpg", alt: "Ayla Nereo" },
+  { key: "yamenjo", name: "Yamenjo", track: "Taita Inti (Nomadic Remix)", image: "/images/collabs/yamenjo.jpg", alt: "Yamenjo" },
+  { key: "scott", name: "Scott Nice", track: "Sparkle Adeline (Nomadic Remix)", image: "/images/collabs/scott.jpg", alt: "Scott Nice" },
 ];
 
 const LABELS = [
   {
     name: "Jumpsuit Records",
     image: "/images/collabs/jumpsuit-records.jpg",
-    alt: "Jumpsuit Records logo over a misty forest",
+    alt: "Jumpsuit Records logo",
     body: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?”",
   },
   {
     name: "High Vibe Records",
     image: "/images/collabs/high-vibe.jpg",
-    alt: "High Vibe Records artwork — mirrored mountain rising into clouds",
+    alt: "High Vibe Records artwork",
     body: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?”",
   },
 ];
 
+// One card per view; swipe on touch, arrows / dots to click through.
+function Carousel({ items, renderItem, label }) {
+  const trackRef = useRef(null);
+  const [idx, setIdx] = useState(0);
+
+  const goto = useCallback(
+    (i) => {
+      const track = trackRef.current;
+      if (!track) return;
+      const clamped = (i + items.length) % items.length;
+      track.scrollTo({ left: track.clientWidth * clamped, behavior: "smooth" });
+    },
+    [items.length]
+  );
+
+  const onScroll = () => {
+    const track = trackRef.current;
+    if (track) setIdx(Math.round(track.scrollLeft / track.clientWidth));
+  };
+
+  return (
+    <div className={styles.carousel} aria-roledescription="carousel" aria-label={label}>
+      <div ref={trackRef} className={styles.carTrack} onScroll={onScroll}>
+        {items.map((it, i) => (
+          <div key={i} className={styles.slide}>
+            {renderItem(it)}
+          </div>
+        ))}
+      </div>
+
+      {items.length > 1 && (
+        <div className={styles.carNav}>
+          <button
+            type="button"
+            className={styles.arrow}
+            onClick={() => goto(idx - 1)}
+            aria-label="Previous"
+          >
+            ‹
+          </button>
+          <div className={styles.dots}>
+            {items.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`${styles.dot} ${i === idx ? styles.dotActive : ""}`}
+                onClick={() => goto(i)}
+                aria-label={`Go to ${i + 1}`}
+                aria-current={i === idx ? "true" : undefined}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className={styles.arrow}
+            onClick={() => goto(idx + 1)}
+            aria-label="Next"
+          >
+            ›
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ArtistCard({ it }) {
+  return (
+    <article className={`${styles.card} ${styles.artistCard}`}>
+      <div className={styles.cardImg}>
+        <Image src={it.image} alt={it.alt} fill sizes="18vw" className={styles.img} />
+      </div>
+      <div className={styles.cardBody}>
+        <div className={styles.cardMeta}>
+          <h3 className={styles.cardName}>{it.name}</h3>
+          <p className={styles.cardTrack}>{it.track}</p>
+        </div>
+        <div className={styles.cardEmbed}>
+          <LazyEmbed
+            src={TRACKS[it.key].embed}
+            title={`${it.name} — ${it.track} — Spotify player`}
+            height={80}
+            radius={4}
+          />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function LabelCard({ it }) {
+  return (
+    <article className={`${styles.card} ${styles.labelCard}`}>
+      <div className={styles.cardImg}>
+        <Image src={it.image} alt={it.alt} fill sizes="18vw" className={styles.img} />
+      </div>
+      <div className={styles.cardBody}>
+        <h3 className={styles.cardName}>{it.name}</h3>
+        <p className={styles.cardText}>{it.body}</p>
+      </div>
+    </article>
+  );
+}
+
 export default function Collabs() {
-  const artistsRef = useRef(null);
-  const labelsRef = useRef(null);
-
-  // Phones: turn both card rows into seamless infinite loops. A cloned set
-  // sits on each side of the originals (iframes stripped from clones); when
-  // the scroll position drifts past half a period either way it jumps by
-  // exactly one period — imperceptible, and swiping works in both
-  // directions from the start.
-  useEffect(() => {
-    if (!window.matchMedia("(max-width: 640px)").matches) return;
-
-    const cleanups = [artistsRef.current, labelsRef.current].map((list) => {
-      if (!list) return () => {};
-      const originals = [...list.children];
-      const makeClone = (node) => {
-        const c = node.cloneNode(true);
-        c.setAttribute("aria-hidden", "true");
-        c.querySelectorAll("iframe").forEach((f) => f.remove());
-        return c;
-      };
-      originals.forEach((n) => list.appendChild(makeClone(n)));
-      [...originals]
-        .reverse()
-        .forEach((n) => list.insertBefore(makeClone(n), list.firstChild));
-
-      // exact pitch of one card set (offset between the clone set and the
-      // originals) — jumps stay snap-aligned, so no skipped cards
-      const period =
-        list.children[originals.length].offsetLeft - list.children[0].offsetLeft;
-      list.scrollLeft = period;
-
-      const onScroll = () => {
-        if (list.scrollLeft < period * 0.5) list.scrollLeft += period;
-        else if (list.scrollLeft > period * 2) list.scrollLeft -= period;
-      };
-      list.addEventListener("scroll", onScroll, { passive: true });
-      return () => list.removeEventListener("scroll", onScroll);
-    });
-
-    return () => cleanups.forEach((fn) => fn());
-  }, []);
-
   return (
     <section id="collabs" className={`${styles.collabs} container`} aria-label="Collaborations">
       <header className={styles.header} data-reveal>
-        <Image
-          src="/images/decals/collabs.png"
-          alt=""
-          width={1026}
-          height={124}
-          className={`decal ${styles.headerDecal}`}
-        />
+        <p className={`eyebrow ${styles.sub}`}>Artist and Label</p>
         <h2 className={styles.heading}>Collaborations</h2>
       </header>
 
-      <ul ref={artistsRef} className={styles.artistGrid} data-reveal="cascade">
-        {ARTISTS.map(({ key, name, track, image, alt }) => (
-          <li key={key} className={styles.artistCard}>
-            <div className={styles.artistImageWrap}>
-              <Image
-                src={image}
-                alt={alt}
-                fill
-                sizes="(max-width: 640px) 92vw, (max-width: 1490px) 46vw, 20vw"
-                className={styles.artistImage}
-              />
-              <div className={styles.artistMeta}>
-                <span className={styles.artistName}>{name}</span>
-                <span className={styles.artistTrack}>{track}</span>
-              </div>
-            </div>
-            <div className={styles.cardEmbed}>
-              <LazyEmbed
-                src={TRACKS[key].embed}
-                title={`${name} — ${track} — Spotify player`}
-                height={80}
-                radius={0}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className={styles.columns} data-reveal>
+        <div className={styles.column}>
+          <span className={styles.colLabel}>Artists</span>
+          <Carousel items={ARTISTS} label="Artist collaborations" renderItem={(it) => <ArtistCard it={it} />} />
+        </div>
+        <div className={styles.column}>
+          <span className={styles.colLabel}>Labels</span>
+          <Carousel items={LABELS} label="Record labels" renderItem={(it) => <LabelCard it={it} />} />
+        </div>
+      </div>
 
-      <p className={styles.swipeHint} aria-hidden="true">
-        Swipe
-      </p>
-
-      <ul ref={labelsRef} className={styles.labelGrid} data-reveal="cascade">
-        {LABELS.map(({ name, image, alt, body }) => (
-          <li key={name} className={styles.labelCard}>
-            <div className={styles.labelImageWrap}>
-              <Image
-                src={image}
-                alt={alt}
-                fill
-                sizes="(max-width: 900px) 92vw, 18vw"
-                className={styles.labelImage}
-              />
-            </div>
-            <div className={styles.labelBody}>
-              <h3 className={styles.labelName}>{name}</h3>
-              <p>{body}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <p className={styles.swipeHint} aria-hidden="true">
-        Swipe
-      </p>
+      <div className={styles.ctaRow}>
+        <CollabCta compact />
+      </div>
     </section>
   );
 }

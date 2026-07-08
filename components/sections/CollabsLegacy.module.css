@@ -1,0 +1,279 @@
+.collabs {
+  min-height: 100svh;
+  padding-top: calc(var(--space-section) * 0.45);
+  padding-bottom: var(--space-section);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: calc(var(--gap) * 2);
+}
+
+/* section-title ornament, slightly smaller than the global decal */
+.headerDecal {
+  width: min(24rem, 56vw);
+}
+
+.heading {
+  margin-top: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* -- artist cards (cascade reveal, display only) ----------------------------- */
+
+.artistGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 1490px) {
+  .artistGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.artistCard {
+  position: relative;
+  background: var(--bg-3);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* border lives on an overlay: the card itself carries the cascade-reveal
+   transition, so a border transition there would clobber it (and vice
+   versa). Timing matches the caption slide exactly. */
+.artistCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border: 1px solid var(--gold-10);
+  border-radius: inherit;
+  transition: border-color 0.5s var(--ease-out);
+}
+
+.artistImageWrap {
+  position: relative;
+  display: block;
+  aspect-ratio: 6 / 7;
+  overflow: hidden;
+}
+
+.artistImage {
+  object-fit: cover;
+}
+
+/* name + track over the image, lifted by a bottom-up gradient */
+.artistMeta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 3rem 1rem 0.6rem;
+  background: linear-gradient(
+    to top,
+    rgba(8, 7, 5, 0.99),
+    rgba(8, 7, 5, 0.7) 45%,
+    transparent
+  );
+  transition: transform 0.5s var(--ease-out);
+}
+
+/* the arriving player pushes the caption up rather than covering it */
+@media (hover: hover) {
+  .artistCard:hover .artistMeta {
+    transform: translateY(-80px);
+  }
+}
+
+.artistName {
+  font-family: var(--serif);
+  font-size: var(--fs-card-sm);
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.artistTrack {
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+/* player hides below the card, slides up over the caption on hover */
+.cardEmbed {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .artistCard:hover .cardEmbed {
+    transform: none;
+  }
+}
+
+@media (hover: none) {
+  .cardEmbed {
+    position: static;
+    transform: none;
+  }
+}
+
+/* -- record label cards (2-up, square imagery) ------------------------------- */
+
+.labelGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.labelCard {
+  display: grid;
+  grid-template-columns: minmax(0, 40%) 1fr;
+  background: var(--bg-2);
+  border: 1px solid var(--gold-10);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.labelImageWrap {
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.labelImage {
+  object-fit: cover;
+}
+
+.labelBody {
+  padding: clamp(1.25rem, 2vw, 2rem);
+  align-self: center;
+}
+
+.labelName {
+  font-size: var(--fs-card-lg);
+  margin-bottom: 0.5rem;
+}
+
+.labelBody p {
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+@media (max-width: 900px) {
+  .labelGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .heading {
+    font-size: clamp(1.4rem, 6.6vw, 1.875rem);
+  }
+}
+
+.swipeHint {
+  display: none;
+}
+
+/* phones: swipeable sliders, snap-centred with a tease of the neighbours */
+@media (max-width: 640px) {
+  .artistGrid,
+  .labelGrid {
+    display: flex;
+    overflow-x: auto;
+    /* gap >= gutter so the previous card never peeks on the left */
+    gap: 1.25rem;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    scroll-padding-inline-start: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .artistGrid::-webkit-scrollbar,
+  .labelGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .artistGrid {
+    margin-bottom: 0;
+  }
+
+  /* active card sits on the left content edge; only the next card peeks */
+  .artistCard,
+  .labelCard {
+    flex: 0 0 84vw;
+    scroll-snap-align: start;
+  }
+
+  /* full-width square artwork with the text below — total height sits
+     close to the artist cards */
+  .labelCard {
+    grid-template-columns: 1fr;
+  }
+
+  .labelImageWrap {
+    width: 100%;
+  }
+
+  .labelBody {
+    align-self: start;
+    padding: 1.1rem 1rem 1.25rem;
+  }
+
+  .swipeHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    /* evenly spaced between the two card rows */
+    margin-block: 1.6rem;
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-40);
+  }
+
+  /* only the hint between the rows survives */
+  .swipeHint:last-child {
+    display: none;
+  }
+
+  .swipeHint::before,
+  .swipeHint::after {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background: var(--gold-40);
+  }
+
+  .swipeHint::after {
+    animation: collab-swipe 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes collab-swipe {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+}

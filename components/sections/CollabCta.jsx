@@ -7,8 +7,9 @@ import { CopyIcon } from "@/components/Icons";
 import styles from "./CollabCta.module.css";
 
 // Light interlude banner. Copy-to-clipboard email CTA; falls back to a
-// mailto link if the clipboard API is unavailable.
-export default function CollabCta() {
+// mailto link if the clipboard API is unavailable. `compact` shrinks it to
+// sit as a row inside the Collaborations section.
+export default function CollabCta({ compact = false }) {
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
@@ -23,7 +24,9 @@ export default function CollabCta() {
 
   return (
     <section
-      className={`${styles.wrap} container`}
+      className={`${styles.wrap} ${compact ? styles.compact : ""} ${
+        compact ? "" : "container"
+      }`}
       aria-label="Collaboration enquiries"
       data-reveal="wipe"
     >
@@ -35,19 +38,22 @@ export default function CollabCta() {
           height={52}
           className={styles.decal}
         />
-        <p className={styles.eyebrow}>
-          <span className={styles.line} aria-hidden="true" />
-          Vocalists, Instrumentalists, Producers, Labels
-          <span className={styles.line} aria-hidden="true" />
-        </p>
-        <h2 className={styles.heading}>
-          Let&rsquo;s make
-          <br className={styles.mobileBr} /> something together
-        </h2>
-        <p className={styles.blurb}>
-          Nomadic is open to remixes, features and original collaborations with
-          artists working in adjacent territory. One email is all it takes.
-        </p>
+        <div className={styles.copy}>
+          <p className={styles.eyebrow}>
+            <span className={styles.line} aria-hidden="true" />
+            Vocalists, Instrumentalists, Producers, Labels
+            <span className={styles.line} aria-hidden="true" />
+          </p>
+          <h2 className={styles.heading}>
+            Let&rsquo;s make
+            <br className={styles.mobileBr} /> something together
+          </h2>
+          <p className={styles.blurb}>
+            Nomadic is open to remixes, features and original collaborations
+            with artists working in adjacent territory. One email is all it
+            takes.
+          </p>
+        </div>
         <button type="button" className={styles.button} onClick={copy}>
           <span className={styles.email}>{EMAIL}</span>
           <span className={styles.hint}>

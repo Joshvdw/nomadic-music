@@ -125,3 +125,71 @@
     display: none;
   }
 }
+
+/* -- compact: row inside the Collaborations section ------------------------- */
+
+.compact {
+  margin-top: 0;
+}
+
+/* .copy is transparent to layout in the default (centred) banner */
+.copy {
+  display: contents;
+}
+
+.compact .banner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  text-align: left;
+  padding: clamp(1.25rem, 2.5vw, 1.9rem) clamp(1.75rem, 3.5vw, 3rem);
+}
+
+.compact .copy {
+  display: block;
+}
+
+.compact .decal {
+  margin: 0;
+  width: 2.75rem;
+}
+
+.compact .eyebrow {
+  justify-content: flex-start;
+  margin-bottom: 0.4rem;
+}
+
+.compact .line {
+  display: none;
+}
+
+.compact .heading {
+  font-size: var(--fs-h3);
+  margin-bottom: 0;
+}
+
+.compact .heading .mobileBr {
+  display: none;
+}
+
+.compact .blurb {
+  display: none;
+}
+
+.compact .button {
+  padding: 0.6rem 1.6rem 0.55rem;
+}
+
+@media (max-width: 760px) {
+  .compact .banner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 0.9rem;
+  }
+
+  .compact .eyebrow {
+    justify-content: center;
+  }
+}
