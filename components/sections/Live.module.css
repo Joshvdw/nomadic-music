@@ -210,3 +210,25 @@
     font-size: var(--fs-h2);
   }
 }
+
+
+/* -- tablet: player above DJ-sets text, link hidden, headings matched -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .embed {
+    order: -1;
+  }
+
+  .scLink {
+    display: none;
+  }
+
+  .captionHeading,
+  .setsHeading {
+    font-size: var(--fs-h2);
+  }
+
+  .caption p,
+  .setsBlurb {
+    font-size: 1rem;
+  }
+}

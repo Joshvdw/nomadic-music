@@ -196,3 +196,12 @@
     gap: calc(var(--gap) * 2);
   }
 }
+
+
+/* -- tablet: readable card text -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .cardText,
+  .cardTrack {
+    font-size: var(--fs-p);
+  }
+}

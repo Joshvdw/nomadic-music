@@ -205,3 +205,25 @@
     animation: none;
   }
 }
+
+
+/* -- tablet -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .bgImg {
+    object-position: 57% center;
+  }
+
+  .title {
+    font-size: clamp(3.25rem, 8.5vw, 5rem);
+  }
+
+  .copyBlock {
+    width: 100%;
+  }
+
+  .tagline {
+    width: auto;
+    min-width: 0;
+    max-width: 56ch;
+  }
+}

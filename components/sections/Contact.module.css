@@ -296,3 +296,21 @@ select.input {
     padding-bottom: 0.75rem;
   }
 }
+
+
+/* -- tablet -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .infoBlock {
+    width: auto;
+  }
+
+  .blurb {
+    width: auto;
+    min-width: 0;
+    max-width: 46ch;
+  }
+
+  .footerSlot {
+    margin-top: calc(var(--sect-gap));
+  }
+}

@@ -135,3 +135,11 @@
     font-size: var(--fs-h2);
   }
 }
+
+
+/* -- tablet: bigger title -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .heading {
+    font-size: var(--fs-h2);
+  }
+}

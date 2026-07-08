@@ -147,3 +147,20 @@
     font-size: 1.39rem;
   }
 }
+
+
+/* -- tablet: bigger, centred stats -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .stats {
+    justify-content: center;
+    gap: calc(var(--gap) * 3);
+  }
+
+  .statValue {
+    font-size: 2.6rem;
+  }
+
+  .statLabel {
+    font-size: var(--fs-p);
+  }
+}

@@ -418,3 +418,10 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* tablet: streamlined section rhythm */
+@media (min-width: 641px) and (max-width: 1024px) {
+  #streaming {
+    margin-top: var(--sect-gap);
+  }
+}
