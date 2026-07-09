@@ -10,10 +10,10 @@ import CollabCta from "./CollabCta";
 import styles from "./Collabs.module.css";
 
 const ARTISTS = [
-  { key: "skysia", name: "Skysia", track: "Lost Dreams (Skysia Remix)", image: "/images/collabs/skysia.jpg", alt: "Skysia" },
-  { key: "ayla", name: "Ayla Nereo", track: "O Come Ye (Nomadic Remix)", image: "/images/collabs/ayla.jpg", alt: "Ayla Nereo" },
-  { key: "yamenjo", name: "Yamenjo", track: "Taita Inti (Nomadic Remix)", image: "/images/collabs/yamenjo.jpg", alt: "Yamenjo" },
-  { key: "scott", name: "Scott Nice", track: "Sparkle Adeline (Nomadic Remix)", image: "/images/collabs/scott.jpg", alt: "Scott Nice" },
+  { key: "skysia", name: "Skysia", track: "Dusk - Nomadic Remix", image: "/images/collabs/skysia.jpg", alt: "Skysia" },
+  { key: "ayla", name: "Ayla Nereo", track: "O Come Ye - Nomadic Remix", image: "/images/collabs/ayla.jpg", alt: "Ayla Nereo" },
+  { key: "yamenjo", name: "Yamenjo", track: "Taita Inti - Nomadic Remix", image: "/images/collabs/yamenjo.jpg", alt: "Yamenjo" },
+  { key: "scott", name: "Scott Nice", track: "Sparkle Adeline - Nomadic Remix", image: "/images/collabs/scott.jpg", alt: "Scott Nice" },
 ];
 
 const LABELS = [
@@ -30,6 +30,21 @@ const LABELS = [
     body: "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?”",
   },
 ];
+
+// crisp, perfectly-centred chevron (unicode guillemets sit off-centre)
+function Chevron({ dir }) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+      <path
+        d={dir === "left" ? "M15 5 8 12l7 7" : "M9 5l7 7-7 7"}
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 // One card per view; swipe on touch, arrows / dots to click through.
 function Carousel({ items, renderItem, label }) {
@@ -69,7 +84,7 @@ function Carousel({ items, renderItem, label }) {
             onClick={() => goto(idx - 1)}
             aria-label="Previous"
           >
-            ‹
+            <Chevron dir="left" />
           </button>
           <div className={styles.dots}>
             {items.map((_, i) => (
@@ -89,7 +104,7 @@ function Carousel({ items, renderItem, label }) {
             onClick={() => goto(idx + 1)}
             aria-label="Next"
           >
-            ›
+            <Chevron dir="right" />
           </button>
         </div>
       )}
@@ -139,7 +154,6 @@ export default function Collabs() {
   return (
     <section id="collabs" className={`${styles.collabs} container`} aria-label="Collaborations">
       <header className={styles.header} data-reveal>
-        <p className={`eyebrow ${styles.sub}`}>Artist and Label</p>
         <h2 className={styles.heading}>Collaborations</h2>
       </header>
 
