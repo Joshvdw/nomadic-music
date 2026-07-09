@@ -1,6 +1,5 @@
 import LazyEmbed from "./LazyEmbed";
-import { BANDCAMP_RELEASES, LINKS } from "@/lib/site";
-import { ArrowRightIcon } from "./Icons";
+import { BANDCAMP_RELEASES } from "@/lib/site";
 import styles from "./FooterMarquee.module.css";
 
 // Bandcamp strip riding above the footer rule. Spans the content margins with
@@ -9,16 +8,6 @@ import styles from "./FooterMarquee.module.css";
 export default function FooterMarquee() {
   return (
     <div className={styles.wrap}>
-      <a
-        className={styles.header}
-        href={LINKS.bandcamp}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Support My Music
-        <ArrowRightIcon className={styles.arrow} />
-      </a>
-
       <div className={styles.marquee} aria-label="Buy the music on Bandcamp">
         <div className={styles.track}>
           {[0, 1].map((copyIdx) => (
