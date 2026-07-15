@@ -22,88 +22,171 @@ const G = "/images/gallery";
 // Mix of portrait, landscape, square and poster keeps the rhythm varied.
 const GROUPS = [
   {
-    w: 43.9,
+    w: 99.0,
     tiles: [
-      { src: `${G}/relish-festival-live-1.jpg`, ar: "1363 / 2048", cap: "Relish Festival — live", alt: "Nomadic performing at Relish Festival, hands raised over the decks" },
-    ],
-  },
-  {
-    w: 48.3,
-    tiles: [
-      { src: `${G}/laundry-bar-dj.jpg`, ar: "3068 / 2046", cap: "Laundry Bar", alt: "Nomadic DJing at Laundry Bar in warm light" },
-      { src: `${G}/roots-bar-decks.jpg`, ar: "2048 / 1367", cap: "Roots Bar — Tākaka", alt: "Back-to-back DJ set at Roots Bar, Tākaka" },
-    ],
-  },
-  {
-    w: 67.7,
-    tiles: [
-      { src: `${G}/relish-festival.jpg`, ar: "3517 / 3428", cap: "Relish Festival", alt: "Nomadic behind the decks at Relish Festival" },
-    ],
-  },
-  {
-    w: 99.1,
-    tiles: [
-      { src: `${G}/luminate-chillounge-dj.jpg`, ar: "4502 / 2997", cap: "Chillounge — Luminate Festival", alt: "Nomadic DJing the Chillounge stage at Luminate Festival" },
-    ],
-  },
-  {
-    w: 32.9,
-    tiles: [
-      { src: `${G}/relish-festival-poster.jpg`, ar: "1440 / 1800", cap: "Relish Festival — lineup", alt: "Relish Festival lineup poster" },
-      { src: `${G}/roots-and-rhythms-poster.png`, ar: "2500 / 1768", cap: "Roots & Rhythms — Tākaka", alt: "Roots and Rhythms event poster" },
-    ],
-  },
-  {
-    w: 46.7,
-    tiles: [
-      { src: `${G}/wandering-mind-release-poster.jpg`, ar: "4961 / 7016", cap: "Wandering Mind — album release", alt: "Wandering Mind album release party poster" },
-    ],
-  },
-  {
-    w: 55.2,
-    tiles: [
-      { src: `${G}/luminate-artist-page.jpg`, ar: "2832 / 1422", cap: "Luminate — artist page", alt: "Nomadic's artist page on the Luminate Festival website" },
-      { src: `${G}/relish-festival-live-4.jpg`, ar: "2048 / 1363", cap: "Relish Festival — after dark", alt: "Nomadic behind the decks at Relish Festival at night" },
-    ],
-  },
-  {
-    w: 47.2,
-    tiles: [
-      { src: `${G}/dj-set-closeup.jpg`, ar: "2048 / 1365", cap: "Behind the decks", alt: "Close-up of Nomadic mixing at the decks" },
-      { src: `${G}/luminate-programme.jpg`, ar: "1236 / 864", cap: "Luminate — programme", alt: "Luminate Festival programme booklet featuring Nomadic" },
+      {
+        src: `${G}/laundry-bar-dj-set.jpg`,
+        ar: "3068 / 2046",
+        cap: "Laundry Bar — DJ set",
+        alt: "Nomadic DJing at Laundry Bar in purple light",
+      },
     ],
   },
   {
     w: 35.3,
     tiles: [
-      { src: `${G}/newtown-social-club.JPG`, ar: "750 / 870", cap: "Newtown Social Club", alt: "Nomadic performing at Newtown Social Club" },
-      { src: `${G}/relish-festival-live-2.jpg`, ar: "2048 / 1363", cap: "Relish Festival — crowd", alt: "Crowd dancing to Nomadic at Relish Festival" },
+      {
+        src: `${G}/newtown-social-club.JPG`,
+        ar: "750 / 870",
+        cap: "Newtown Social Club",
+        alt: "Nomadic performing at Newtown Social Club",
+      },
+      {
+        src: `${G}/wellington-club-dj-set3.jpg`,
+        ar: "2048 / 1363",
+        cap: "Wellington Club — DJ set",
+        alt: "Crowd silhouetted under blue light at a Wellington club DJ set",
+      },
+    ],
+  },
+  {
+    w: 43.9,
+    tiles: [
+      {
+        src: `${G}/wellington-club-dj-set2.jpg`,
+        ar: "1363 / 2048",
+        cap: "Wellington Club — DJ set",
+        alt: "Nomadic DJing at a Wellington club under blue stage light",
+      },
+    ],
+  },
+  {
+    w: 67.7,
+    tiles: [
+      {
+        src: `${G}/relish-festival-2021.jpg`,
+        ar: "3517 / 3428",
+        cap: "Relish Festival 2021",
+        alt: "Nomadic behind the decks at Relish Festival 2021",
+      },
+    ],
+  },
+  {
+    w: 32.9,
+    tiles: [
+      {
+        src: `${G}/relish-festival-poster.jpg`,
+        ar: "1440 / 1800",
+        cap: "Relish Festival — headliner",
+        alt: "Relish Festival lineup poster",
+      },
+      {
+        src: `${G}/roots-and-rhythms-poster.png`,
+        ar: "2500 / 1768",
+        cap: "Roots & Rhythms — Tākaka",
+        alt: "Roots and Rhythms event poster",
+      },
     ],
   },
   {
     w: 46.7,
     tiles: [
-      { src: `${G}/roots-bar-rave-poster.jpg`, ar: "2480 / 3508", cap: "Roots Bar Rave", alt: "Roots Bar Rave event poster" },
+      {
+        src: `${G}/wandering-mind-release-poster.jpg`,
+        ar: "4961 / 7016",
+        cap: "Wandering Mind — album release",
+        alt: "Wandering Mind album release party poster",
+      },
+    ],
+  },
+  {
+    w: 55.2,
+    tiles: [
+      {
+        src: `${G}/luminate-2015-artist-page.jpg`,
+        ar: "2832 / 1422",
+        cap: "Luminate 2019 — artist page",
+        alt: "Nomadic's artist page on the Luminate Festival 2015 website",
+      },
+      {
+        src: `${G}/wellington-club-dj-set.jpg`,
+        ar: "2048 / 1363",
+        cap: "Wellington Club — DJ set",
+        alt: "Nomadic DJing at a Wellington club under blue light",
+      },
+    ],
+  },
+  {
+    w: 47.2,
+    tiles: [
+      {
+        src: `${G}/ezone-luminate-2015.jpg`,
+        ar: "2048 / 1365",
+        cap: "E-Zone — Luminate 2015",
+        alt: "Nomadic DJing in the E-Zone at Luminate Festival 2015",
+      },
+      {
+        src: `${G}/luminate-programme-mention.jpg`,
+        ar: "1236 / 864",
+        cap: "Luminate 2019 — programme mention",
+        alt: "Luminate Festival programme featuring Nomadic",
+      },
+    ],
+  },
+  {
+    w: 43.9,
+    tiles: [
+      {
+        src: `${G}/wellington-club-dj-set4.jpg`,
+        ar: "1363 / 2048",
+        cap: "Wellington Club — DJ set",
+        alt: "Nomadic performing at a Wellington club under blue light",
+      },
     ],
   },
   {
     w: 45.6,
     tiles: [
-      { src: `${G}/badgernomics-poster.jpg`, ar: "3508 / 2480", cap: "Badgernomics — Laundry Bar", alt: "Badgernomics Presents event poster" },
-      { src: `${G}/boogie-house-poster.jpg`, ar: "1920 / 1357", cap: "Boogie House — Laundry Bar", alt: "Boogie House event poster" },
+      {
+        src: `${G}/badgernomics-laundry-poster.jpg`,
+        ar: "3508 / 2480",
+        cap: "Badgernomics — Laundry Bar",
+        alt: "Badgernomics Presents event poster, Laundry Bar",
+      },
+      {
+        src: `${G}/boogie-house-laundry-poster.jpg`,
+        ar: "1920 / 1357",
+        cap: "Boogie House — Laundry Bar",
+        alt: "Boogie House event poster, Laundry Bar",
+      },
     ],
   },
   {
-    w: 22.1,
+    w: 22.8,
     tiles: [
-      { src: `${G}/double-bill-poster.png`, ar: "2480 / 3508", cap: "Double bill — Laundry Bar", alt: "Double-bill event poster, Laundry Bar" },
-      { src: `${G}/relish-festival-live-3.jpg`, ar: "1363 / 2048", cap: "Relish Festival — night", alt: "Nomadic performing at Relish Festival after dark" },
+      {
+        src: `${G}/spirit-level-release-poster.jpg`,
+        ar: "2480 / 3508",
+        cap: "Spirit Level — release party",
+        alt: "Spirit Level album release party poster",
+      },
+      {
+        src: `${G}/roots-bar-rave-poster.jpg`,
+        ar: "2480 / 3508",
+        cap: "Roots Bar Rave",
+        alt: "Roots Bar Rave event poster",
+      },
     ],
   },
   {
     w: 46.7,
     tiles: [
-      { src: `${G}/spirit-level-release-poster.jpg`, ar: "2480 / 3508", cap: "Spirit Level — release party", alt: "Spirit Level album release party poster" },
+      {
+        src: `${G}/paddy-free-gig-opening.png`,
+        ar: "2480 / 3508",
+        cap: "Paddy Free — gig opening",
+        alt: "Paddy Free gig poster, Nomadic opening at Laundry Bar",
+      },
     ],
   },
 ];
@@ -164,7 +247,7 @@ export default function Gallery() {
 
   useEffect(() => {
     const desktop = window.matchMedia(
-      "(min-width: 901px) and (prefers-reduced-motion: no-preference)"
+      "(min-width: 901px) and (prefers-reduced-motion: no-preference)",
     );
     const pin = pinRef.current;
     const track = trackRef.current;
@@ -177,7 +260,7 @@ export default function Gallery() {
     // the socials sidebar stays away for the entire gallery run
     const suppressIO = new IntersectionObserver(
       (entries) => setChromeSuppressed(entries.some((e) => e.isIntersecting)),
-      { threshold: 0 }
+      { threshold: 0 },
     );
     suppressIO.observe(pin);
 
@@ -221,8 +304,7 @@ export default function Gallery() {
       // fades in on exactly the mirrored curve
       const ctaLeft = cta.getBoundingClientRect().left;
       const vw = window.innerWidth;
-      const fade =
-        1 - Math.max(0, Math.min(1, (vw - ctaLeft) / (vw * 0.62)));
+      const fade = 1 - Math.max(0, Math.min(1, (vw - ctaLeft) / (vw * 0.62)));
 
       head.style.opacity = (titleIn * fade).toFixed(3);
       fadeEls.forEach((el) => (el.style.opacity = fade.toFixed(3)));
@@ -251,7 +333,11 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section id="gallery" className={styles.gallery} aria-label="Gallery — live archive">
+    <section
+      id="gallery"
+      className={styles.gallery}
+      aria-label="Gallery — live archive"
+    >
       <div ref={pinRef} className={styles.pin}>
         <div className={styles.viewport}>
           <header ref={headRef} className={styles.head}>

@@ -36,10 +36,22 @@
 }
 
 .tile {
-  width: 172px;
+  width: 140px;
   flex: 0 0 auto;
   /* the bandcamp art runs bright — knock it back to sit with the palette */
   filter: brightness(0.72);
+}
+
+/* laptops (below the large-desktop breakpoint): one size smaller */
+@media (max-width: 1599px) {
+  .tile {
+    width: 124px;
+  }
+
+  /* LazyEmbed reserves the tile height inline; shrink it to keep tiles square */
+  .tile :global(.embed-shell) {
+    height: 124px !important;
+  }
 }
 
 /* black wings — the strip fades into the distance on both sides */

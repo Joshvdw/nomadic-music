@@ -1,6 +1,7 @@
 import Menu from "@/components/Menu";
 import SocialsSidebar from "@/components/SocialsSidebar";
 import Hero from "@/components/sections/Hero";
+import OrbHero from "@/components/sections/OrbHero";
 import Biography from "@/components/sections/Biography";
 import Streaming from "@/components/sections/Streaming";
 import Collabs from "@/components/sections/Collabs";
@@ -15,7 +16,11 @@ export default function Home() {
       <Menu />
       <SocialsSidebar />
       <main>
-        <Hero />
+        {/* ===== ORIGINAL HERO — restore by uncommenting this and removing OrbHero below ===== */}
+        {/* <Hero /> */}
+
+        {/* ===== TEST HERO — interactive chrome orb (remove to revert) ===== */}
+        <OrbHero />
         <Biography />
         <Streaming />
         <Live />

@@ -68,41 +68,45 @@ export default function Contact() {
   return (
     <section id="contact" className={styles.contact} aria-label="Contact">
       <div className={`${styles.columns} container`}>
-        <div className={styles.info} data-reveal>
-          <div className={styles.infoBlock}>
-            <h2 className={styles.heading}>Get in Touch</h2>
-            <p className={styles.blurb}>
-              Bookings, collaborations and services. Based in Golden Bay,
-              playing anywhere the music is welcome — expect a reply within a
-              couple of days.
-            </p>
+        {/* left column grouped so the form (right) doesn't stretch the gaps
+            between these on desktop; on phones .infoCol is display:contents so
+            the grid can still interleave form between info and the links */}
+        <div className={styles.infoCol}>
+          <div className={styles.info} data-reveal>
+            <div className={styles.infoBlock}>
+              <h2 className={styles.heading}>Get in Touch</h2>
+              <p className={styles.blurb}>
+                Bookings, collaborations and services. Based in Golden Bay,
+                playing anywhere the music is welcome — expect a reply within a
+                couple of days.
+              </p>
+            </div>
           </div>
 
+          <button type="button" className={styles.emailBox} onClick={copy}>
+            <span className={styles.email}>{EMAIL}</span>
+            <span className={styles.copyLabel}>
+              <CopyIcon className={styles.copyIcon} />
+              {copied ? "Copied" : "Copy"}
+            </span>
+          </button>
+
+          <ul className={styles.platforms}>
+            {PLATFORMS.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  className={styles.platform}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon className={styles.platformIcon} />
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <button type="button" className={styles.emailBox} onClick={copy}>
-          <span className={styles.email}>{EMAIL}</span>
-          <span className={styles.copyLabel}>
-            <CopyIcon className={styles.copyIcon} />
-            {copied ? "Copied" : "Copy"}
-          </span>
-        </button>
-
-        <ul className={styles.platforms}>
-          {PLATFORMS.map(({ label, href, Icon }) => (
-            <li key={label}>
-              <a
-                className={styles.platform}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon className={styles.platformIcon} />
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
 
         <form className={styles.form} onSubmit={onSubmit} data-reveal>
           <div className={styles.row}>

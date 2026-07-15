@@ -37,7 +37,9 @@ const SERVICES = [
     tag: "Posters, Artwork & Sites",
     body: "Gig posters, cover art and artist websites — the same eye that shapes Nomadic's visual world, applied to yours.",
     Icon: BezierIcon,
-    art: "/images/services/web-design.png",
+    // framed crop of the design collage — Wandering Mind centred with the
+    // neighbouring posters peeking around the edges (web-design-collage.jpg)
+    art: "/images/services/web-design-frame.jpg",
   },
 ].map((s) => ({ ...s, key: s.title }));
 
@@ -63,10 +65,16 @@ export default function Services() {
       </header>
 
       <ul className={styles.grid} data-reveal="cascade">
-        {SERVICES.map(({ title, tag, body, Icon, art, key }) => (
+        {SERVICES.map(({ title, tag, body, Icon, art, key, zoom }) => (
           <li key={key} className={styles.card}>
             <div className={styles.cardArt} aria-hidden="true">
-              <Image src={art} alt="" fill sizes="30vw" className={styles.cardArtImg} />
+              <Image
+                src={art}
+                alt=""
+                fill
+                sizes="30vw"
+                className={`${styles.cardArtImg} ${zoom ? styles.cardArtZoom : ""}`}
+              />
             </div>
             <Icon className={styles.icon} />
             <h3 className={styles.title}>{title}</h3>

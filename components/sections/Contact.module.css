@@ -3,15 +3,18 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  padding-top: var(--space-section);
+  /* padding-top MUST match .footerSlot margin-top: when scrolled to the very
+     bottom the columns block then sits equidistant between the top of the
+     viewport and the top of the bandcamp (footer) strip below it. */
+  padding-top: var(--sect-gap);
   background: var(--bg);
 }
 
-/* content centres in the space above the footer (bandcamp) block, so it's
-   equidistant from the top of the viewport and the top of the footer */
+/* the content block is its natural height and centred (margin-block:auto) in
+   the flex space above the footer — so at full scroll the gap up to the top of
+   the viewport equals the gap down to the bandcamp strip */
 .columns {
-  flex: 1;
-  align-content: center;
+  margin-block: auto;
 }
 
 /* two halves of the content width — the form matches the 3-column
@@ -21,14 +24,22 @@
 .columns {
   width: 100%;
   display: grid;
-  grid-template-areas:
-    "info form"
-    "email form"
-    "platforms form";
+  /* one row, two cells: the grouped left column and the form. Because the form
+     no longer spans several rows, it can't stretch the gaps between the info,
+     email and links — they keep their natural spacing. */
+  grid-template-areas: "infocol form";
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto auto 1fr;
   gap: 0 var(--gap);
   align-items: start;
+}
+
+/* left column: info block, email button and platform links, tucked together */
+.infoCol {
+  grid-area: infocol;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .info {
@@ -234,9 +245,11 @@ select.input {
   }
 }
 
-/* footer (bandcamp marquee + rule) sits at the bottom, in flow */
+/* footer (bandcamp marquee + rule) sits at the bottom, in flow.
+   margin-top mirrors .contact padding-top so the columns block is framed
+   symmetrically when the page is scrolled all the way down. */
 .footerSlot {
-  margin-top: var(--space-section);
+  margin-top: var(--sect-gap);
 }
 
 @media (max-width: 900px) {
@@ -244,8 +257,15 @@ select.input {
     justify-content: flex-start;
   }
 
+  /* dissolve the left-column wrapper so info / form / email / platforms are all
+     direct grid items again and can stack in the phone order below */
+  .infoCol {
+    display: contents;
+  }
+
   .columns {
     flex: initial;
+    margin-block: 0;
     grid-template-areas:
       "info"
       "form"

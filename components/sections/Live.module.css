@@ -138,14 +138,14 @@
 /* desktop: the column is tall, so drop the block toward the middle */
 @media (min-width: 1440px) {
   .setsCol {
-    padding-top: 15rem;
+    padding-top: 13rem;
   }
 }
 
-/* 4K+: DJ sets sits much further down its column */
+/* 4K+: DJ sets sits further down its column */
 @media (min-width: 2400px) {
   .setsCol {
-    padding-top: 26rem;
+    padding-top: 23rem;
   }
 }
 
