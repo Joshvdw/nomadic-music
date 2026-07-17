@@ -1,12 +1,10 @@
 "use client";
 
-// Collaborations — redesigned. To revert to the previous 4-up + 2-up grid,
-// swap the import in app/page.js to `CollabsLegacy` (kept alongside).
 import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import { TRACKS } from "@/lib/site";
 import LazyEmbed from "@/components/LazyEmbed";
-import CollabCta from "./CollabCta";
+import { ArrowDownIcon } from "@/components/Icons";
 import styles from "./Collabs.module.css";
 
 const ARTISTS = [
@@ -154,7 +152,22 @@ export default function Collabs() {
   return (
     <section id="collabs" className={`${styles.collabs} container`} aria-label="Collaborations">
       <header className={styles.header} data-reveal>
-        <h2 className={styles.heading}>Collaborations</h2>
+        <div className={styles.headerText}>
+          <p className={`eyebrow ${styles.sub}`}>Make something together</p>
+          <h2 className={styles.heading}>Collaborations</h2>
+        </div>
+        <a
+          className={styles.enquireLink}
+          href="#contact"
+          onClick={() =>
+            window.dispatchEvent(
+              new CustomEvent("nomadic:enquire", { detail: "Collaboration" })
+            )
+          }
+        >
+          Want to collaborate?
+          <ArrowDownIcon className={styles.enquireArrow} />
+        </a>
       </header>
 
       <div className={styles.columns} data-reveal>
@@ -168,9 +181,6 @@ export default function Collabs() {
         </div>
       </div>
 
-      <div className={styles.ctaRow}>
-        <CollabCta compact />
-      </div>
     </section>
   );
 }

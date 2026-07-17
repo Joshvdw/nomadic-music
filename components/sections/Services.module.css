@@ -11,7 +11,7 @@
 
 /* section-title ornament, same scale as the Collaborations one */
 .headerDecal {
-  width: min(24rem, 56vw);
+  width: min(28rem, 62vw);
 }
 
 .heading {
@@ -26,6 +26,21 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--gap);
+}
+
+/* large monitors: keep the cards near the comfortable laptop width rather
+   than letting them stretch across the whole content column */
+@media (min-width: 1600px) {
+  .grid {
+    max-width: 1120px;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 2400px) {
+  .grid {
+    max-width: 1440px;
+  }
 }
 
 .card {
@@ -74,12 +89,22 @@
   bottom: 0;
   width: 58%;
   opacity: 0.3;
+  /* clip any scaled-up art (see .cardArtZoom) to this box so it can't peek out
+     past the gradient as a bright seam on the left edge */
+  overflow: hidden;
 }
 
 .cardArtImg {
   object-fit: cover;
   filter: grayscale(1);
   transition: filter 0.35s ease;
+}
+
+/* the web-design artwork is a pre-cropped poster on a slight tilt — a gentle
+   punch-in trims the black tilt-wedge and neighbouring sliver off the edges */
+.cardArtZoom {
+  transform: scale(1.03);
+  transform-origin: center;
 }
 
 .cardArt::after {
