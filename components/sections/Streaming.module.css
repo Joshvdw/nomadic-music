@@ -48,6 +48,7 @@
 }
 
 .heading {
+  font-size: var(--fs-h3);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 0.5rem;
@@ -147,7 +148,6 @@
     font-size: 1.39rem;
   }
 }
-
 
 /* -- tablet: bigger, centred stats -- */
 @media (min-width: 641px) and (max-width: 1024px) {

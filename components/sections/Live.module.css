@@ -187,6 +187,16 @@
 }
 
 @media (max-width: 640px) {
+  /* portrait 9:16 montage: give it more height so it reads upright */
+  .videoCol {
+    min-height: 80svh;
+  }
+
+  /* keep the full frame in view rather than cropping the sides hard */
+  .video {
+    object-position: center;
+  }
+
   /* player first, still cropped just below the SoundCloud footer icon */
   .embed {
     order: -1;

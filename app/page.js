@@ -20,8 +20,8 @@ export default function Home() {
         <Streaming />
         <Live />
         <Gallery />
-        <Services />
         <Collabs />
+        <Services />
         <Contact />
       </main>
     </>

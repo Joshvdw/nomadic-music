@@ -7,7 +7,7 @@ import styles from "./Streaming.module.css";
 
 const STATS = [
   { value: 200, suffix: "k+", label: "Monthly Listeners" },
-  { value: 15, suffix: " Million", label: "Cross-platform Streams" },
+  { value: 15, suffix: " Million", label: "Cross-Platform Streams" },
   { value: 20, suffix: "k+", label: "Followers" },
 ];
 
@@ -18,7 +18,7 @@ export default function Streaming() {
   useEffect(() => {
     const section = sectionRef.current;
     const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     // grain rides the scroll: default at the section's edges, full strength
@@ -33,7 +33,7 @@ export default function Streaming() {
         const vh = window.innerHeight;
         const v = Math.max(
           0,
-          Math.min(1, (vh - rect.top) / (rect.height + vh))
+          Math.min(1, (vh - rect.top) / (rect.height + vh)),
         );
         const target = BASE + (1 - BASE) * Math.sin(Math.PI * v);
         cur += (target - cur) * 0.12;
@@ -69,7 +69,7 @@ export default function Streaming() {
           requestAnimationFrame(tick);
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
     countIO.observe(section);
 
@@ -92,11 +92,11 @@ export default function Streaming() {
       <div className={styles.bg} aria-hidden="true" />
       <div className={`${styles.inner} container`}>
         <div className={styles.textCol}>
-          <h2 className={styles.heading}>Streaming</h2>
+          <h2 className={styles.heading}>A Global Audience </h2>
           <p className={styles.blurb}>
-            Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-            esse quam nihil molestiae consequatur, vel illum qui dolorem eum
-            fugiat quo voluptas nulla pariatur?&rdquo;
+            An engaged listener base built organically through consistent
+            quality releases, Nomadic’s music is known all over the world
+            and growing every day.
           </p>
         </div>
 

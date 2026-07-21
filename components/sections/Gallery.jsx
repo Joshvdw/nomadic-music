@@ -44,7 +44,7 @@ const GROUPS = [
       {
         src: `${G}/wellington-club-dj-set3.jpg`,
         ar: "2048 / 1363",
-        cap: "Wellington Club — DJ set",
+        cap: "Psychoactive Studios — DJ set",
         alt: "Crowd silhouetted under blue light at a Wellington club DJ set",
       },
     ],
@@ -55,7 +55,7 @@ const GROUPS = [
       {
         src: `${G}/wellington-club-dj-set2.jpg`,
         ar: "1363 / 2048",
-        cap: "Wellington Club — DJ set",
+        cap: "Psychoactive Studios — DJ set",
         alt: "Nomadic DJing at a Wellington club under blue stage light",
       },
     ],
@@ -111,7 +111,7 @@ const GROUPS = [
       {
         src: `${G}/wellington-club-dj-set.jpg`,
         ar: "2048 / 1363",
-        cap: "Wellington Club — DJ set",
+        cap: "Psychoactive Studios — DJ set",
         alt: "Nomadic DJing at a Wellington club under blue light",
       },
     ],
@@ -139,7 +139,7 @@ const GROUPS = [
       {
         src: `${G}/wellington-club-dj-set4.jpg`,
         ar: "1363 / 2048",
-        cap: "Wellington Club — DJ set",
+        cap: "Psychoactive Studios — DJ set",
         alt: "Nomadic performing at a Wellington club under blue light",
       },
     ],

@@ -22,7 +22,7 @@
 
 .trigger {
   position: relative;
-  z-index: 2;
+  z-index: 3; /* above the sliding panel + overlay so ✕ stays clickable */
   display: grid;
   place-items: center;
   width: 2.6rem;
@@ -74,61 +74,83 @@
   transform: translateY(-0.31rem) rotate(-45deg);
 }
 
-/* -- desktop panel: unfolds from the corner --------------------------------- */
+/* -- desktop: full-height sidebar sliding in from the right ------------------ */
+
+/* dims the page behind the sidebar; click to close */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: rgba(4, 4, 3, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s var(--ease-out);
+}
+
+.open .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 .panel {
-  position: absolute;
-  top: calc(100% + 0.6rem);
+  position: fixed;
+  top: 0;
   right: 0;
-  min-width: 13.5rem;
-  background: rgba(18, 18, 18, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--gold-20);
-  border-radius: var(--radius);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
-  padding: 0.6rem 0;
-  opacity: 0;
-  transform: translateY(-8px) scale(0.97);
-  transform-origin: top right;
+  z-index: 2;
+  height: 100svh;
+  width: min(28rem, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 6rem clamp(2rem, 3vw, 3.25rem) clamp(2.5rem, 5vh, 3.5rem);
+  background: rgba(12, 11, 9, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-left: 1px solid var(--gold-20);
+  box-shadow: -30px 0 80px rgba(0, 0, 0, 0.5);
+  transform: translateX(100%);
   pointer-events: none;
-  transition:
-    opacity 0.35s ease,
-    transform 0.45s var(--ease-out);
+  transition: transform 0.85s var(--ease-out);
 }
 
 .open .panel {
-  opacity: 1;
   transform: none;
   pointer-events: auto;
 }
 
 .list {
   list-style: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
 }
 
 .item {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateX(18px);
   transition:
-    opacity 0.35s ease,
-    transform 0.45s var(--ease-out);
+    opacity 0.4s ease,
+    transform 0.55s var(--ease-out);
 }
 
 .open .item {
   opacity: 1;
   transform: none;
-  transition-delay: calc(0.06s + var(--i) * 0.045s);
+  transition-delay: calc(0.12s + var(--i) * 0.05s);
 }
 
 .link {
   display: flex;
   align-items: center;
-  padding: 0.55rem 1.4rem;
-  font-size: var(--fs-p-tiny);
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  padding: 0.4rem 0;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
+  line-height: 1.1;
   color: var(--ink-60);
   transition: color 0.3s ease;
 }
@@ -144,19 +166,59 @@
   pointer-events: none;
 }
 
-/* socials row only appears in the fullscreen (tablet/mobile) panel */
+/* socials pinned to the foot of the sidebar */
 .socials {
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--gold-10);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.4s;
+}
+
+.open .socials {
+  opacity: 1;
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: hover) {
+  .social:hover {
+    opacity: 1;
+  }
+}
+
+.social:active {
+  opacity: 1;
+}
+
+.socialIcon {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 /* -- tablet + phones: fullscreen nav with a socials row --------------------- */
 
 @media (max-width: 1024px) {
+  /* fullscreen panel covers the page, so no separate dimmer is needed */
+  .overlay {
+    display: none;
+  }
+
   .panel {
     position: fixed;
     inset: 0;
-    min-width: 0;
+    width: auto;
     border: none;
+    border-left: none;
     border-radius: 0;
     box-shadow: none;
     background: rgba(8, 7, 5, 0.96);
@@ -167,14 +229,22 @@
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
+    padding: 2rem;
+    opacity: 0;
     transform: none;
     transition: opacity 0.4s ease;
   }
 
+  .open .panel {
+    opacity: 1;
+  }
+
   .list {
+    flex: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1.1rem;
   }
 
@@ -201,6 +271,8 @@
     align-items: center;
     gap: 1.5rem;
     list-style: none;
+    padding-top: 0;
+    border-top: none;
     opacity: 0;
     transition: opacity 0.4s ease 0.35s;
   }

@@ -14,12 +14,12 @@ import styles from "./Menu.module.css";
 
 const ITEMS = [
   { id: "top", label: "Home" },
-  { id: "bio", label: "Bio" },
+  { id: "bio", label: "Biography" },
   { id: "streaming", label: "Streaming" },
-  { id: "live", label: "Nomadic Live" },
+  { id: "live", label: "Live & DJ Sets" },
   { id: "gallery", label: "Gallery" },
-  { id: "services", label: "Services" },
   { id: "collabs", label: "Collaborations" },
+  { id: "services", label: "Music Services" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -128,6 +128,12 @@ export default function Menu() {
         </span>
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
       </button>
+
+      <div
+        className={styles.overlay}
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+      />
 
       <nav id="site-menu" className={styles.panel} aria-label="Section navigation">
         <ul className={styles.list}>

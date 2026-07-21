@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SOUNDCLOUD_PLAYLIST_EMBED, LINKS } from "@/lib/site";
 import LazyEmbed from "@/components/LazyEmbed";
 import { ArrowRightIcon } from "@/components/Icons";
@@ -11,6 +11,16 @@ import styles from "./Live.module.css";
 export default function Live() {
   const sectionRef = useRef(null);
   const setsRef = useRef(null);
+  // portrait 9:16 montage for phones, landscape for everything else
+  const [mobileVideo, setMobileVideo] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setMobileVideo(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -44,16 +54,24 @@ export default function Live() {
     <section id="live" ref={sectionRef} className={styles.live} aria-label="Festivals, gigs and DJ sets">
       <div className={styles.videoCol}>
         <video
+          key={mobileVideo ? "mobile" : "desktop"}
           className={styles.video}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-          poster="/images/gallery/dj-set-closeup.jpg"
+          poster="/images/gallery/laundry-dj-set.jpg"
           aria-label="Live DJ set montage"
         >
-          <source src="/videos/dj-video.mp4" type="video/mp4" />
+          <source
+            src={
+              mobileVideo
+                ? "/videos/live-montage-mobile.mp4"
+                : "/videos/live-montage-desktop.mp4"
+            }
+            type="video/mp4"
+          />
         </video>
         <div className={styles.scrim} aria-hidden="true" />
         <div className={styles.caption} data-reveal>

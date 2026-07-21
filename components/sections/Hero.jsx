@@ -100,7 +100,8 @@ export default function Hero() {
       shadow.style.transform = `translate3d(${(bx * 0.8 + mx).toFixed(2)}px, ${(by * 0.85 + sy * 0.9 + my).toFixed(2)}px, 0)`;
 
       // the hero dissolves as the page starts moving away
-      const fade = 1 - Math.min(1, window.scrollY / (window.innerHeight * 0.55));
+      const fade =
+        1 - Math.min(1, window.scrollY / (window.innerHeight * 0.55));
       rootRef.current.style.opacity = fade.toFixed(3);
 
       rafId = requestAnimationFrame(loop);
@@ -161,8 +162,8 @@ export default function Hero() {
         <div className={styles.copyBlock}>
           <h1 className={styles.title}>Nomadic</h1>
           <p className={styles.tagline}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            A wandering producer and DJ from New Zealand who collects and
+            reimagines ancient sounds as otherworldly electronic music.{" "}
           </p>
         </div>
       </div>
