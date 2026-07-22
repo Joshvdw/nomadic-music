@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { LINKS } from "@/lib/site";
 import { decodeEmail } from "@/lib/email";
 import useEmail from "@/lib/useEmail";
@@ -140,6 +141,15 @@ export default function Contact() {
               </li>
             ))}
           </ul>
+
+          <Image
+            src="/images/decals/flower.png"
+            alt=""
+            width={180}
+            height={120}
+            className={styles.ornament}
+            data-reveal
+          />
         </div>
 
         <form className={styles.form} onSubmit={onSubmit} data-reveal>

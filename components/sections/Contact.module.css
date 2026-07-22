@@ -160,6 +160,16 @@
   height: 1rem;
 }
 
+/* decorative ornament filling the dead space under the platform links on
+   desktop (the form column runs taller than the info column) */
+.ornament {
+  width: 8.5rem;
+  height: auto;
+  margin-top: 3rem;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
 /* -- form: spans to the right content margin -------------------------------- */
 
 .form {
@@ -272,6 +282,12 @@ select.input {
      direct grid items again and can stack in the phone order below */
   .infoCol {
     display: contents;
+  }
+
+  /* decorative ornament is desktop-only; it has no place in the stacked
+     phone/tablet order and would land as a stray grid item */
+  .ornament {
+    display: none;
   }
 
   .columns {

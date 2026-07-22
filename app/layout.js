@@ -24,7 +24,7 @@ const sans = IBM_Plex_Sans({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: SITE_URL },
-  title: "Nomadic (Official) | Electronic Music Producer & DJ",
+  title: "Nomadic | Electronic Music Producer & DJ",
   description:
     "Experience otherworldly sounds — tribal bass, organic downtempo and psy-dub. Music, live sets and bookings, the official hub for all things Nomadic.",
   keywords: [
@@ -40,28 +40,21 @@ export const metadata = {
     "EPK",
   ],
   openGraph: {
-    title: "Nomadic (Official) | Electronic Music Producer & DJ",
+    title: "Nomadic | Electronic Music Producer & DJ",
     description:
       "Experience otherworldly sounds — tribal bass, organic downtempo and psy-dub. Music, live sets and bookings, the official hub for all things Nomadic.",
     url: SITE_URL,
-    siteName: "Nomadic Music (Official)",
-    images: [
-      {
-        url: "/images/og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Nomadic — obsidian sphere over mountain ranges at dusk",
-      },
-    ],
+    siteName: "Nomadic Music",
+    // og:image comes from the generated app/opengraph-image.js (hero scene +
+    // Nomadic title block); twitter card mirrors it via app/twitter-image.js
     locale: "en_NZ",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nomadic (Official) | Electronic Music Producer & DJ",
+    title: "Nomadic | Electronic Music Producer & DJ",
     description:
       "Experience otherworldly sounds — tribal bass, organic downtempo and psy-dub. Music, live sets and bookings, the official hub for all things Nomadic.",
-    images: ["/images/og.jpg"],
   },
   robots: { index: true, follow: true },
 };

@@ -45,7 +45,7 @@ export default function CollabCta({ compact = false }) {
             Vocalists, Instrumentalists, Producers, Labels
             <span className={styles.line} aria-hidden="true" />
           </p>
-          <h2 className={styles.heading}>Want to collaborate?</h2>
+          <h2 className={styles.heading}>Want to collaborate with me?</h2>
         </div>
         <button type="button" className={styles.button} onClick={copy}>
           <span className={styles.email}>{email || "Get in touch"}</span>

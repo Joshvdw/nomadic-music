@@ -6,7 +6,7 @@
 
 .header {
   text-align: center;
-  margin-bottom: calc(var(--gap) * 2);
+  margin-bottom: calc(var(--gap) * 1.4);
 }
 
 /* section-title ornament, same scale as the Collaborations one */
