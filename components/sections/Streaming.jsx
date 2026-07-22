@@ -94,9 +94,9 @@ export default function Streaming() {
         <div className={styles.textCol}>
           <h2 className={styles.heading}>A Global Audience </h2>
           <p className={styles.blurb}>
-            An engaged listener base built organically through consistent
-            quality releases, Nomadic’s music is known all over the world
-            and growing every day.
+            A thriving listener base built organically through consistent
+            quality releases, Nomadic’s music is known all over the world and
+            growing every day.
           </p>
         </div>
 

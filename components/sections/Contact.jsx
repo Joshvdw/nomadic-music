@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { EMAIL, LINKS } from "@/lib/site";
+import { LINKS } from "@/lib/site";
+import { decodeEmail } from "@/lib/email";
+import useEmail from "@/lib/useEmail";
 import Footer from "@/components/Footer";
 import {
   SpotifyIcon,
@@ -29,9 +31,16 @@ const PLATFORMS = [
   { label: "Instagram", href: LINKS.instagram, Icon: InstagramIcon },
 ];
 
+// Public Web3Forms access key — safe to expose (used from the browser). The
+// destination address lives in the Web3Forms dashboard, not in this code.
+const WEB3FORMS_ACCESS_KEY = "35390068-ae78-4076-a8a7-368b8d5b9c96";
+
 export default function Contact() {
   const [subject, setSubject] = useState("Booking");
   const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [error, setError] = useState("");
+  const email = useEmail(); // address for the copy button, revealed post-mount
 
   // "Enquire" buttons in Services pre-select the matching subject.
   useEffect(() => {
@@ -44,7 +53,7 @@ export default function Contact() {
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(EMAIL);
+      await navigator.clipboard.writeText(decodeEmail());
       setCopied(true);
       setTimeout(() => setCopied(false), 2200);
     } catch {
@@ -52,17 +61,38 @@ export default function Contact() {
     }
   };
 
-  // No backend: compose the message into the visitor's mail client.
-  const onSubmit = (e) => {
+  // Submits through Web3Forms — the destination address lives in their
+  // dashboard (behind the access key), never in the client or the HTML.
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const name = data.get("name");
-    const from = data.get("email");
-    const message = data.get("message");
-    const body = `${message}\n\n— ${name}${from ? ` (${from})` : ""}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
-      `${subject} enquiry — Nomadic`
-    )}&body=${encodeURIComponent(body)}`;
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          from_name: "Nomadic website",
+          subject: `${subject} enquiry — Nomadic`,
+          name: data.get("name"),
+          email: data.get("email"),
+          message: data.get("message"),
+          botcheck: data.get("botcheck") ? true : false, // honeypot
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!json.success) {
+        throw new Error(json.message || "Couldn't send — please try again.");
+      }
+      setStatus("sent");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setError(err.message || "Couldn't send — please try again.");
+    }
   };
 
   return (
@@ -76,15 +106,19 @@ export default function Contact() {
             <div className={styles.infoBlock}>
               <h2 className={styles.heading}>Get in Touch</h2>
               <p className={styles.blurb}>
-                Bookings, collaborations and services. Based in Golden Bay,
-                playing anywhere the music is welcome — expect a reply within a
-                couple of days.
+                I&rsquo;d love to hear from you, send me a message and
+                I&rsquo;ll get back to you as soon as I can.
               </p>
             </div>
           </div>
 
-          <button type="button" className={styles.emailBox} onClick={copy}>
-            <span className={styles.email}>{EMAIL}</span>
+          <button
+            type="button"
+            className={styles.emailBox}
+            onClick={copy}
+            disabled={!email}
+          >
+            <span className={styles.email}>{email || "Email me directly"}</span>
             <span className={styles.copyLabel}>
               <CopyIcon className={styles.copyIcon} />
               {copied ? "Copied" : "Copy"}
@@ -112,12 +146,24 @@ export default function Contact() {
           <div className={styles.row}>
             <label className={styles.field}>
               <span className={styles.label}>Name</span>
-              <input className={styles.input} type="text" name="name" required autoComplete="name" />
+              <input
+                className={styles.input}
+                type="text"
+                name="name"
+                required
+                autoComplete="name"
+              />
             </label>
 
             <label className={styles.field}>
               <span className={styles.label}>Email</span>
-              <input className={styles.input} type="email" name="email" required autoComplete="email" />
+              <input
+                className={styles.input}
+                type="email"
+                name="email"
+                required
+                autoComplete="email"
+              />
             </label>
           </div>
 
@@ -139,12 +185,46 @@ export default function Contact() {
 
           <label className={styles.field}>
             <span className={styles.label}>Message</span>
-            <textarea className={styles.input} name="message" rows={6} required />
+            <textarea
+              className={styles.input}
+              name="message"
+              rows={6}
+              required
+            />
           </label>
 
-          <button className={styles.submit} type="submit">
-            Send Message
+          {/* honeypot — Web3Forms drops submissions where this is checked */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ display: "none" }}
+          />
+
+          <button
+            className={styles.submit}
+            type="submit"
+            disabled={status === "sending"}
+          >
+            {status === "sending"
+              ? "Sending…"
+              : status === "sent"
+                ? "Message sent ✓"
+                : "Send Message"}
           </button>
+
+          {status === "sent" && (
+            <p className={styles.formNote} role="status">
+              Thanks — I&rsquo;ll get back to you soon.
+            </p>
+          )}
+          {status === "error" && (
+            <p className={styles.formNote} role="alert">
+              {error}
+            </p>
+          )}
         </form>
       </div>
 

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import useScrollState, { setChromePinned } from "@/lib/useScrollState";
-import { LINKS, EMAIL } from "@/lib/site";
+import useEmail from "@/lib/useEmail";
+import { LINKS } from "@/lib/site";
 import {
   SpotifyIcon,
   BandcampIcon,
@@ -17,7 +18,6 @@ const ITEMS = [
   { id: "bio", label: "Biography" },
   { id: "streaming", label: "Streaming" },
   { id: "live", label: "Live & DJ Sets" },
-  { id: "gallery", label: "Gallery" },
   { id: "collabs", label: "Collaborations" },
   { id: "services", label: "Music Services" },
   { id: "contact", label: "Contact" },
@@ -28,7 +28,7 @@ const SOCIALS = [
   { label: "Bandcamp", href: LINKS.bandcamp, Icon: BandcampIcon },
   { label: "SoundCloud", href: LINKS.soundcloud, Icon: SoundCloudIcon },
   { label: "Instagram", href: LINKS.instagram, Icon: InstagramIcon },
-  { label: "Email", href: `mailto:${EMAIL}`, Icon: MailIcon },
+  { label: "Email", email: true, Icon: MailIcon },
 ];
 
 // Menu trigger + panel. Two hairlines fold into an ✕; the panel unfolds from
@@ -38,6 +38,7 @@ export default function Menu() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(null);
   const { atTop, atBottom, suppressed } = useScrollState();
+  const email = useEmail();
   const rootRef = useRef(null);
   const unpinTimer = useRef(null);
 
@@ -65,6 +66,14 @@ export default function Menu() {
     const lenis = window.__lenis;
     if (open) lenis?.stop();
     else lenis?.start();
+
+    // grain swells to fuller opacity while the menu is open, easing back on
+    // close — same overlay treatment the streaming section uses. The ease is
+    // handled by a CSS transition on the registered --grain-nav property.
+    document.documentElement.style.setProperty(
+      "--grain-nav",
+      open ? "0.4" : "0",
+    );
 
     const onKey = (e) => {
       if (e.key === "Escape") setOpen(false);
@@ -156,20 +165,27 @@ export default function Menu() {
         </ul>
 
         <ul className={styles.socials}>
-          {SOCIALS.map(({ label, href, Icon }) => (
-            <li key={label}>
-              <a
-                className={styles.social}
-                href={href}
-                target={href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                aria-label={label}
-                tabIndex={open ? undefined : -1}
-              >
-                <Icon className={styles.socialIcon} />
-              </a>
-            </li>
-          ))}
+          {SOCIALS.map(({ label, href, email: isEmail, Icon }) => {
+            const link = isEmail
+              ? email
+                ? `mailto:${email}`
+                : undefined
+              : href;
+            return (
+              <li key={label}>
+                <a
+                  className={styles.social}
+                  href={link}
+                  target={isEmail ? undefined : "_blank"}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  tabIndex={open ? undefined : -1}
+                >
+                  <Icon className={styles.socialIcon} />
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </div>

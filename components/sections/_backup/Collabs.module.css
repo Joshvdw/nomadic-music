@@ -1,0 +1,283 @@
+.collabs {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* content is centred, so any extra section height splits evenly top/bottom.
+     padding-top (sect-gap) + Services' padding-bottom (space-section) above the
+     block then equals padding-bottom (space-section) + Contact's padding-top
+     (sect-gap) below it — matching gaps above and below on every screen. */
+  padding-top: var(--sect-gap);
+  padding-bottom: var(--space-section);
+}
+
+/* -- header (bandcamp-style) ------------------------------------------------- */
+
+/* title block left, enquire link bottom-aligned on the right */
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-bottom: calc(var(--gap) * 2.5);
+}
+
+.headerText {
+  min-width: 0;
+}
+
+/* subtitle above the title, mirroring the old bandcamp section header */
+.sub {
+  font-size: var(--fs-p-sm);
+}
+
+.heading {
+  font-size: var(--fs-h2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.4rem;
+}
+
+/* -- two columns: artists left, labels right -------------------------------- */
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--gap) * 2);
+}
+
+.column {
+  min-width: 0;
+}
+
+.colLabel {
+  display: block;
+  margin-bottom: 0.8rem;
+  font-size: var(--fs-p-tiny);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+}
+
+/* -- carousel --------------------------------------------------------------- */
+
+.carousel {
+  min-width: 0;
+}
+
+.carTrack {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  min-width: 0;
+}
+
+.carNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.7rem;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  color: var(--ink-60);
+  border: 1px solid var(--gold-20);
+  border-radius: 50%;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .arrow:hover {
+    color: var(--gold);
+    border-color: var(--gold-60);
+  }
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-40);
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.dotActive {
+  background: var(--gold);
+  transform: scale(1.35);
+}
+
+/* -- cards: square image left, content right -------------------------------- */
+
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 42%) 1fr;
+  background: var(--bg-2);
+  border: 1px solid var(--gold-10);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.cardImg {
+  position: relative;
+  aspect-ratio: 1;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(0.9rem, 1.6vw, 1.4rem);
+  min-width: 0;
+}
+
+.cardName {
+  font-size: var(--fs-card-lg);
+  color: var(--gold);
+  line-height: 1.15;
+}
+
+/* artist card: name + track pinned top, embed fills the bottom */
+.artistCard .cardBody {
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+.cardMeta {
+  min-width: 0;
+}
+
+.cardTrack {
+  margin-top: 0.2rem;
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+.cardEmbed {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* label card: name + paragraph */
+.labelCard .cardBody {
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.cardText {
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
+/* -- header enquire link (mirrors the "View SoundCloud" link, arrow down) ---- */
+
+.enquireLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.5rem;
+  font-size: var(--fs-p-tiny);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  white-space: nowrap;
+  transition:
+    color 0.3s ease,
+    transform 0.45s var(--ease-out);
+}
+
+.enquireLink:hover {
+  color: var(--gold);
+}
+
+.enquireArrow {
+  width: 1rem;
+  height: 1rem;
+  transition: opacity 0.4s ease;
+}
+
+/* hover devices: the text sits flush to the right edge with the arrow tucked
+   just off-frame; on hover the whole link slides left, revealing the fading-in
+   arrow in the space the text vacates */
+@media (hover: hover) {
+  .enquireLink {
+    /* shift right by the arrow's footprint (gap 0.6rem + width 1rem) */
+    transform: translateX(1.6rem);
+  }
+
+  .enquireLink:hover {
+    transform: translateX(0);
+  }
+
+  .enquireArrow {
+    opacity: 0;
+  }
+
+  .enquireLink:hover .enquireArrow {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .columns {
+    grid-template-columns: 1fr;
+    gap: calc(var(--gap) * 2);
+  }
+}
+
+
+/* -- tablet: readable card text -- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .cardText,
+  .cardTrack {
+    font-size: var(--fs-p);
+  }
+}
+
+/* -- mobile: heading fits one line at 320px -- */
+@media (max-width: 640px) {
+  .heading {
+    letter-spacing: 0.03em;
+  }
+
+  /* stack the enquire link under the title so it doesn't crowd the heading */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+  }
+
+  .enquireLink {
+    padding-bottom: 0;
+  }
+}

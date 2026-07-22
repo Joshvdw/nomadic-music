@@ -42,8 +42,18 @@
     /* fade into the page background on the right */
     linear-gradient(to right, rgba(8, 7, 5, 0) 72%, #080705 100%),
     /* bottom fade back into the page background */
-    linear-gradient(to top, #080705 2%, rgba(8, 7, 5, 0.62) 26%, transparent 58%),
-    linear-gradient(82deg, rgba(8, 7, 5, 0.72) 0%, rgba(8, 7, 5, 0.26) 32%, transparent 52%);
+    linear-gradient(
+        to top,
+        #080705 2%,
+        rgba(8, 7, 5, 0.62) 26%,
+        transparent 58%
+      ),
+    linear-gradient(
+      82deg,
+      rgba(8, 7, 5, 0.72) 0%,
+      rgba(8, 7, 5, 0.26) 32%,
+      transparent 52%
+    );
 }
 
 .caption {
@@ -73,7 +83,7 @@
   display: flex;
   align-items: flex-start;
   /* laptop: sits fairly high so the embed clears the View SoundCloud link */
-  padding-top: clamp(2.5rem, 7vh, 5rem);
+  padding-top: 1rem;
   padding-bottom: clamp(4rem, 10vh, 7rem);
 }
 
@@ -105,11 +115,11 @@
   overflow: hidden;
 }
 
-/* pinned to the same baseline as the caption in the video column */
 .scLink {
-  position: absolute;
+  position: relative;
   right: 0;
-  bottom: clamp(2.25rem, 7vh, 4.75rem);
+  align-self: flex-end;
+  /* bottom: clamp(2.25rem, 7vh, 4.75rem); */
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -136,16 +146,16 @@
 }
 
 /* desktop: the column is tall, so drop the block toward the middle */
-@media (min-width: 1440px) {
+/* @media (min-width: 1440px) {
   .setsCol {
-    padding-top: 13rem;
+    padding-top: 4rem;
   }
-}
+} */
 
 /* 4K+: DJ sets sits further down its column */
 @media (min-width: 2400px) {
   .setsCol {
-    padding-top: 23rem;
+    padding-top: 4rem;
   }
 }
 
@@ -170,7 +180,7 @@
     flex-direction: column;
     align-items: stretch;
     padding-inline: var(--gutter);
-    padding-top: var(--space-section);
+    padding-top: 1rem;
     padding-bottom: calc(var(--space-section) * 1.4);
   }
 
@@ -216,7 +226,6 @@
     font-size: var(--fs-h2);
   }
 }
-
 
 /* -- tablet: player above DJ-sets text, link hidden, headings matched -- */
 @media (min-width: 641px) and (max-width: 1024px) {

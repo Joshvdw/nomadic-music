@@ -7,6 +7,7 @@ import Collabs from "@/components/sections/Collabs";
 import Live from "@/components/sections/Live";
 import Gallery from "@/components/sections/Gallery";
 import Services from "@/components/sections/Services";
+import Bandcamp from "@/components/sections/Bandcamp";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
         <Live />
         <Gallery />
         <Collabs />
+        {/* <Bandcamp /> */}
         <Services />
         <Contact />
       </main>

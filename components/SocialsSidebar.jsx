@@ -1,7 +1,8 @@
 "use client";
 
 import useScrollState from "@/lib/useScrollState";
-import { LINKS, EMAIL } from "@/lib/site";
+import useEmail from "@/lib/useEmail";
+import { LINKS } from "@/lib/site";
 import {
   SpotifyIcon,
   BandcampIcon,
@@ -16,11 +17,12 @@ const SOCIALS = [
   { label: "Bandcamp", href: LINKS.bandcamp, Icon: BandcampIcon },
   { label: "SoundCloud", href: LINKS.soundcloud, Icon: SoundCloudIcon },
   { label: "Instagram", href: LINKS.instagram, Icon: InstagramIcon },
-  { label: "Email", href: `mailto:${EMAIL}`, Icon: MailIcon },
+  { label: "Email", email: true, Icon: MailIcon },
 ];
 
 export default function SocialsSidebar() {
   const { atTop, atBottom, suppressed } = useScrollState();
+  const email = useEmail();
 
   // Always on screen except over the hero, the gallery's pinned run, and
   // the footer zone at the very bottom — slides back in beyond those.
@@ -30,20 +32,23 @@ export default function SocialsSidebar() {
   return (
     <aside className={cls} aria-label="Nomadic on streaming platforms and social media">
       <ul className={styles.list}>
-        {SOCIALS.map(({ label, href, Icon }) => (
-          <li key={label}>
-            <a
-              className={styles.item}
-              href={href}
-              target={href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              aria-label={label}
-            >
-              <Icon className={styles.icon} />
-              <span className={styles.blip}>{label}</span>
-            </a>
-          </li>
-        ))}
+        {SOCIALS.map(({ label, href, email: isEmail, Icon }) => {
+          const link = isEmail ? (email ? `mailto:${email}` : undefined) : href;
+          return (
+            <li key={label}>
+              <a
+                className={styles.item}
+                href={link}
+                target={isEmail ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                aria-label={label}
+              >
+                <Icon className={styles.icon} />
+                <span className={styles.blip}>{label}</span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </aside>
   );

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { EMAIL } from "@/lib/site";
+import useEmail from "@/lib/useEmail";
 import { setChromeSuppressed } from "@/lib/useScrollState";
 import styles from "./Gallery.module.css";
 
@@ -192,6 +192,7 @@ const GROUPS = [
 ];
 
 function BookingsCta({ className, ctaRef }) {
+  const email = useEmail();
   return (
     <div ref={ctaRef} className={className}>
       <Image
@@ -208,9 +209,13 @@ function BookingsCta({ className, ctaRef }) {
       </h3>
       <a
         className={styles.ctaMail}
-        href={`mailto:${EMAIL}?subject=Booking%20enquiry%20—%20Nomadic`}
+        href={
+          email
+            ? `mailto:${email}?subject=Booking%20enquiry%20—%20Nomadic`
+            : undefined
+        }
       >
-        {EMAIL}
+        {email || "Email for bookings"}
         <span className={styles.ctaMailArrow} aria-hidden="true">
           →
         </span>

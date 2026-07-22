@@ -1,9 +1,10 @@
 import { EB_Garamond, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, EMAIL, LINKS } from "@/lib/site";
+import { SITE_URL, LINKS } from "@/lib/site";
 import LenisProvider from "@/components/LenisProvider";
 import RevealManager from "@/components/RevealManager";
 import DevGuides from "@/components/DevGuides";
+import { Analytics } from "@vercel/analytics/next";
 
 const serif = EB_Garamond({
   subsets: ["latin"],
@@ -22,9 +23,10 @@ const sans = IBM_Plex_Sans({
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Nomadic — Psy-Dub, Techno & Tribal Electronic Producer | Official EPK",
+  alternates: { canonical: SITE_URL },
+  title: "Nomadic (Official) | Electronic Music Producer & DJ",
   description:
-    "Nomadic is the artist project of Joshua van der Waay — Dutch-born, NZ-based electronic producer and DJ. Mid-tempo psy-dub, techno and tribal grooves. 200K+ monthly listeners. Open for festival and event bookings.",
+    "Experience otherworldly sounds — tribal bass, organic downtempo and psy-dub. Music, live sets and bookings, the official hub for all things Nomadic.",
   keywords: [
     "Nomadic",
     "electronic producer",
@@ -38,20 +40,27 @@ export const metadata = {
     "EPK",
   ],
   openGraph: {
-    title: "Nomadic — Electronic Producer & DJ",
+    title: "Nomadic (Official) | Electronic Music Producer & DJ",
     description:
-      "Mid-tempo psy-dub, techno and tribal grooves from Golden Bay, NZ. 200K+ monthly Spotify listeners. Open for bookings.",
+      "Experience otherworldly sounds — tribal bass, organic downtempo and psy-dub. Music, live sets and bookings, the official hub for all things Nomadic.",
     url: SITE_URL,
-    siteName: "Nomadic Music",
-    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "Nomadic — obsidian sphere over mountain ranges at dusk" }],
+    siteName: "Nomadic Music (Official)",
+    images: [
+      {
+        url: "/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Nomadic — obsidian sphere over mountain ranges at dusk",
+      },
+    ],
     locale: "en_NZ",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nomadic — Electronic Producer & DJ",
+    title: "Nomadic (Official) | Electronic Music Producer & DJ",
     description:
-      "Mid-tempo psy-dub, techno and tribal grooves from Golden Bay, NZ. Open for bookings.",
+      "Experience otherworldly sounds — tribal bass, organic downtempo and psy-dub. Music, live sets and bookings, the official hub for all things Nomadic.",
     images: ["/images/og.jpg"],
   },
   robots: { index: true, follow: true },
@@ -67,8 +76,7 @@ const jsonLd = {
   name: "Nomadic",
   alternateName: "Nomadic Music",
   url: SITE_URL,
-  email: EMAIL,
-  genre: ["Psy-dub", "Tribal techno", "Downtempo", "Electronica"],
+  genre: ["Psy-dub", "Tribal bass", "Organic Downtempo", "Electronica"],
   foundingLocation: {
     "@type": "Place",
     name: "Golden Bay, New Zealand",
@@ -102,6 +110,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>
+        <Analytics />
         <LenisProvider>{children}</LenisProvider>
         <div className="grain" aria-hidden="true" />
         <RevealManager />

@@ -239,6 +239,17 @@ select.input {
   transition: background-color 0.45s var(--ease-out);
 }
 
+.submit:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.formNote {
+  margin-top: 0.9rem;
+  font-size: var(--fs-p-sm);
+  color: var(--ink-80);
+}
+
 @media (hover: hover) {
   .submit:hover {
     background-color: #f2e7c4;

@@ -39,7 +39,10 @@ export default function Live() {
       // -1 → section below viewport, +1 → above; 0 → centred
       const p = Math.max(
         -1,
-        Math.min(1, (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2))
+        Math.min(
+          1,
+          (vh / 2 - (rect.top + rect.height / 2)) / (vh / 2 + rect.height / 2),
+        ),
       );
       cur += (-p * 75 - cur) * 0.08;
       sets.style.transform = `translate3d(0, ${cur.toFixed(2)}px, 0)`;
@@ -51,7 +54,12 @@ export default function Live() {
   }, []);
 
   return (
-    <section id="live" ref={sectionRef} className={styles.live} aria-label="Festivals, gigs and DJ sets">
+    <section
+      id="live"
+      ref={sectionRef}
+      className={styles.live}
+      aria-label="Festivals, gigs and DJ sets"
+    >
       <div className={styles.videoCol}>
         <video
           key={mobileVideo ? "mobile" : "desktop"}
@@ -77,9 +85,9 @@ export default function Live() {
         <div className={styles.caption} data-reveal>
           <h2 className={styles.captionHeading}>Festivals &amp; Gigs</h2>
           <p>
-            From Luminate on Takaka Hill to Relish Festival and late rooms
-            across the Top of the South — sets built to move outdoor
-            dancefloors, dusk till dawn.
+            Eclectic live sets at festivals like Luminate & Relish, resident at
+            Wellington's Laundry and a regular at the Roots Bar in Takaka.
+            Nomadic’s performances get bodies moving in any setting.
           </p>
         </div>
       </div>
@@ -89,10 +97,9 @@ export default function Live() {
           <div data-reveal>
             <h3 className={styles.setsHeading}>DJ Sets</h3>
             <p className={styles.setsBlurb}>
-              Recorded in the field: full-length sets from Rhythm &amp; Roots,
-              Relish Festival and Luminate&rsquo;s Chillounge — mid-tempo
-              journeys through psy-dub, tribal techno and bass. Press play and
-              judge the room for yourself.
+              Built around original music and ranging from peak-time dancefloor
+              energy to slower, downtempo grooves, Nomadic's sets take listeners
+              on an immersive journey across the sonic spectrum.
             </p>
           </div>
           <div className={styles.embed} data-reveal>
@@ -104,17 +111,16 @@ export default function Live() {
               allow="autoplay; encrypted-media"
             />
           </div>
+          <a
+            className={styles.scLink}
+            href={LINKS.soundcloud}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View SoundCloud
+            <ArrowRightIcon className={styles.scArrow} />
+          </a>
         </div>
-        {/* outside the parallax layer: bottom-aligned with the caption at left */}
-        <a
-          className={styles.scLink}
-          href={LINKS.soundcloud}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View SoundCloud
-          <ArrowRightIcon className={styles.scArrow} />
-        </a>
       </div>
     </section>
   );
