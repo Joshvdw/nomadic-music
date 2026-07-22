@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import contactImg from "@/public/images/contact-old.jpg";
 import { LINKS } from "@/lib/site";
 import { decodeEmail } from "@/lib/email";
 import useEmail from "@/lib/useEmail";
@@ -73,7 +74,10 @@ export default function Contact() {
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
           from_name: "Nomadic website",
@@ -111,6 +115,7 @@ export default function Contact() {
                 I&rsquo;ll get back to you as soon as I can.
               </p>
             </div>
+            <Image src={contactImg} alt="" className={styles.contactImg} />
           </div>
 
           <button
@@ -141,15 +146,6 @@ export default function Contact() {
               </li>
             ))}
           </ul>
-
-          <Image
-            src="/images/decals/flower.png"
-            alt=""
-            width={180}
-            height={120}
-            className={styles.ornament}
-            data-reveal
-          />
         </div>
 
         <form className={styles.form} onSubmit={onSubmit} data-reveal>

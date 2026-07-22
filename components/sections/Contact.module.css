@@ -40,6 +40,9 @@
   flex-direction: column;
   align-items: flex-start;
   min-width: 0;
+  /* shrink to the heading's width so the image and email button (both 100%
+     wide) line up to the same length */
+  width: fit-content;
 }
 
 .info {
@@ -54,10 +57,10 @@
   min-width: 0;
 }
 
-/* blurb never runs wider than the heading above it */
+/* blurb never runs wider than the heading above it. No bottom margin: the
+   contact image below it carries its own symmetric spacing. */
 .infoBlock {
   width: fit-content;
-  margin-bottom: 2.25rem;
 }
 
 .heading {
@@ -76,13 +79,21 @@
 .emailBox {
   grid-area: email;
   justify-self: start;
-  display: inline-flex;
+  /* full width of the info column so it matches the image length above */
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.65rem 1rem;
+  /* centred with a modest gap so the address and Copy sit close together
+     rather than pinned to the far edges of the full-width button */
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 0.7rem 1rem;
   border: 1px solid var(--gold-20);
   border-radius: var(--radius);
-  margin-bottom: 2rem;
+  /* matches .contactImg margin-top so the image is evenly spaced above/below */
+  margin-top: 1.5rem;
+  /* twice the gap between the links themselves */
+  margin-bottom: 1rem;
   cursor: pointer;
   transition: border-color 0.35s ease;
 }
@@ -103,7 +114,7 @@
 
 .email {
   font-family: var(--serif);
-  font-size: var(--fs-p);
+  font-size: 1.2rem;
   font-weight: 600;
   color: rgba(230, 215, 166, 0.75);
   transition: color 0.35s ease;
@@ -160,14 +171,18 @@
   height: 1rem;
 }
 
-/* decorative ornament filling the dead space under the platform links on
-   desktop (the form column runs taller than the info column) */
-.ornament {
-  width: 8.5rem;
+/* banner above the email button — sized to the heading's width (same width:0 /
+   min-width:100% trick the blurb uses so it never widens the info block).
+   Equal margin above and below. */
+.contactImg {
+  display: block;
+  width: 0;
+  min-width: 100%;
   height: auto;
-  margin-top: 3rem;
-  opacity: 0.75;
-  pointer-events: none;
+  /* a touch less space above than below (the gap below comes from
+     .emailBox margin-top, a flex-item margin the flex column reliably honours) */
+  margin-top: 1.5rem;
+  border-radius: var(--radius);
 }
 
 /* -- form: spans to the right content margin -------------------------------- */
@@ -284,12 +299,6 @@ select.input {
     display: contents;
   }
 
-  /* decorative ornament is desktop-only; it has no place in the stacked
-     phone/tablet order and would land as a stray grid item */
-  .ornament {
-    display: none;
-  }
-
   .columns {
     flex: initial;
     margin-block: 0;
@@ -343,7 +352,6 @@ select.input {
     padding-bottom: 0.75rem;
   }
 }
-
 
 /* -- tablet -- */
 @media (min-width: 641px) and (max-width: 1024px) {
