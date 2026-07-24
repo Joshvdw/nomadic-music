@@ -69,6 +69,9 @@ const jsonLd = {
   name: "Nomadic",
   alternateName: "Nomadic Music",
   url: SITE_URL,
+  description:
+    "Nomadic is a wandering producer and DJ from New Zealand, reimagining ancient sounds as otherworldly electronic music — tribal bass, organic downtempo and psy-dub.",
+  image: `${SITE_URL}/images/og.jpg`,
   genre: ["Psy-dub", "Tribal bass", "Organic Downtempo", "Electronica"],
   foundingLocation: {
     "@type": "Place",

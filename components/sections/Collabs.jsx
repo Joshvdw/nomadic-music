@@ -39,24 +39,8 @@ const ARTISTS = [
   },
 ];
 
-const LABELS = [
-  {
-    name: "Jumpsuit Records",
-    image: "/images/collabs/jumpsuit-records.jpg",
-    alt: "Jumpsuit Records logo over a misty forest",
-    body: "Released several records through US label Jumpsuit Records, including debut album 'Wandering Mind', followed by 'Ennui' and the 'Tessera EP'.",
-  },
-  {
-    name: "High Vibe Records",
-    image: "/images/collabs/high-vibe.jpg",
-    alt: "High Vibe Records artwork — mirrored mountain rising into clouds",
-    body: "Collaborated with singer-songwriter Hayley Harkin on a release through High Vibe Records, pairing her soulful, poetic vocals with contemporary electronic music production.",
-  },
-];
-
 export default function Collabs() {
   const artistsRef = useRef(null);
-  const labelsRef = useRef(null);
   const ctaRef = useRef(null);
 
   // Reveal the CTA at the same scroll point as the artist cards above it:
@@ -79,7 +63,7 @@ export default function Collabs() {
     return () => io.disconnect();
   }, []);
 
-  // Phones: turn both card rows into seamless infinite loops. A cloned set
+  // Phones: turn the artist row into a seamless infinite loop. A cloned set
   // sits on each side of the originals (iframes stripped from clones); when
   // the scroll position drifts past half a period either way it jumps by
   // exactly one period — imperceptible, and swiping works in both
@@ -87,7 +71,7 @@ export default function Collabs() {
   useEffect(() => {
     if (!window.matchMedia("(max-width: 640px)").matches) return;
 
-    const cleanups = [artistsRef.current, labelsRef.current].map((list) => {
+    const cleanups = [artistsRef.current].map((list) => {
       if (!list) return () => {};
       const originals = [...list.children];
       const makeClone = (node) => {
@@ -175,30 +159,6 @@ export default function Collabs() {
       <div ref={ctaRef} className={styles.ctaInterlude}>
         <CollabCta />
       </div>
-
-      {/* <ul ref={labelsRef} className={styles.labelGrid} data-reveal="cascade">
-        {LABELS.map(({ name, image, alt, body }) => (
-          <li key={name} className={styles.labelCard}>
-            <div className={styles.labelImageWrap}>
-              <Image
-                src={image}
-                alt={alt}
-                fill
-                sizes="(max-width: 900px) 92vw, 18vw"
-                className={styles.labelImage}
-              />
-            </div>
-            <div className={styles.labelBody}>
-              <h3 className={styles.labelName}>{name}</h3>
-              <p>{body}</p>
-            </div>
-          </li>
-        ))}
-      </ul> */}
-
-      <p className={styles.swipeHint} aria-hidden="true">
-        Swipe
-      </p>
     </section>
   );
 }

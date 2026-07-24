@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import contactImg from "@/public/images/contact-old.jpg";
+import contactImg from "@/public/images/contact.jpg";
 import { LINKS } from "@/lib/site";
 import { decodeEmail } from "@/lib/email";
 import useEmail from "@/lib/useEmail";
@@ -118,34 +118,42 @@ export default function Contact() {
             <Image src={contactImg} alt="" className={styles.contactImg} />
           </div>
 
-          <button
-            type="button"
-            className={styles.emailBox}
-            onClick={copy}
-            disabled={!email}
-          >
-            <span className={styles.email}>{email || "Email me directly"}</span>
-            <span className={styles.copyLabel}>
-              <CopyIcon className={styles.copyIcon} />
-              {copied ? "Copied" : "Copy"}
-            </span>
-          </button>
+          {/* email button and platform links share one grid (platforms'
+              <ul> is display:contents so its <li>s become direct grid items)
+              so the button's right edge lines up with whichever platform
+              link is widest, with no hardcoded width to keep in sync */}
+          <div className={styles.linksGroup}>
+            <button
+              type="button"
+              className={styles.emailBox}
+              onClick={copy}
+              disabled={!email}
+            >
+              <span className={styles.email}>
+                {email || "Email me directly"}
+              </span>
+              <span className={styles.copyLabel}>
+                <CopyIcon className={styles.copyIcon} />
+                {copied ? "Copied" : "Copy"}
+              </span>
+            </button>
 
-          <ul className={styles.platforms}>
-            {PLATFORMS.map(({ label, href, Icon }) => (
-              <li key={label}>
-                <a
-                  className={styles.platform}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon className={styles.platformIcon} />
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
+            <ul className={styles.platforms}>
+              {PLATFORMS.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    className={styles.platform}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon className={styles.platformIcon} />
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <form className={styles.form} onSubmit={onSubmit} data-reveal>

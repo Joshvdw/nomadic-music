@@ -246,6 +246,29 @@ html {
   border: 0;
 }
 
+/* keyboard skip link — off-screen until focused (invisible to mouse users) */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--z-nav) + 1);
+  transform: translateY(-120%);
+  margin: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-2);
+  color: var(--gold);
+  font-family: var(--sans);
+  font-size: var(--fs-p-sm);
+  border: 1px solid var(--gold-40);
+  border-radius: var(--radius);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: none;
+}
+
 /* ornament divider images (collabs / services decals) */
 .decal {
   display: block;
@@ -421,7 +444,7 @@ html {
     transform: none;
     transition: none;
   }
-  .grain::before {
+  .grain {
     animation: none;
   }
   *,

@@ -40,6 +40,7 @@ export default function Menu() {
   const { atTop, atBottom, suppressed } = useScrollState();
   const email = useEmail();
   const rootRef = useRef(null);
+  const triggerRef = useRef(null);
   const unpinTimer = useRef(null);
 
   const chromeHidden = atTop || atBottom || suppressed;
@@ -76,7 +77,11 @@ export default function Menu() {
     );
 
     const onKey = (e) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        // return focus to the trigger so keyboard users aren't stranded
+        triggerRef.current?.focus();
+      }
     };
     const onPointer = (e) => {
       if (open && rootRef.current && !rootRef.current.contains(e.target)) {
@@ -125,6 +130,7 @@ export default function Menu() {
       }`}
     >
       <button
+        ref={triggerRef}
         type="button"
         className={styles.trigger}
         aria-expanded={open}

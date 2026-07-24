@@ -7,22 +7,23 @@ import Collabs from "@/components/sections/Collabs";
 import Live from "@/components/sections/Live";
 import Gallery from "@/components/sections/Gallery";
 import Services from "@/components/sections/Services";
-import Bandcamp from "@/components/sections/Bandcamp";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
     <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Menu />
       <SocialsSidebar />
-      <main>
+      <main id="main">
         <Hero />
         <Biography />
         <Streaming />
         <Live />
         <Gallery />
         <Collabs />
-        {/* <Bandcamp /> */}
         <Services />
         <Contact />
       </main>

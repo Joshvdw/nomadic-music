@@ -82,7 +82,7 @@ export default function Biography() {
               the alternative beach-town community of Golden Bay, New Zealand.
             </p>
             <p>
-              A childhood of travel, an early love of music and the region's
+              A childhood of travel, an early love of music and the region’s
               vibrant festival scene set the initial stage for his artistic
               development. As a teen he played guitar in several bands, before
               discovering a deep passion for electronic music and DJ culture. He
@@ -93,14 +93,14 @@ export default function Biography() {
               and process.
             </p>
             <p>
-              He's best known for fusing world music with bass-heavy beats,
+              He’s best known for fusing world music with bass-heavy beats,
               though his sound continues to evolve, refusing to be confined by
               any one genre. His songs invite listeners on a surreal journey,
               blending traditional live instruments with contemporary sound
               design, to create music that feels organic, mystical and
               otherworldly. He draws inspiration from the surrounding
               landscapes, ancient tribal cultures, and the introspective
-              psychedelic experiences he's had in his life. His philosophy is to
+              psychedelic experiences he’s had in his life. His philosophy is to
               keep experimenting, breaking free from established tropes and
               template sounds, always aiming to make something fresh.
             </p>

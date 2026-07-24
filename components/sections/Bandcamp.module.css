@@ -1,9 +1,0 @@
-.bandcamp {
-  padding-block: var(--space-section);
-  background: var(--bg);
-  overflow: hidden;
-}
-
-.header {
-  margin-bottom: 1.6rem;
-}

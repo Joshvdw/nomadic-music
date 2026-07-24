@@ -13,32 +13,32 @@ import styles from "./Services.module.css";
 const SERVICES = [
   {
     title: "Sound Design",
-    tag: "Textures, Palettes & Worlds",
-    body: "Bespoke sound palettes and transitions for artists, film and interactive work — sculpted from field recordings, resampling and synthesis.",
+    tag: "Custom UI Audio, Soundtracks",
+    body: "From interactive websites and film to video games, podcast jingles and advertising, I bring years of production experience to creative or commercial audio projects for clients all over the globe.",
     Icon: WaveIcon,
     art: "/images/services/sound-design.jpg",
   },
   {
     title: "Mastering",
-    tag: "Warm, Loud, Translation-Proof",
-    body: "Masters for electronic music that hold up on festival rigs and phone speakers alike — informed by years of releasing club-ready records.",
+    tag: "Personal, Affordable",
+    body: "With over a decade mastering my own releases & work for other artists, I offer a personal alternative to automated tools, without boutique-engineer pricing. Masters are built for streaming with optional stem-mixing available.",
     Icon: FadersIcon,
     art: "/images/services/mastering.jpg",
   },
   {
     title: "Private Tutoring",
-    tag: "One-on-One, in Ableton Live",
-    body: "Production mentoring shaped to where you are — arrangement, sound design, mixing, and the harder art of finishing tracks that feel like you.",
+    tag: "One-on-One, Tailored to You",
+    body: "Online or in-person, covering everything from sound design and arrangement through to mixing, mastering and release. Tailored to what you're most interested in, we'll work together to develop your own music.",
     Icon: GradCapIcon,
     art: "/images/services/tutoring.jpg",
   },
   {
     title: "Design & Web",
-    tag: "Posters, Artwork & Sites",
-    body: "Gig posters, cover art and artist websites — the same eye that shapes Nomadic's visual world, applied to yours.",
+    tag: "Creative Websites, Digital Experiences",
+    body: "Beyond music, I'm a web designer and developer specialising in the creative space, crafting sites and digital experiences with a distinctive touch (such as this one). I also design album covers, posters and other artwork.",
     Icon: BezierIcon,
     // framed crop of the design collage — Wandering Mind centred with the
-    // neighbouring posters peeking around the edges (web-design-collage.jpg)
+    // neighbouring posters peeking around the edges
     art: "/images/services/web-design-frame.jpg",
   },
 ].map((s) => ({ ...s, key: s.title }));
@@ -47,12 +47,16 @@ export default function Services() {
   // Enquire pre-selects the matching subject in the contact form below.
   const enquire = (service) => {
     window.dispatchEvent(
-      new CustomEvent("nomadic:enquire", { detail: service })
+      new CustomEvent("nomadic:enquire", { detail: service }),
     );
   };
 
   return (
-    <section id="services" className={`${styles.services} container`} aria-label="Services">
+    <section
+      id="services"
+      className={`${styles.services} container`}
+      aria-label="Services"
+    >
       <header className={styles.header} data-reveal>
         <Image
           src="/images/decals/services.png"
@@ -65,7 +69,7 @@ export default function Services() {
       </header>
 
       <ul className={styles.grid} data-reveal="cascade">
-        {SERVICES.map(({ title, tag, body, Icon, art, key, zoom }) => (
+        {SERVICES.map(({ title, tag, body, Icon, art, key }) => (
           <li key={key} className={styles.card}>
             <div className={styles.cardArt} aria-hidden="true">
               <Image
@@ -73,7 +77,7 @@ export default function Services() {
                 alt=""
                 fill
                 sizes="30vw"
-                className={`${styles.cardArtImg} ${zoom ? styles.cardArtZoom : ""}`}
+                className={styles.cardArtImg}
               />
             </div>
             <Icon className={styles.icon} />

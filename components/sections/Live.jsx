@@ -86,7 +86,7 @@ export default function Live() {
           <h2 className={styles.captionHeading}>Festivals &amp; Gigs</h2>
           <p>
             Eclectic live sets at festivals like Luminate & Relish, resident at
-            Wellington's Laundry and a regular at the Roots Bar in Takaka.
+            Wellington’s Laundry and a regular at the Roots Bar in Takaka.
             Nomadic’s performances get bodies moving in any setting.
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function Live() {
             <h3 className={styles.setsHeading}>DJ Sets</h3>
             <p className={styles.setsBlurb}>
               Built around original music and ranging from peak-time dancefloor
-              energy to slower, downtempo grooves, Nomadic's sets take listeners
+              energy to slower, downtempo grooves, Nomadic’s sets take listeners
               on an immersive journey across the sonic spectrum.
             </p>
           </div>
