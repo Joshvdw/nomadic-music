@@ -107,13 +107,14 @@
   }
 
   .image {
-    /* larger crop (≈25% bigger), shifted ~25% of the frame left so the
-       subject stays framed; section overflow clips the sides */
+    /* larger crop (≈25% bigger), shifted left so the subject stays framed;
+       section overflow clips the sides. Nudged right vs the original -24vw so
+       the portrait sits a touch further into the frame. */
     width: 162vw;
     min-width: 0;
     height: 62vh;
     max-width: none;
-    margin-left: -24vw;
+    margin-left: -17vw;
     object-fit: cover;
     object-position: 0% 38%;
   }

@@ -344,6 +344,28 @@
 }
 
 
+@media (max-width: 640px) {
+  /* trim the strip's lower padding so the space above the bookings block
+     matches the space below it (its own padding is symmetric) */
+  .viewport {
+    padding-bottom: 2.5rem;
+  }
+
+  /* match the other main section titles */
+  .heading {
+    font-size: var(--fs-h2);
+  }
+
+  /* quieter ARCHIVE eyebrow + shorter rule to its left */
+  .head :global(.eyebrow) {
+    font-size: 0.6rem;
+  }
+
+  .headLine {
+    width: 1.05rem;
+  }
+}
+
 /* -- tablet: smaller bookings heading -- */
 @media (min-width: 641px) and (max-width: 1024px) {
   .ctaHeading {

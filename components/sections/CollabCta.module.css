@@ -49,6 +49,11 @@
   margin-bottom: 1.5rem;
 }
 
+/* the full wording shows by default; phones swap to the shorter line */
+.headingShort {
+  display: none;
+}
+
 .button {
   display: inline-flex;
   flex-direction: column;
@@ -93,6 +98,22 @@
 .copyIcon {
   width: 0.6rem;
   height: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  /* a bit taller on phones — more breathing room top and bottom */
+  .banner {
+    padding-block: 2.5rem;
+  }
+
+  /* swap to the shorter heading line */
+  .headingFull {
+    display: none;
+  }
+
+  .headingShort {
+    display: inline;
+  }
 }
 
 @media (max-width: 480px) {

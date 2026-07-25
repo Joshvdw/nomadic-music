@@ -262,9 +262,14 @@ export default function Gallery() {
     let active = false;
     let rafId = null;
 
-    // the socials sidebar stays away for the entire gallery run
+    // the nav + socials stay away for the pinned gallery run — but only on
+    // desktop, where the section hijacks vertical scroll. On phones the strip
+    // is a normal horizontal swipe, so the chrome should behave as usual.
     const suppressIO = new IntersectionObserver(
-      (entries) => setChromeSuppressed(entries.some((e) => e.isIntersecting)),
+      (entries) =>
+        setChromeSuppressed(
+          desktop.matches && entries.some((e) => e.isIntersecting),
+        ),
       { threshold: 0 },
     );
     suppressIO.observe(pin);
@@ -281,6 +286,8 @@ export default function Gallery() {
         head.style.opacity = "";
         cta.style.opacity = "";
         fadeEls.forEach((el) => (el.style.opacity = ""));
+        // ensure the chrome isn't left suppressed after a resize to mobile
+        setChromeSuppressed(false);
         return;
       }
       active = true;

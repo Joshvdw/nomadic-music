@@ -12,12 +12,9 @@ import Contact from "@/components/sections/Contact";
 export default function Home() {
   return (
     <>
-      <a href="#main" className="skip-link">
-        Skip to content
-      </a>
       <Menu />
       <SocialsSidebar />
-      <main id="main">
+      <main>
         <Hero />
         <Biography />
         <Streaming />

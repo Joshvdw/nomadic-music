@@ -174,8 +174,9 @@
 }
 
 @media (max-width: 640px) {
+  /* match the other main section titles */
   .heading {
-    font-size: clamp(1.25rem, 6vw, 1.875rem);
+    font-size: var(--fs-h2);
     letter-spacing: 0.04em;
   }
 
@@ -188,7 +189,7 @@
   }
 
   .body {
-    font-size: 1rem;
+    font-size: var(--fs-p-sm);
   }
 }
 

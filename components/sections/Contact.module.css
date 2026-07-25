@@ -354,10 +354,11 @@ select.input {
     margin-bottom: 0;
   }
 
-  /* extra breathing room between Send Message and the email copy button */
+  /* extra breathing room between Send Message and the email copy button,
+     mirrored below so the platform links aren't cramped under it */
   .emailBox {
     margin-top: 1.25rem;
-    margin-bottom: 0;
+    margin-bottom: 1.1rem;
   }
 
   .row {

@@ -228,18 +228,22 @@
   }
 }
 
-@media (max-width: 560px) {
-  .heading {
-    font-size: clamp(1.4rem, 6.6vw, 1.875rem);
-  }
-}
-
 .swipeHint {
   display: none;
 }
 
 /* phones: swipeable sliders, snap-centred with a tease of the neighbours */
 @media (max-width: 640px) {
+  /* drop the "view full playlist" link so the title has the full width and
+     the subtitle can sit on one line */
+  .viewAll {
+    display: none;
+  }
+
+  .sub {
+    white-space: nowrap;
+  }
+
   .artistGrid,
   .labelGrid {
     display: flex;

@@ -126,26 +126,32 @@
     inset: -14% -12%;
   }
 
+  /* match the main section titles (The Tale So Far / Get in Touch) */
+  .heading {
+    font-size: var(--fs-h2);
+  }
+
+  /* stat values snap to the site's heading tokens: the two short stats at h2,
+     the headline "15 Million" at h1 so it still leads the set */
   .statValue {
-    font-size: 2.6rem;
+    font-size: var(--fs-h2);
   }
 
   .statLabel {
     font-size: var(--fs-p-sm);
   }
 
-  /* 15 Million closes the set, and leads it in size — value spans the
-     width of the stat row above, label spans the value */
+  /* 15 Million closes the set, and leads it in size */
   .stat:nth-child(2) {
     order: 4;
   }
 
   .stat:nth-child(2) .statValue {
-    font-size: 3.45rem;
+    font-size: var(--fs-h1);
   }
 
   .stat:nth-child(2) .statLabel {
-    font-size: 1.39rem;
+    font-size: var(--fs-p);
   }
 }
 

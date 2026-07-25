@@ -157,9 +157,10 @@
 
 @media (max-width: 640px) {
   /* the baked ball sits ~60% across the frame — bias the crop so it lands
-     centre-screen on portrait phones (all layers share the same position) */
+     centre-screen on portrait phones (all layers share the same position).
+     Y biased downward so the crop shows less sky at the top. */
   .bgImg {
-    object-position: 60.5% center;
+    object-position: 60.5% 66%;
   }
 
   .title {
