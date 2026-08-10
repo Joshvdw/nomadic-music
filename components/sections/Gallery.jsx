@@ -191,10 +191,10 @@ const GROUPS = [
   },
 ];
 
-function BookingsCta({ className, ctaRef }) {
+function BookingsCta({ className, ctaRef, reveal }) {
   const email = useEmail();
   return (
-    <div ref={ctaRef} className={className}>
+    <div ref={ctaRef} className={className} data-reveal={reveal}>
       <Image
         src="/images/decals/flower.png"
         alt=""
@@ -291,6 +291,8 @@ export default function Gallery() {
         return;
       }
       active = true;
+      // the pin owns the header's opacity here, so short-circuit its reveal
+      head.classList.add("is-inview");
       const dwell = Math.round(window.innerHeight * 0.35);
       pin.style.height = `${overflow() + window.innerHeight + dwell}px`;
       pin.dataset.dwell = dwell;
@@ -352,7 +354,9 @@ export default function Gallery() {
     >
       <div ref={pinRef} className={styles.pin}>
         <div className={styles.viewport}>
-          <header ref={headRef} className={styles.head}>
+          {/* the reveal only ever runs on phones — on desktop measure()
+              marks it in-view up front and the pin drives its opacity */}
+          <header ref={headRef} className={styles.head} data-reveal>
             <span className="eyebrow">
               <span className={styles.headLine} aria-hidden="true" />
               Archive
@@ -360,7 +364,7 @@ export default function Gallery() {
             <h2 className={styles.heading}>Gallery</h2>
           </header>
 
-          <div ref={fadeRef} className={styles.trackWrap}>
+          <div ref={fadeRef} className={styles.trackWrap} data-reveal>
             <div ref={trackRef} className={styles.track}>
               {GROUPS.map((group, gi) => (
                 <div
@@ -394,14 +398,20 @@ export default function Gallery() {
             </div>
           </div>
 
-          <p ref={hintRef} className={styles.swipeHint} aria-hidden="true">
+          <p
+            ref={hintRef}
+            className={styles.swipeHint}
+            aria-hidden="true"
+            data-reveal="fade"
+          >
             Swipe
           </p>
         </div>
       </div>
 
-      {/* on phones the bookings block is its own section below the strip */}
-      <BookingsCta className={styles.ctaMobile} />
+      {/* on phones the bookings block is its own section below the strip
+          (hidden on desktop, so the reveal is phone-only by construction) */}
+      <BookingsCta className={styles.ctaMobile} reveal="" />
     </section>
   );
 }

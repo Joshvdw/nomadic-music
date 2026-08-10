@@ -89,6 +89,11 @@
   color: var(--ink-60);
 }
 
+/* the abbreviated stat label is phone-only */
+.labelShort {
+  display: none;
+}
+
 /* embed column matches the bio paragraph measure and hugs the right margin */
 .embedCol {
   grid-area: embed;
@@ -131,27 +136,38 @@
     font-size: var(--fs-h2);
   }
 
-  /* stat values snap to the site's heading tokens: the two short stats at h2,
-     the headline "15 Million" at h1 so it still leads the set */
+  /* all three stats sit on one row, spread across the full content width:
+     space-between splits the slack evenly, so the outer two land on the
+     margins and both gaps stay identical */
+  .stats {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  /* 15 Million closes the set */
+  .stat:nth-child(2) {
+    order: 3;
+  }
+
   .statValue {
-    font-size: var(--fs-h2);
+    font-size: clamp(1rem, 5.2vw, 1.4rem);
+    white-space: nowrap;
+    min-width: 0;
   }
 
   .statLabel {
-    font-size: var(--fs-p-sm);
+    font-size: clamp(0.65rem, 3vw, 0.8125rem);
+    hyphens: auto;
   }
 
-  /* 15 Million closes the set, and leads it in size */
-  .stat:nth-child(2) {
-    order: 4;
+  .labelFull {
+    display: none;
   }
 
-  .stat:nth-child(2) .statValue {
-    font-size: var(--fs-h1);
-  }
-
-  .stat:nth-child(2) .statLabel {
-    font-size: var(--fs-p);
+  .labelShort {
+    display: inline;
   }
 }
 

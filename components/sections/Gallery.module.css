@@ -351,6 +351,13 @@
     padding-bottom: 2.5rem;
   }
 
+  /* the bookings block owns roughly a full screen on phones — the content
+     stays centred and the padding just holds it off the neighbours */
+  .ctaMobile {
+    min-height: 100svh;
+    padding-block: clamp(6.5rem, 20vh, 11rem);
+  }
+
   /* match the other main section titles */
   .heading {
     font-size: var(--fs-h2);

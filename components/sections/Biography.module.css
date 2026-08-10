@@ -1,4 +1,7 @@
 .bio {
+  /* the copy column's measure — shared so the large-desktop rules below can
+     work out where the text's left edge falls */
+  --bio-measure: 52ch;
   position: relative;
   min-height: 100svh;
   display: flex;
@@ -56,7 +59,7 @@
 }
 
 .text {
-  max-width: 52ch;
+  max-width: var(--bio-measure);
 }
 
 .decal {
@@ -77,14 +80,54 @@
   color: var(--ink-80);
 }
 
-.text p + p {
+.text p + p,
+.more p {
   margin-top: 1.25rem;
 }
 
-/* large desktops: portrait scales up toward the text column */
+/* wrapper around everything from the second paragraph down. Inert on
+   desktop — the phone breakpoint clamps and fades it behind Read more. */
+.more {
+  position: relative;
+}
+
+.readMore {
+  display: none;
+}
+
+/* Large desktops: the gutter stops growing with the viewport past 1600px,
+   so stretching the portrait to 100vw made it balloon and drift away from
+   the text. Hold it at its laptop size and slide it right with the gutter —
+   that keeps the shadow line on the left content margin (see --bio-align)
+   and the portrait tucked against the copy column. */
 @media (min-width: 1600px) {
+  /* Halfway between the two anchors: the grid one (gutter − 10rem, which
+     keeps the shadow line on the left content margin but drifts away from
+     the copy as the monitor grows) and the copy one (subject edge ~44rem
+     into the frame, parked 5rem off the text). Averaging them tightens the
+     composition on big screens without crowding the text column. */
+  .imageWrap {
+    left: calc(
+      (
+          var(--gutter) - 10rem +
+            (100vw - var(--gutter) - var(--bio-measure) - 44rem - 5rem)
+        ) / 2
+    );
+  }
+
+  /* the portrait no longer bleeds off the window's left edge, so that side
+     needs the same dissolve the other three have */
+  .imageWrap::after {
+    background:
+      linear-gradient(to top, var(--bg), transparent 18%),
+      linear-gradient(to bottom, var(--bg), transparent 18%),
+      linear-gradient(to left, var(--bg), transparent 22%),
+      linear-gradient(to right, var(--bg), transparent 9%);
+  }
+
   .image {
-    min-width: 100vw;
+    width: calc(10rem / var(--bio-align));
+    min-width: 0;
   }
 }
 
@@ -134,6 +177,59 @@
 @media (max-width: 640px) {
   .heading {
     font-size: var(--fs-h2);
+  }
+
+  /* clamped just into the second paragraph; the real expanded height is set
+     inline by the component so max-height can animate both ways */
+  .more {
+    overflow: hidden;
+    max-height: 5.75rem;
+    transition: max-height 0.7s var(--ease-out);
+  }
+
+  /* the copy dissolves into the page rather than being cut off */
+  .more::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 3.5rem;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    opacity: 1;
+    transition: opacity 0.45s ease;
+  }
+
+  .more[data-expanded]::after {
+    opacity: 0;
+  }
+
+  /* same treatment as the Enquire links in Services */
+  .readMore {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.25rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--gold-40);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition:
+      border-color 0.3s ease,
+      opacity 0.4s ease;
+  }
+
+  .readMoreArrow {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  /* one-way reveal: the button dissolves, then unmounts */
+  .readMoreOut {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 

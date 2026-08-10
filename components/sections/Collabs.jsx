@@ -41,27 +41,11 @@ const ARTISTS = [
 
 export default function Collabs() {
   const artistsRef = useRef(null);
-  const ctaRef = useRef(null);
 
-  // Reveal the CTA at the same scroll point as the artist cards above it:
-  // watch the artist grid and, the moment it enters, wipe the CTA in too
-  // (the shared RevealManager would otherwise trigger it lower down).
-  useEffect(() => {
-    const grid = artistsRef.current;
-    const wipe = ctaRef.current?.querySelector('[data-reveal="wipe"]');
-    if (!grid || !wipe) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          wipe.classList.add("is-inview");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -18% 0px" },
-    );
-    io.observe(grid);
-    return () => io.disconnect();
-  }, []);
+  // The CTA used to be wiped in by an observer on the artist grid above it.
+  // The grid is taller than the viewport, so that fired while the CTA was
+  // still 1–2 screens down and the wipe was always over before anyone saw
+  // it. The shared RevealManager triggers it on its own edge instead.
 
   // Phones: turn the artist row into a seamless infinite loop. A cloned set
   // sits on each side of the originals (iframes stripped from clones); when
@@ -120,7 +104,7 @@ export default function Collabs() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          View full playlist
+          View full collab playlist
           <ArrowRightIcon className={styles.viewAllArrow} />
         </a>
       </header>
@@ -152,11 +136,11 @@ export default function Collabs() {
         ))}
       </ul>
 
-      <p className={styles.swipeHint} aria-hidden="true">
+      <p className={styles.swipeHint} aria-hidden="true" data-reveal="fade">
         Swipe
       </p>
 
-      <div ref={ctaRef} className={styles.ctaInterlude}>
+      <div className={styles.ctaInterlude}>
         <CollabCta />
       </div>
     </section>

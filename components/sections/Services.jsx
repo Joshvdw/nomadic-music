@@ -35,7 +35,7 @@ const SERVICES = [
   {
     title: "Design & Web",
     tag: "Creative Websites, Digital Experiences",
-    body: "Beyond music, I'm a web designer and developer specialising in the creative space, crafting sites and digital experiences with a distinctive touch (such as this one). I also design album covers, posters and other artwork.",
+    body: "Beyond music, I'm a web designer and developer specialising in the creative space, crafting sites and digital experiences with a distinctive touch — such as this website you're currently on.",
     Icon: BezierIcon,
     // framed crop of the design collage — Wandering Mind centred with the
     // neighbouring posters peeking around the edges
@@ -70,7 +70,7 @@ export default function Services() {
 
       <ul className={styles.grid} data-reveal="cascade">
         {SERVICES.map(({ title, tag, body, Icon, art, key }) => (
-          <li key={key} className={styles.card}>
+          <li key={key} className={styles.card} data-reveal="card">
             <div className={styles.cardArt} aria-hidden="true">
               <Image
                 src={art}

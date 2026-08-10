@@ -267,6 +267,17 @@
     margin-bottom: 0;
   }
 
+  /* this row is a horizontal scroller, so the cascade's vertical travel would
+     trip its overflow — the cards scale up into place instead (a transform
+     that only ever shrinks inside the box, so it can't move the scroll) */
+  .artistGrid[data-reveal="cascade"] > * {
+    transform: scale(0.94);
+  }
+
+  .artistGrid[data-reveal="cascade"]:global(.is-inview) > * {
+    transform: none;
+  }
+
   /* active card sits on the left content edge; only the next card peeks */
   .artistCard,
   .labelCard {

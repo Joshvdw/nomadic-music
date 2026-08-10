@@ -122,7 +122,7 @@ export default function Contact() {
               <ul> is display:contents so its <li>s become direct grid items)
               so the button's right edge lines up with whichever platform
               link is widest, with no hardcoded width to keep in sync */}
-          <div className={styles.linksGroup}>
+          <div className={styles.linksGroup} data-reveal>
             <button
               type="button"
               className={styles.emailBox}

@@ -101,9 +101,31 @@
 }
 
 @media (max-width: 640px) {
-  /* a bit taller on phones — more breathing room top and bottom */
   .banner {
-    padding-block: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 3.25rem;
+  }
+
+  /* .copy is display:contents here, so its children are the flex items */
+  .decal {
+    margin-bottom: 1.4rem;
+  }
+
+  .heading {
+    margin-bottom: 2rem;
+  }
+
+  /* the rules flanking the eyebrow line up with its first line rather than
+     floating in the middle of the wrapped block, and sit in close to it */
+  .eyebrow {
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .line {
+    margin-top: 0.45rem;
   }
 
   /* swap to the shorter heading line */

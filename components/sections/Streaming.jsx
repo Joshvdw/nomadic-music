@@ -5,9 +5,15 @@ import { SPOTIFY_ARTIST_EMBED } from "@/lib/site";
 import LazyEmbed from "@/components/LazyEmbed";
 import styles from "./Streaming.module.css";
 
+// `short` is the phone-width label (see .labelShort in the module CSS)
 const STATS = [
   { value: 200, suffix: "k+", label: "Monthly Listeners" },
-  { value: 15, suffix: " Million", label: "Cross-Platform Streams" },
+  {
+    value: 15,
+    suffix: " Million",
+    label: "Cross-Platform Streams",
+    short: "Streams",
+  },
   { value: 20, suffix: "k+", label: "Followers" },
 ];
 
@@ -91,7 +97,10 @@ export default function Streaming() {
     >
       <div className={styles.bg} aria-hidden="true" />
       <div className={`${styles.inner} container`}>
-        <div className={styles.textCol}>
+        {/* late, so the title rises as the backdrop fades in rather than
+            finishing while the section is still transparent. The stats below
+            keep the count-up as their own entrance. */}
+        <div className={styles.textCol} data-reveal data-reveal-late="">
           <h2 className={styles.heading}>A Global Audience </h2>
           <p className={styles.blurb}>
             A thriving listener base built organically through consistent
@@ -119,7 +128,16 @@ export default function Streaming() {
                 {stat.value}
                 {stat.suffix}
               </dd>
-              <dd className={styles.statLabel}>{stat.label}</dd>
+              <dd className={styles.statLabel}>
+                {stat.short ? (
+                  <>
+                    <span className={styles.labelFull}>{stat.label}</span>
+                    <span className={styles.labelShort}>{stat.short}</span>
+                  </>
+                ) : (
+                  stat.label
+                )}
+              </dd>
             </div>
           ))}
         </dl>

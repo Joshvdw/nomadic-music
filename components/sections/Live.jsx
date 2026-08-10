@@ -116,6 +116,7 @@ export default function Live() {
             href={LINKS.soundcloud}
             target="_blank"
             rel="noopener noreferrer"
+            data-reveal
           >
             View SoundCloud
             <ArrowRightIcon className={styles.scArrow} />

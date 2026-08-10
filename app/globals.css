@@ -94,10 +94,6 @@
     margin-top: calc(1.25 * var(--sect-gap));
   }
 
-  /* sliders clip vertical overflow — cascade reveals fade only on phones */
-  [data-reveal="cascade"] > * {
-    transform: none;
-  }
 }
 
 /* == base ================================================================== */
@@ -332,6 +328,22 @@ html {
   opacity: 1;
   transform: none;
 }
+
+/* Per-item opt-in. A cascade child marked data-reveal="card" is observed
+   individually (RevealManager keys off the attribute), but these two rules
+   outrank [data-reveal].is-inview so the parent still owns its timing by
+   default — nothing changes unless a breakpoint takes over. Phones use that
+   hook for tall single-column grids, where one parent trigger would finish
+   the lower cards while they're still a screen below the fold. */
+[data-reveal="cascade"] > [data-reveal="card"] {
+  opacity: 0;
+  transform: translateY(110px);
+}
+[data-reveal="cascade"].is-inview > [data-reveal="card"] {
+  opacity: 1;
+  transform: none;
+}
+
 [data-reveal="cascade"] > *:nth-child(1) {
   transition-delay: 0s;
 }

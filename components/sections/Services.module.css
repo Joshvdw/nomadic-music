@@ -191,6 +191,22 @@
   .body {
     font-size: var(--fs-p-sm);
   }
+
+  /* The cards stack into a ~1300px column here, so the parent cascade would
+     run cards 2–4 while they're still a screen or more below the fold and
+     you'd only ever see the first one move. Each card gets its own trigger
+     instead — shorter travel to suit the shorter viewport. */
+  .grid[data-reveal="cascade"] > .card[data-reveal="card"] {
+    opacity: 0;
+    transform: translateY(48px);
+    transition-duration: 0.9s;
+    transition-delay: 0s;
+  }
+
+  .grid[data-reveal="cascade"] > .card[data-reveal="card"]:global(.is-inview) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 

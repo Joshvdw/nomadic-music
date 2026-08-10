@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ArrowDownIcon } from "@/components/Icons";
 import styles from "./Biography.module.css";
 
 // Portrait exported with its gradient baked in at 2× the reference frame, so
@@ -14,6 +15,38 @@ import styles from "./Biography.module.css";
 export default function Biography() {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
+  const moreRef = useRef(null);
+  // phones only: everything from the second paragraph down is clamped and
+  // faded behind a Read more button (see .more in the module CSS). The
+  // reveal is one-way — the button fades out and leaves the flow.
+  const [expanded, setExpanded] = useState(false);
+  const [buttonGone, setButtonGone] = useState(false);
+
+  const reveal = () => {
+    setExpanded(true);
+    setTimeout(() => setButtonGone(true), 450); // matches the fade below
+  };
+
+  // the expanded height has to be measured — max-height animates from the
+  // CSS-clamped value to the content's real height
+  useEffect(() => {
+    const el = moreRef.current;
+    if (!el) return;
+    const phone = window.matchMedia("(max-width: 640px)");
+
+    const apply = () => {
+      el.style.maxHeight =
+        phone.matches && expanded ? `${el.scrollHeight}px` : "";
+    };
+
+    apply();
+    phone.addEventListener("change", apply);
+    window.addEventListener("resize", apply);
+    return () => {
+      phone.removeEventListener("change", apply);
+      window.removeEventListener("resize", apply);
+    };
+  }, [expanded]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -81,29 +114,49 @@ export default function Biography() {
               music artist originally from Amsterdam, who spent half his life in
               the alternative beach-town community of Golden Bay, New Zealand.
             </p>
-            <p>
-              A childhood of travel, an early love of music and the region’s
-              vibrant festival scene set the initial stage for his artistic
-              development. As a teen he played guitar in several bands, before
-              discovering a deep passion for electronic music and DJ culture. He
-              began crafting his own dance tunes and performing live at local
-              festivals, where the positive response drove him back to Amsterdam
-              to properly study music production. This is where Nomadic was born
-              and took shape over many years of refining his own unique approach
-              and process.
-            </p>
-            <p>
-              He’s best known for fusing world music with bass-heavy beats,
-              though his sound continues to evolve, refusing to be confined by
-              any one genre. His songs invite listeners on a surreal journey,
-              blending traditional live instruments with contemporary sound
-              design, to create music that feels organic, mystical and
-              otherworldly. He draws inspiration from the surrounding
-              landscapes, ancient tribal cultures, and the introspective
-              psychedelic experiences he’s had in his life. His philosophy is to
-              keep experimenting, breaking free from established tropes and
-              template sounds, always aiming to make something fresh.
-            </p>
+            <div
+              ref={moreRef}
+              id="bio-more"
+              className={styles.more}
+              data-expanded={expanded ? "" : undefined}
+            >
+              <p>
+                A childhood of travel, an early love of music and the region’s
+                vibrant festival scene set the initial stage for his artistic
+                development. As a teen he played guitar in several bands, before
+                discovering a deep passion for electronic music and DJ culture.
+                He began crafting his own dance tunes and performing live at
+                local festivals, where the positive response drove him back to
+                Amsterdam to properly study music production. This is where
+                Nomadic was born and took shape over many years of refining his
+                own unique approach and process.
+              </p>
+              <p>
+                He’s best known for fusing world music with bass-heavy beats,
+                though his sound continues to evolve, refusing to be confined by
+                any one genre. His songs invite listeners on a surreal journey,
+                blending traditional live instruments with contemporary sound
+                design, to create music that feels organic, mystical and
+                otherworldly. He draws inspiration from the surrounding
+                landscapes, ancient tribal cultures, and the introspective
+                psychedelic experiences he’s had in his life. His philosophy is
+                to keep experimenting, breaking free from established tropes and
+                template sounds, always aiming to make something fresh.
+              </p>
+            </div>
+
+            {!buttonGone && (
+              <button
+                type="button"
+                className={`${styles.readMore} ${expanded ? styles.readMoreOut : ""}`}
+                onClick={reveal}
+                aria-expanded={expanded}
+                aria-controls="bio-more"
+              >
+                Read more
+                <ArrowDownIcon className={styles.readMoreArrow} />
+              </button>
+            )}
           </div>
         </div>
       </div>
