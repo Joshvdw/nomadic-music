@@ -22,7 +22,6 @@ const SUBJECTS = [
   "Sound Design",
   "Mastering",
   "Private Tutoring",
-  "Design & Web",
   "Other",
 ];
 

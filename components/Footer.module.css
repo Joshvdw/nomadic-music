@@ -13,3 +13,12 @@
 .inner p {
   color: inherit;
 }
+
+.credit {
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.credit:hover {
+  color: rgba(229, 240, 244, 0.7);
+}

@@ -8,7 +8,17 @@ export default function Footer() {
           excludes — it would never fire */}
       <div className={styles.inner}>
         <p>© 2026 Nomadic Music</p>
-        <p>Created by Waay Studio</p>
+        <p>
+          Created by{" "}
+          <a
+            href="https://waay.studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.credit}
+          >
+            Waay Studio
+          </a>
+        </p>
       </div>
     </footer>
   );

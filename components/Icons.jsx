@@ -194,3 +194,18 @@ export function BezierIcon(props) {
     </svg>
   );
 }
+
+export function ArrowUpRightIcon(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M6 18 18 6M8.5 6H18v9.5" />
+    </svg>
+  );
+}

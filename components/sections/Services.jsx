@@ -7,6 +7,7 @@ import {
   GradCapIcon,
   BezierIcon,
   ArrowDownIcon,
+  ArrowUpRightIcon,
 } from "@/components/Icons";
 import styles from "./Services.module.css";
 
@@ -40,6 +41,7 @@ const SERVICES = [
     // framed crop of the design collage — Wandering Mind centred with the
     // neighbouring posters peeking around the edges
     art: "/images/services/web-design-frame.jpg",
+    href: "https://waay.studio",
   },
 ].map((s) => ({ ...s, key: s.title }));
 
@@ -69,7 +71,7 @@ export default function Services() {
       </header>
 
       <ul className={styles.grid} data-reveal="cascade">
-        {SERVICES.map(({ title, tag, body, Icon, art, key }) => (
+        {SERVICES.map(({ title, tag, body, Icon, art, key, href }) => (
           <li key={key} className={styles.card} data-reveal="card">
             <div className={styles.cardArt} aria-hidden="true">
               <Image
@@ -84,14 +86,26 @@ export default function Services() {
             <h3 className={styles.title}>{title}</h3>
             <p className={styles.tag}>{tag}</p>
             <p className={styles.body}>{body}</p>
-            <a
-              className={styles.enquire}
-              href="#contact"
-              onClick={() => enquire(title)}
-            >
-              Enquire
-              <ArrowDownIcon className={styles.arrow} />
-            </a>
+            {href ? (
+              <a
+                className={`${styles.enquire} ${styles.external}`}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn More
+                <ArrowUpRightIcon className={styles.arrow} />
+              </a>
+            ) : (
+              <a
+                className={styles.enquire}
+                href="#contact"
+                onClick={() => enquire(title)}
+              >
+                Enquire
+                <ArrowDownIcon className={styles.arrow} />
+              </a>
+            )}
           </li>
         ))}
       </ul>

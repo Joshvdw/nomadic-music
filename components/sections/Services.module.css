@@ -167,6 +167,10 @@
   transform: translateY(3px);
 }
 
+.external:hover .arrow {
+  transform: translate(2px, -2px);
+}
+
 @media (max-width: 800px) {
   .grid {
     grid-template-columns: 1fr;
